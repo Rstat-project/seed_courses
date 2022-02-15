@@ -1,0 +1,10 @@
+name: "可重製研究操作教學套件"
+output_dir: "docs"
+navbar:
+  right:
+    - text: "首頁"
+      href: index.html
+##    - text: "Programs"
+##      href: programs.html
+##    - text: "About"
+##      href: about.html
