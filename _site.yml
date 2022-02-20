@@ -1,5 +1,6 @@
 name: "可重製研究操作教學套件"
 output_dir: "docs"
+include: ["base_R_demo.zip"]
 navbar:
   right:
     - text: "首頁"
