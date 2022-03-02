@@ -14,8 +14,8 @@
 
 <title>講義2: 設計有高考驗力的研究</title>
 
-<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -342,16 +342,265 @@ div.tocify {
 <blockquote>
 <p>這份講義以Ellis(2010)第三章為主幹，補充更新的教程及建議。</p>
 </blockquote>
-<div id="透視考驗力" class="section level2">
-<h2>透視考驗力</h2>
-<p>My words</p>
+<ul>
+<li>啟動問題：我的研究需要收集多少人的資料才能得到<strong>有意義</strong>的結果？</li>
+</ul>
+<div id="研究風險觀" class="section level2">
+<h2>研究風險觀</h2>
+<ul>
+<li>Null vs. Alternative</li>
+</ul>
+<blockquote>
+<p>虛無假設 vs. 對立假設</p>
+</blockquote>
+<blockquote>
+<p>No effect vs. A detectable effect</p>
+</blockquote>
+<blockquote>
+<p>假設存在的效果在測量尺度為0 vs. 假設存在的效果在測量尺度非0</p>
+</blockquote>
+<ul>
+<li>Type I error</li>
+</ul>
+<blockquote>
+<p>實際的效果為0，根據分析結果宣稱非0 <br> <span class="math inline">\(\alpha = p(\frac{d \neq 0}{\theta = 0})\)</span></p>
+</blockquote>
+<ul>
+<li>Type II error</li>
+</ul>
+<blockquote>
+<p>實際的效果非0，根據分析結果宣稱為0 <br> <span class="math inline">\(\beta = p(\frac{d = 0}{\theta \neq 0})\)</span></p>
+</blockquote>
+<ul>
+<li>分析結果出錯的風險管理</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\alpha\)</span>/<span class="math inline">\(\beta\)</span> 那種犯錯損失較嚴重？</li>
+<li><span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span> 都是條件機率</li>
+</ol>
+<ul>
+<li>考驗力封頂或太低造成的風險問題</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>為了證實必定有效的結果或否證實際不存在的效果要耗費更多沈默成本</li>
+<li>為了獲得統計顯著結果，收集更多資料得到的益處太小(效果量偏低)。</li>
+</ol>
+<blockquote>
+<p>為何常聽到建議 <span class="math inline">\(\alpha &lt; .05\)</span>, <span class="math inline">\(1 - \beta\)</span>至少.80</p>
+</blockquote>
+<blockquote>
+<p>Cohen’s suggested balance ~ <span class="math inline">\(\frac{\alpha}{\beta} = \frac{1}{4}\)</span></p>
+</blockquote>
+<blockquote>
+<p>為何不是建議<span class="math inline">\(\frac{\alpha}{\beta} = \frac{1}{1}\)</span></p>
+</blockquote>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"></th>
+<th align="center">There is no effect<br>(null=true)</th>
+<th align="center">There is an effect<br>(null=false)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">We claim no effect<br>(ES=0)</td>
+<td align="center">Correct conclusion<br>(<span class="math inline">\(p = 1 - \alpha\)</span>)</td>
+<td align="center">Type II error<br>(<span class="math inline">\(p = \beta\)</span>)</td>
+</tr>
+<tr class="even">
+<td align="center">We claim an effect<br>(ES <span class="math inline">\(\neq\)</span> 0)</td>
+<td align="center">Type I error<br>(<span class="math inline">\(p = \alpha\)</span>)</td>
+<td align="center">Correct conclusion<br>(<span class="math inline">\(p = 1 - \beta\)</span>)</td>
+</tr>
+<tr class="odd">
+<td align="center"></td>
+<td align="center">Universe X</td>
+<td align="center">Universe Y</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>發表偏誤經常導致Type I error被低估</p>
+</blockquote>
+<ul>
+<li>透視影響考驗力的因素</li>
+</ul>
+<p><a href="https://rpsychologist.com/d3/nhst/">視覺化展示</a> by Kristoffer Magnusson</p>
 </div>
-<div id="考驗力分析的取向及適用場景" class="section level2">
-<h2>考驗力分析的取向及適用場景</h2>
-<p>My words</p>
+<div id="考驗力分析的取向" class="section level2">
+<h2>考驗力分析的取向</h2>
+<div id="prospective-power-anbalysis" class="section level3">
+<h3>Prospective power anbalysis</h3>
+<ol style="list-style-type: decimal">
+<li>功用1: 預估得到有統計意義結果需要的樣本數</li>
+</ol>
+<blockquote>
+<p>Kirk (1996): 某種延緩阿滋海默症患者智力退化的療程測試，找來6名患者接受測試，另外6名接受對照療程。經過一段時間，接受測試療程的患者智力測驗平均分數比對照療程高13分，統計檢定t = 1.61, p = .14。要得到考驗力達.80的.05顯著結果，需要多少受測者？</p>
+</blockquote>
+<pre class="r"><code>## This example is from Kirk(1996): A researcher tested the medication that might raise the IQ of people suffering from Alzheimer&#39;s disease.
+
+## two tailed test
+pwr::pwr.t.test(n=20,
+                d=unlist(effectsize::t_to_d(1.61, 11))[&quot;d&quot;],
+                type = &quot;two.sample&quot;,
+                alternative = &quot;two.sided&quot;)</code></pre>
+<pre><code>## 
+##      Two-sample t test power calculation 
+## 
+##               n = 20
+##               d = 0.9708665
+##       sig.level = 0.05
+##           power = 0.8489039
+##     alternative = two.sided
+## 
+## NOTE: n is number in *each* group</code></pre>
+<pre class="r"><code>## one tailed test
+pwr::pwr.t.test(n=16,
+                d=unlist(effectsize::t_to_d(1.61, 11))[&quot;d&quot;],
+                type = &quot;two.sample&quot;,
+                alternative = &quot;greater&quot;)</code></pre>
+<pre><code>## 
+##      Two-sample t test power calculation 
+## 
+##               n = 16
+##               d = 0.9708665
+##       sig.level = 0.05
+##           power = 0.8504582
+##     alternative = greater
+## 
+## NOTE: n is number in *each* group</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>功用2: 以現有資料估計可該樣本數可達到的考驗力</li>
+</ol>
+<pre><code>## 
+##      Two-sample t test power calculation 
+## 
+##               n = 6
+##               d = 0.9708665
+##       sig.level = 0.05
+##           power = 0.3307755
+##     alternative = two.sided
+## 
+## NOTE: n is number in *each* group</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>功用3: 設定合理的顯著水準</li>
+</ol>
+<pre><code>## 
+##      Two-sample t test power calculation 
+## 
+##               n = 6
+##               d = 0.9708665
+##       sig.level = 0.44
+##           power = 0.8190846
+##     alternative = two.sided
+## 
+## NOTE: n is number in *each* group</code></pre>
+<pre><code>## 
+##      Two-sample t test power calculation 
+## 
+##               n = 6
+##               d = 0.9708665
+##       sig.level = 0.3
+##           power = 0.7290407
+##     alternative = two.sided
+## 
+## NOTE: n is number in *each* group</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>功用4: 設計有高考驗力的再現研究</li>
+</ol>
+<blockquote>
+<p>兩件探討同一組變項的相關研究分別報告不顯著的相關係數.2及.24，樣本數分別為78與63。這兩件研究的考驗力分別達到多少？要設計能達到.80考驗力的研究需要多少樣本數？</p>
+</blockquote>
+<ul>
+<li>事前分析評估的最適樣本數，不代表研究結果必定達到設定的統計顯著。</li>
+</ul>
+</div>
+<div id="post-hoc-power-analysis" class="section level3">
+<h3>post hoc power analysis</h3>
+<ul>
+<li><p>通常分析事後考驗力無太大意義</p></li>
+<li><p>低考驗力的無顯著結果難以得到肯定效果存在結論</p></li>
+</ul>
+<div id="不顯著結果的事後考驗力分析為何無意義" class="section level4">
+<h4>不顯著結果的事後考驗力分析為何無意義</h4>
+<ul>
+<li><p>低考驗力研究得到的效果量估計值通常不精確，特別是小樣本易受抽樣偏誤扭曲。</p></li>
+<li><p>不顯著的p值越高，考驗力越低。</p></li>
+<li><p>不顯著的結果無法判斷目標效果究竟有沒有存在。</p></li>
+</ul>
+</div>
+<div id="顯著結果的事後考驗力分析為何有意義" class="section level4">
+<h4>顯著結果的事後考驗力分析為何有意義</h4>
+<ul>
+<li><p>偵測發表偏誤</p></li>
+<li><p>檢驗研究者的QRP：<a href="https://www.p-curve.com/">p Curve</a>; <a href="https://replicationindex.com/2020/01/10/z-curve-2-0/">z Curve</a></p></li>
+</ul>
+</div>
+</div>
 </div>
 <div id="估計研究設計需要的樣本數" class="section level2">
 <h2>估計研究設計需要的樣本數</h2>
+<div id="setting-sample-sizes" class="section level3">
+<h3>setting sample sizes</h3>
+<ul>
+<li><p>研究設計有文獻資料參考，可運用整合分析(meta analysis)估計可能的效果量，評估所需樣本數</p></li>
+<li><p>研究設計無文獻資料參考，建議製表挑選合理的樣本數。</p></li>
+</ul>
+<blockquote>
+<p>設定<span class="math inline">\(\alpha = .05\)</span>的獨立樣本雙尾檢定比較，達到指定考驗力所需最少樣本數。</p>
+</blockquote>
+</div>
+<div id="minimum-detectable-effects" class="section level3">
+<h3>Minimum detectable effects</h3>
+<ul>
+<li>以現用資源能收集到的樣本數，評估設定考驗力能偵測的效果量</li>
+</ul>
+<blockquote>
+<p>簡單迴歸範例</p>
+</blockquote>
+<pre><code>## 
+##      approximate correlation power calculation (arctangh transformation) 
+## 
+##               n = 100
+##               r = 0.275866
+##       sig.level = 0.05
+##           power = 0.8
+##     alternative = two.sided</code></pre>
+<blockquote>
+<p>多元迴歸範例</p>
+</blockquote>
+<pre><code>## 
+##      Multiple regression power calculation 
+## 
+##               u = 5
+##               v = 194
+##              f2 = 0.0989011
+##       sig.level = 0.03125
+##           power = 0.9177891</code></pre>
+</div>
+<div id="power-and-precsion" class="section level3">
+<h3>Power and precsion</h3>
+<ul>
+<li>效果量估計值要包括信賴區間的主要理由：不只以平均值歸類效果量的大中小。</li>
+</ul>
+</div>
+<div id="accounting-for-measurement-error" class="section level3">
+<h3>Accounting for measurement error</h3>
+<ul>
+<li>相關分析經常因測量誤差導致相關係數被低估</li>
+<li>量表項目一致性可用來校正相關係數估計值</li>
+<li>相關係數估計值若未校正，相當可能錯估考驗力 ~ Table 3.4</li>
+</ul>
+<p>##　考驗力分析的R套件</p>
+<p><code>pwr</code></p>
+<p><code>effectsize</code> 轉換效果量指標</p>
+</div>
 </div>
 
 

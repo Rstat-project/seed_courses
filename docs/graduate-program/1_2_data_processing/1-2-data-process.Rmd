@@ -1,0 +1,233 @@
+---
+title: "Graduate 1-2 practice"
+author: "Student's name"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+
+## 預先安裝/載入tidyverse
+if(!require(tidyverse)){install.packages("tidyverse");library(tidyverse)}else{library(tidyverse)}
+
+## 確認工作路徑
+getwd()
+```
+
+## 說明
+
+本作業示範檔案包含[Fundamentals of Quantitative Analysis](https://psyteachr.github.io/quant-fun-v2/)(以下簡稱quant-fun)的單元3~7。其他資料視覺化學習素材，推薦參考[Data visualisation using R, for researchers who don’t use R](https://psyteachr.github.io/introdataviz/)。
+
+## 資料集來源
+
+- [Woodworth et al. (2018)](https://openpsychologydata.metajnl.com/articles/10.5334/jopd.35/)
+
+- `babynames` 參考quant-fun 單元4
+
+- [Witt et al.(2018)](https://journals.sagepub.com/doi/abs/10.1177/0956797617730892)
+
+- [Autism Spectrum Quotient (AQ)](https://docs.autismresearchcentre.com/tests/AQ10.pdf)
+
+## 認識tidyverse函式套件 
+
+- 六大函式說明請參考 quant-fun 4.1 
+
+- 管道運算子介紹請參考 quant-fun 4.4
+
+## 資料整頓(Data wrangling)
+
+### 讀入外部資料(Read in the data)
+
+- 確認外部資料存放位置
+
+```
+本機磁碟: 資料檔建議存放在與腳本同階層的資料夾
+外部伺服器: 公開資料的有效網址
+```
+
+- 確認外部資料存放格式，選擇可用的讀取函式
+
+
+|檔案格式|可用函式|
+|---|---|
+|無標位的txt|`base::readLines()`,`readr::read_lines()`|
+|csv|`base::read.csv`,`readr::read_csv()`|
+|xlsx||
+|SPSS||
+
+- 每份資料欄位應有編碼說明
+
+
+```{r data-overview}
+## 見下一節“預覽資料”說明
+
+## 參考 https://psyteachr.github.io/quant-fun-v2/data-wrangling-1.html#dw1-a1
+library(babynames) ## 匯入已建資料集babynames
+## ?babynames  ##查詢babynames資訊
+
+
+
+## 下載/匯入Woodworth et al. (2018)資料集
+## 參考https://psyteachr.github.io/quant-fun-v2/starting-with-data.html#ld-a1
+woodworth2018_dat <- read_csv("https://psyteachr.github.io/quant-fun-v2/ahi-cesd.csv")
+
+woodworth2018_pinfo <- read_csv("https://psyteachr.github.io/quant-fun-v2/participant-info.csv")
+
+
+## 下載/匯入Witt et al.(2018)資料集
+## 參考 https://psyteachr.github.io/quant-fun-v2/data-wrangling-2.html#dw2-a1
+pong_data <- read_csv("https://psyteachr.github.io/quant-fun-v2/data/chpt5/PongBlueRedBack%201-16%20Codebook.csv")
+
+summary(pong_data)
+
+## 下載/匯入AQ資料集
+## 參考https://psyteachr.github.io/quant-fun-v2/data-wrangling-3.html#analysing-the-autism-spectrum-quotient-aq
+AQ_responses <- read_csv("https://psyteachr.github.io/quant-fun-v2/responses.csv")
+
+AQ_qformats <- read_csv("https://psyteachr.github.io/quant-fun-v2/qformats.csv")
+
+AQ_scoring <- read_csv("https://psyteachr.github.io/quant-fun-v2/scoring.csv")
+
+AQ_pinfo <- read_csv("https://psyteachr.github.io/quant-fun-v2/pinfo.csv")
+```
+
+### 預覽資料
+
+- Rstudio的Environment視窗
+
+> 單獨執行chunk `data-overview`，察看Environment的執行結果。
+
+- 資料性質檢視函式
+
+
+```{r check-data}
+## 說明參考 https://psyteachr.github.io/quant-fun-v2/starting-with-data.html#ld-a4
+str(woodworth2018_pinfo)
+str(woodworth2018_dat)
+summary(woodworth2018_dat)
+head(woodworth2018_pinfo)
+head(woodworth2018_dat)
+```
+
+### 合併資料(Join the data)
+
+- 外部資料有兩個以上檔案
+
+```{r join-data}
+all_dat <- inner_join(x = woodworth2018_dat, 
+                      y = woodworth2018_pinfo, 
+                      by = c("id", "intervention"))
+```
+
+
+
+### 選取有需要的資料欄位
+
+- `dplyr::select()`
+
+```{r select-data}
+summarydata <- select(.data = all_dat, 
+                      ahiTotal, 
+                      cesdTotal, 
+                      sex, 
+                      age, 
+                      educ, 
+                      income, 
+                      occasion, 
+                      elapsed.days) 
+```
+
+
+### 清理資料: 整頓出可分析的資料集
+
+> Definitions
+> 1. Each variable must have its own column.
+> 2. Each observation must have its own row.
+
+檢視summarydata是long table還是wide table? quant-fun單元6有解釋與示範。
+
+### 管道運算子%>%
+
+使用管道運算子整合以上四個chunk內的程式碼
+
+```{r pipe-data}
+summardata <- read_csv("https://psyteachr.github.io/quant-fun-v2/ahi-cesd.csv") %>%
+  inner_join(read_csv("https://psyteachr.github.io/quant-fun-v2/participant-info.csv"),
+             by = c("id", "intervention")) %>%
+              select(ahiTotal, 
+                      cesdTotal, 
+                      sex, 
+                      age, 
+                      educ, 
+                      income, 
+                      occasion, 
+                      elapsed.days)
+```
+
+
+## 資料視覺化
+
+### 預覽Woodworth et al. (2018)受測者性別比例
+
+1. 決定視覺化方案
+
+採用柱狀圖(Barplot)顯示男女性別人數
+
+2. 確認軸線欄位為factor
+
+```{r check-mutate}
+glimpse(summarydata)
+summarydata <- summarydata %>%
+  mutate(sex = as.factor(sex),
+         educ = as.factor(educ),
+         income = as.factor(income))
+```
+
+3. 使用ggplot2函式繪製符合方案的統計圖
+
+> 參考quant-fun 7.4，完成chunk `boxplot`的程式碼
+
+```{r boxplot}
+## 寫出完整程式碼
+```
+
+## 程式碼演練
+
+依照以下chunk內的提示，完成符合提示目的之程式碼
+
+```{r babynames}
+### 整頓babynames資料集
+### 增加新資料欄位代表年代，如1800, 1810, ... 1990。每行程式碼需註解說明
+
+### 篩選出1940年代的女性新生兒。每行程式碼需註解說明
+
+```
+
+```{r Witt2018}
+### 整頓 Witt et al.(2018)的資料集
+### 依BackgroundColor與PaddleLength分組，計算在藍色背景以大尺寸船漿擊中白球的次數。每行程式碼需註解說明
+
+```
+
+
+```{r Witt2018-pipe}
+### 以管道運算子組合Witt2018的程式碼
+
+```
+
+```{r AQ-scores}
+### 整頓 AQ資料集
+### 參考單元6.4至6.7的說明，計算資料集內每位女性參與者的得分。每行程式碼需註解說明
+
+```
+
+
+```{r AQ-scores-pipe}
+### 以管道運算子組合AQ-scores的程式碼
+
+```

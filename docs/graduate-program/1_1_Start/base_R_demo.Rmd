@@ -1,12 +1,14 @@
 ---
 title: "基礎 R 語法寫作示範"
-author: "陳紹慶"
-date: "2021/7/6"
+author: "學員姓名"
 output: html_document
 ---
 
+> 下載這份檔案並以Rstudio開啟，按下編輯視窗上方的`Knit`按鈕，生成網頁檔有最佳瀏覽效果。
 
-> 講義範例來自[R基本實作秘訣速查表](../cheatsheets/base-r-TC.pdf)，搭配參考[Rstudio視覺介面](../cheatsheets/rstudio-ide-TC.pdf)以及[Rmarkdown秘訣速查表](../cheatsheets/rmarkdown-2.0-TC.pdf)。
+> 講義範例來自[R基本實作秘訣速查表](https://scgeeker.github.io/Reproducible_STAT/cheatsheets/base-r-TC.pdf)，部分參考[Rstudio視覺介面](https://scgeeker.github.io/Reproducible_STAT/cheatsheets/rstudio-ide-TC.pdf)以及[Rmarkdown秘訣速查表](https://scgeeker.github.io/Reproducible_STAT/cheatsheets/rmarkdown-2.0-TC.pdf)。請參考youtube的[可重製統計示範系列](https://youtube.com/playlist?list=PLSxoRcsvTAqBwSuTKEE7cOU0cSAm42gtI)，學習講義的每道範例。
+
+> 這份講義介紹的語法及技巧涵蓋[Psyteachr課程](https://psyteachr.github.io/)的[Level 1: Data Skills](https://psyteachr.github.io/data-skills/)全書以及[Fundamentals of Quantitative Analysis](https://psyteachr.github.io/quant-fun-v2/)的第1至第8單元，提供修習"研究生學習模組"與"高年級大學生學習模組"的學員搭配學習。
 
 
 ## 預先載入套件
@@ -63,7 +65,7 @@ str(iris)   ## 顯示物作型態與資料結果
 1. 在console視窗執行`getwd()`。
 2. 在Rstudio切換Files視窗，點擊右上角Rstudio logo。
 
-![](../images/baseR_clip001.png)
+![](images/baseR_clip001.png)
 
 3. 在Rmarkdown文件內編輯的程式碼，工作目錄是文件存檔的資料夾路徑。
 
@@ -83,12 +85,15 @@ str(iris)   ## 顯示物作型態與資料結果
 
 ```{r read_file, message=FALSE, warning=FALSE}
 # 讀取格式化分欄的純文字檔
-big5_01 <- read.table(file = "../data/5factor.txt", header = TRUE)
+big5_01 <- read.table(file = "https://scgeeker.github.io/Reproducible_STAT/data/5factor.txt", header = TRUE)
 head(big5_01)
 
 # 讀取逗號分欄的純文字檔
-big5_02 <- read.csv(file = "../data/5factor.csv")
+big5_02 <- read.csv(file = "https://scgeeker.github.io/Reproducible_STAT/data/5factor.csv")
 head(big5_02)
+
+library(tidyverse)
+read_csv(file = "https://scgeeker.github.io/Reproducible_STAT/data/5factor.csv")
 ```
 
 
@@ -118,7 +123,7 @@ write.csv(head(big5_02), file = "big5_head.csv",row.names = FALSE)
 2. 移除全部物件：在console視窗，或程式碼腳本，執行`rm(list = ls())`。
 3. 在Rstudio主選單選擇"Session -> Restart R and Clear Output"，清除所有已存物件及已載入套件。
 
-![](../images/baseR_clip002.png)
+![](images/baseR_clip002.png)
 
 - 建立物件：使用指派運算子`<-`指派物件內容。R自動判斷運算子右方的資料結構，賦予物件型態。
 
@@ -449,7 +454,7 @@ qnorm(pnorm(norm_data))   ## 量數 = 隨機變數
 
 ```
 
-比照以上的示範，自由測試[秘訣速查表](../cheatsheets/base-r-TC.pdf)列出的其他機率函式：卜瓦松分佈,二項分佈,均勻分佈。
+比照以上的示範，自由測試[秘訣速查表](https://scgeeker.github.io/Reproducible_STAT/cheatsheets/base-r-TC.pdf)列出的其他機率函式：卜瓦松分佈,二項分佈,均勻分佈。
 
 
 ### 繪圖函式
@@ -461,4 +466,4 @@ plot(dnorm(norm_data)~norm_data)  ## 視覺化機率密度函數
 plot(pnorm(norm_data)~qnorm(pnorm(norm_data)))  ## 視覺化累積機率函數
 ```
 
-比照以上的示範，嘗試視覺化[秘訣速查表](../cheatsheets/base-r-TC.pdf)列出的其他機率函式：卜瓦松分佈,二項分佈,均勻分佈。
+比照以上的示範，嘗試視覺化[秘訣速查表](https://scgeeker.github.io/Reproducible_STAT/cheatsheets/base-r-TC.pdf)列出的其他機率函式：卜瓦松分佈,二項分佈,均勻分佈。

@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="學員姓名" />
+
+
+<title>基礎 R 語法寫作示範</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">首頁</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">基礎 R 語法寫作示範</h1>
+<h4 class="author">學員姓名</h4>
+
+</div>
+
+
+<blockquote>
+<p>下載這份檔案並以Rstudio開啟，按下編輯視窗上方的<code>Knit</code>按鈕，生成網頁檔有最佳瀏覽效果。</p>
+</blockquote>
+<blockquote>
+<p>講義範例來自<a href="https://scgeeker.github.io/Reproducible_STAT/cheatsheets/base-r-TC.pdf">R基本實作秘訣速查表</a>，部分參考<a href="https://scgeeker.github.io/Reproducible_STAT/cheatsheets/rstudio-ide-TC.pdf">Rstudio視覺介面</a>以及<a href="https://scgeeker.github.io/Reproducible_STAT/cheatsheets/rmarkdown-2.0-TC.pdf">Rmarkdown秘訣速查表</a>。請參考youtube的<a href="https://youtube.com/playlist?list=PLSxoRcsvTAqBwSuTKEE7cOU0cSAm42gtI">可重製統計示範系列</a>，學習講義的每道範例。</p>
+</blockquote>
+<blockquote>
+<p>這份講義介紹的語法及技巧涵蓋<a href="https://psyteachr.github.io/">Psyteachr課程</a>的<a href="https://psyteachr.github.io/data-skills/">Level 1: Data Skills</a>全書以及<a href="https://psyteachr.github.io/quant-fun-v2/">Fundamentals of Quantitative Analysis</a>的第1至第8單元，提供修習”研究生學習模組”與”高年級大學生學習模組”的學員搭配學習。</p>
+</blockquote>
+<div id="預先載入套件" class="section level2">
+<h2>預先載入套件</h2>
+<p>一份Rmarkdown文件經常使用非內建套件(package)的函式(function)與資料，為了能在文件內正常使用這些套件的函式，建議方式是在R markdown的第一個chunk載入。這段文字之後的<code>setup</code> chunk，渲染後(Knit)不會在輸出文件顯示chunk內的程式碼，你可以從<a href="base_R_demo.Rmd">源始Rmarkdown檔</a>檢視安裝及載入套件的程式碼。</p>
+</div>
+<div id="使用內建套件" class="section level2">
+<h2>使用內建套件</h2>
+<p>載入內建資料：“iris”是經典生物統計資料集，常用於各式統計方法及程式測試。資料集介紹請見維基百科條目：<a href="https://zh.wikipedia.org/wiki/%E5%AE%89%E5%BE%B7%E6%A3%AE%E9%B8%A2%E5%B0%BE%E8%8A%B1%E5%8D%89%E6%95%B0%E6%8D%AE%E9%9B%86">安德森鳶尾花卉數據集</a>。</p>
+<pre class="r"><code>data(iris)
+head(iris)</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+<p>iris 資料有五個變項。</p>
+<div id="查詢使用說明" class="section level3">
+<h3>查詢使用說明</h3>
+<p>在console視窗輸入以下任何查詢指令，可開啟函式或套件的說明文件。</p>
+<pre><code>?mean  ## 取得函式的說明文件
+help.search(&#39;weightedmean&#39;)  ## 以關鍵詞查詢有weightedmean函式的套件說明文件
+help(package =&#39;dplyr&#39;)  ## 關鍵詞查詢說明文件</code></pre>
+</div>
+<div id="查詢資料物件性質" class="section level3">
+<h3>查詢資料物件性質</h3>
+<p>資料與函式在R環境通稱”物件”(Objects)，物件有兩種性質：形態(class)與資料結構(structure)。R環境設資料物件形態有數值(value)、向量(vector)、矩陣(matrix)、資料框架(data frame)、以及列表(List)。每種型態都有指定的資料結構，依照資料結構建立的資料物件，才能輸入函式，執行計算、資料整頓等工作。</p>
+<pre class="r"><code>class(iris) ## 顯示物件型態</code></pre>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<pre class="r"><code>str(iris)   ## 顯示物作型態與資料結果</code></pre>
+<pre><code>## &#39;data.frame&#39;:    150 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+</div>
+</div>
+<div id="工作目錄" class="section level2">
+<h2>工作目錄</h2>
+<ul>
+<li>工作目錄是R環境輸入及輸出檔案的資料夾路徑。有三種方法可確認現在的工作目錄。</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>在console視窗執行<code>getwd()</code>。</li>
+<li>在Rstudio切換Files視窗，點擊右上角Rstudio logo。</li>
+</ol>
+<p><img src="images/baseR_clip001.png" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li>在Rmarkdown文件內編輯的程式碼，工作目錄是文件存檔的資料夾路徑。</li>
+</ol>
+<ul>
+<li>若非必要，不建議更改工作目錄。若要更改可使用<code>setwd()</code>設定其他資料夾路徑。</li>
+</ul>
+</div>
+<div id="存取資料" class="section level2">
+<h2>存取資料</h2>
+<p>資料檔可存放於工作目錄之外的資料夾路徑，未處理的資料建議以csv格式存檔。</p>
+<div id="讀取資料檔" class="section level3">
+<h3>讀取資料檔</h3>
+<p>如果要使用之前儲存的映像檔(RData)，建議在文件第一個chunk <code>setup</code>執行匯入<code>load()</code>。</p>
+<p>讀取前確認資料檔第一列(row)為欄位標題，才能獲得如範例的執行效果。 以五大人格測驗資料為例：</p>
+<pre class="r"><code># 讀取格式化分欄的純文字檔
+big5_01 &lt;- read.table(file = &quot;https://scgeeker.github.io/Reproducible_STAT/data/5factor.txt&quot;, header = TRUE)
+head(big5_01)</code></pre>
+<pre><code>##   subj_id        O   C        E        A     N
+## 1     S01 4.428571 4.5 3.333333 5.142857 1.625
+## 2     S02 5.714286 2.9 3.222222 3.000000 2.625
+## 3     S03 5.142857 2.8 6.000000 3.571429 2.500
+## 4     S04 3.142857 5.2 1.333333 1.571429 3.125
+## 5     S05 5.428571 4.4 2.444444 4.714286 1.625
+## 6     S06 4.428571 2.2 3.111111 4.571429 4.000</code></pre>
+<pre class="r"><code># 讀取逗號分欄的純文字檔
+big5_02 &lt;- read.csv(file = &quot;https://scgeeker.github.io/Reproducible_STAT/data/5factor.csv&quot;)
+head(big5_02)</code></pre>
+<pre><code>##   subj_id        O   C        E        A     N
+## 1     S01 4.428571 4.5 3.333333 5.142857 1.625
+## 2     S02 5.714286 2.9 3.222222 3.000000 2.625
+## 3     S03 5.142857 2.8 6.000000 3.571429 2.500
+## 4     S04 3.142857 5.2 1.333333 1.571429 3.125
+## 5     S05 5.428571 4.4 2.444444 4.714286 1.625
+## 6     S06 4.428571 2.2 3.111111 4.571429 4.000</code></pre>
+</div>
+<div id="寫入資料檔" class="section level3">
+<h3>寫入資料檔</h3>
+<p>存放資料檔格式以有分欄的純文字檔優先考慮，有其他格式或需儲存檔案太多，再考慮以映像檔(RData)儲存。</p>
+<pre class="r"><code>## 建議增加參數row.names = FALSE
+## 寫入格式化分欄的純文字檔
+write.table(head(big5_01), file = &quot;big5_head.txt&quot;,row.names = FALSE)
+## 寫入逗號分欄的純文字檔
+write.csv(head(big5_02), file = &quot;big5_head.csv&quot;,row.names = FALSE)</code></pre>
+</div>
+</div>
+<div id="檢視及建立物件" class="section level2">
+<h2>檢視及建立物件</h2>
+<ul>
+<li>執行大量程式碼將在R環境記憶體留存物件，改寫程式碼過程經常要檢視已存物件。檢視物件有兩種方法。</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>在console視窗執行<code>ls()</code>，列印已存物件名稱。</li>
+<li>在Rstudio切換Environment視窗，查看已存物件清單。</li>
+</ol>
+<ul>
+<li>移除已存物件的方法：</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>移除指定物件：在console視窗，或程式碼腳本，執行<code>rm(x)</code>(x代表任何已存物件)。</li>
+<li>移除全部物件：在console視窗，或程式碼腳本，執行<code>rm(list = ls())</code>。</li>
+<li>在Rstudio主選單選擇”Session -&gt; Restart R and Clear Output”，清除所有已存物件及已載入套件。</li>
+</ol>
+<p><img src="images/baseR_clip002.png" /></p>
+<ul>
+<li>建立物件：使用指派運算子<code>&lt;-</code>指派物件內容。R自動判斷運算子右方的資料結構，賦予物件型態。</li>
+</ul>
+<pre class="r"><code>## 指派數值
+a &lt;- &quot;apple&quot;
+## 建立函式
+square &lt;- function(x){
+  squared = x*x
+  return(squared)
+}
+## 檢視函式執行效果
+square(7)</code></pre>
+<pre><code>## [1] 49</code></pre>
+</div>
+<div id="向量" class="section level2">
+<h2>向量</h2>
+<p>定義:一維資料結構~只用一套數值/向量索引資料內數值的結構。</p>
+<p>建立向量的各種方法：</p>
+<pre class="r"><code>x1 &lt;- c(2,4,6)              #直接列出數值
+x2 &lt;- 2:6                   #製造連續數值
+x3 &lt;- seq(2, 3, by = 0.5)   #製造連續數值
+x4 &lt;- rep(1:2, times=3)     #製造重覆數值
+names(x2) &lt;- c(&quot;apple&quot;,&quot;banana&quot;,&quot;orange&quot;,&quot;lemon&quot;,&quot;papaja&quot;) #為數值命名</code></pre>
+<div id="向量運算函式" class="section level3">
+<h3>向量運算函式</h3>
+<p>資料表內一個欄位就是一個向量，內建運算函式能檢視向量內數值狀態：</p>
+<pre class="r"><code>sort(x4)   # 回傳排序的數值 </code></pre>
+<pre><code>## [1] 1 1 1 2 2 2</code></pre>
+<pre class="r"><code>rev(x4)    # 顛倒數值順序 </code></pre>
+<pre><code>## [1] 2 1 2 1 2 1</code></pre>
+<pre class="r"><code>table(x4)  # 表列數值次數</code></pre>
+<pre><code>## x4
+## 1 2 
+## 3 3</code></pre>
+<pre class="r"><code>unique(x4) # 查看數值種類</code></pre>
+<pre><code>## [1] 1 2</code></pre>
+</div>
+<div id="索引向量內數值" class="section level3">
+<h3>索引向量內數值</h3>
+<p>資料處理與運算經常要由向量內取出部分數值，善用索引技巧能事半功倍。</p>
+<ul>
+<li>位置索引</li>
+</ul>
+<pre class="r"><code>x2[4]      # 第四位數值</code></pre>
+<pre><code>## lemon 
+##     5</code></pre>
+<pre class="r"><code>x2[-4]     # 第四位之外的數值</code></pre>
+<pre><code>##  apple banana orange papaja 
+##      2      3      4      6</code></pre>
+<pre class="r"><code>x2[2:4]    # 第二到第四位數值</code></pre>
+<pre><code>## banana orange  lemon 
+##      3      4      5</code></pre>
+<pre class="r"><code>x2[-(2:4)]  # 第二到第四位之外的數值</code></pre>
+<pre><code>##  apple papaja 
+##      2      6</code></pre>
+<pre class="r"><code>x2[c(1,5)]  # 第一位和第五位數值</code></pre>
+<pre><code>##  apple papaja 
+##      2      6</code></pre>
+<ul>
+<li>數值索引</li>
+</ul>
+<pre class="r"><code>x3[x3==3]            # 等於3的數值</code></pre>
+<pre><code>## [1] 3</code></pre>
+<pre class="r"><code>x3[which(x3==3)]     # 等於3的數值</code></pre>
+<pre><code>## [1] 3</code></pre>
+<pre class="r"><code>x3[x3&lt;3]             # 小於3的數值</code></pre>
+<pre><code>## [1] 2.0 2.5</code></pre>
+<pre class="r"><code>x3[x3 %in% c(1,2,5)] # 符合集合{1, 2, 5}的數值</code></pre>
+<pre><code>## [1] 2</code></pre>
+<ul>
+<li>命名索引</li>
+</ul>
+<pre class="r"><code>x2[&#39;apple&#39;]          # 命名是&#39;apple&#39;的數值</code></pre>
+<pre><code>## apple 
+##     2</code></pre>
+</div>
+<div id="向量的物件型態" class="section level3">
+<h3>向量的物件型態</h3>
+<p>向量的型態可以是邏輯值(logical), 整數或浮點數(numeric), 字符或字串(character), 以及因子(factor)。型態之間能用<code>as.</code>函式系列互相轉換，初次建立物件的R判斷順序是”logical -&gt; numeric -&gt; character -&gt; factor”。</p>
+<table>
+<tbody>
+<tr class="odd">
+<td><code>as.logical()</code></td>
+<td>TRUE, FALSE, TRUE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>as.numeric()</code></td>
+<td>1, 0, 1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>as.character()</code></td>
+<td>1, 0, 1</td>
+<td>測試console內執行</td>
+</tr>
+<tr class="even">
+<td><code>as.factor()</code></td>
+<td>1, 0, 1</td>
+<td>測試console內執行</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="迴圈與迭代" class="section level2">
+<h2>迴圈與迭代</h2>
+<div id="比對數值" class="section level3">
+<h3>比對數值</h3>
+<p>廻圈與函式需要透過”比對”，設定執行程式碼的條件：</p>
+<table>
+<thead>
+<tr class="header">
+<th>功能</th>
+<th>程式碼範例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>等於</td>
+<td><code>a==b</code></td>
+</tr>
+<tr class="even">
+<td>不等於</td>
+<td><code>a!=b</code></td>
+</tr>
+<tr class="odd">
+<td>大於</td>
+<td><code>a&gt;b</code></td>
+</tr>
+<tr class="even">
+<td>小於</td>
+<td><code>a&lt;b</code></td>
+</tr>
+<tr class="odd">
+<td>大於或等於</td>
+<td><code>a&gt;=b</code></td>
+</tr>
+<tr class="even">
+<td>小於或等於</td>
+<td><code>a&lt;=b</code></td>
+</tr>
+<tr class="odd">
+<td>等於 NA</td>
+<td><code>is.na(a)</code></td>
+</tr>
+<tr class="even">
+<td>等於 null</td>
+<td><code>is.null(a)</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>只要兩項物件資料結構相同，都能比對！</strong></p>
+<ul>
+<li>善用迴圈與迭代，能簡化需要多次執行的程式碼。</li>
+</ul>
+</div>
+<div id="for" class="section level3">
+<h3>for</h3>
+<pre class="r"><code>x &lt;- 1:4
+
+for (i in x) {
+  j &lt;- i + 10
+  print(j)
+}</code></pre>
+<pre><code>## [1] 11
+## [1] 12
+## [1] 13
+## [1] 14</code></pre>
+</div>
+<div id="while" class="section level3">
+<h3>while</h3>
+<pre class="r"><code>i &lt;- 2
+
+while (i &lt; 5) {
+  print(i)
+  i &lt;- i + 1
+}</code></pre>
+<pre><code>## [1] 2
+## [1] 3
+## [1] 4</code></pre>
+</div>
+<div id="if-else" class="section level3">
+<h3>if-else</h3>
+<pre class="r"><code>i &lt;- 2
+
+if (i &gt; 3) {
+  print(&#39;Yes&#39;)
+} else {
+  print(&#39;No&#39;)
+}</code></pre>
+<pre><code>## [1] &quot;No&quot;</code></pre>
+</div>
+<div id="function" class="section level3">
+<h3>function</h3>
+<pre class="r"><code>square &lt;- function(x){
+  squared = x*x
+  return(squared)
+}
+
+square(7)</code></pre>
+<pre><code>## [1] 49</code></pre>
+<pre class="r"><code>square(13)</code></pre>
+<pre><code>## [1] 169</code></pre>
+<ul>
+<li>for, while, if-else 需要在執行前先建立物件</li>
+<li>function在建立物件前要完成</li>
+</ul>
+</div>
+</div>
+<div id="二維以上的資料結構" class="section level2">
+<h2>二維以上的資料結構</h2>
+<p>定義：需要使用兩套數值/向量索引資料內數值的結構。</p>
+<div id="矩陣" class="section level3">
+<h3>矩陣</h3>
+<p>以<a href="https://zh.wikipedia.org/wiki/%E5%B0%8D%E8%A7%92%E7%9F%A9%E9%99%A3">對角矩陣</a>做範例:</p>
+<pre class="r"><code>m &lt;- matrix(c(1:3,c(2,1,6),c(3,6,1)),nc=3)
+m</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    2    1    6
+## [3,]    3    6    1</code></pre>
+<pre class="r"><code>n &lt;- 0:2
+n</code></pre>
+<pre><code>## [1] 0 1 2</code></pre>
+<p>索引矩陣內數值</p>
+<pre class="r"><code>m[2,] ## 取得第2列數值</code></pre>
+<pre><code>## [1] 2 1 6</code></pre>
+<pre class="r"><code>m[,1] ## 取得第1欄數值</code></pre>
+<pre><code>## [1] 1 2 3</code></pre>
+<pre class="r"><code>m[2,3] ## 取得第 2 列第 3 欄數值</code></pre>
+<pre><code>## [1] 6</code></pre>
+<p>矩陣運算</p>
+<pre class="r"><code>t(m) ## 轉置矩陣</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    2    1    6
+## [3,]    3    6    1</code></pre>
+<pre class="r"><code>m %*% n ## 矩陣內積</code></pre>
+<pre><code>##      [,1]
+## [1,]    8
+## [2,]   13
+## [3,]    8</code></pre>
+<pre class="r"><code>solve(m,n) ## 解聯立方程式, m必須是對角矩陣</code></pre>
+<pre><code>## [1]  1.4166667 -0.3333333 -0.2500000</code></pre>
+</div>
+<div id="字串" class="section level3">
+<h3>字串</h3>
+<p>定義：由兩個以上字符組合的資料。例如姓名~ John, Rebeca</p>
+<p>字串可以是向量數值，例如問卷選項。依處理需要，經常會合併、分割或取代字串內容。</p>
+<pre class="r"><code>x &lt;- c(&quot;Donald&quot;, &quot;Trump&quot;)
+y &lt;- c(&quot;Joe&quot;,&quot;Biden&quot;)
+paste(x,y,sep = &quot;&quot;)</code></pre>
+<pre><code>## [1] &quot;DonaldJoe&quot;  &quot;TrumpBiden&quot;</code></pre>
+<pre class="r"><code>paste(x, collapse =&#39;&#39;)</code></pre>
+<pre><code>## [1] &quot;DonaldTrump&quot;</code></pre>
+<pre class="r"><code>grep(pattern=&quot;D&quot;, x)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>toupper(x)</code></pre>
+<pre><code>## [1] &quot;DONALD&quot; &quot;TRUMP&quot;</code></pre>
+<pre class="r"><code>tolower(x)</code></pre>
+<pre><code>## [1] &quot;donald&quot; &quot;trump&quot;</code></pre>
+<pre class="r"><code>nchar(x)</code></pre>
+<pre><code>## [1] 6 5</code></pre>
+</div>
+<div id="資料框架" class="section level3">
+<h3>資料框架</h3>
+<p>定義: 包含至少一筆數值數量相同的向量</p>
+<pre class="r"><code>df &lt;- data.frame(x = 1:10, y = letters[1:10])
+df$x     ## 索引x欄位數值</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<pre class="r"><code>df[[2]]  ## 索引第2欄數值</code></pre>
+<pre><code>##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot;</code></pre>
+<pre class="r"><code>df[,2]   ## 索引第2欄數值</code></pre>
+<pre><code>##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot;</code></pre>
+<pre class="r"><code>df[2,]   ## 索引第2列數值</code></pre>
+<pre><code>##   x y
+## 2 2 b</code></pre>
+<pre class="r"><code>df[2,2]  ## 索引第2欄,第2列數值</code></pre>
+<pre><code>## [1] &quot;b&quot;</code></pre>
+<pre class="r"><code>head(df) ## 列印首6列數值</code></pre>
+<pre><code>##   x y
+## 1 1 a
+## 2 2 b
+## 3 3 c
+## 4 4 d
+## 5 5 e
+## 6 6 f</code></pre>
+<pre class="r"><code>tail(df)</code></pre>
+<pre><code>##     x y
+## 5   5 e
+## 6   6 f
+## 7   7 g
+## 8   8 h
+## 9   9 i
+## 10 10 j</code></pre>
+<p>有需要時，資料框架能依欄或依列合併其他物件。</p>
+<pre class="r"><code>z &lt;- runif(10)  ## 製造新欄位資料
+d &lt;- c(11,letters[11],runif(1))  ## 製造新列資料
+df = cbind(df,z)
+df</code></pre>
+<pre><code>##     x y          z
+## 1   1 a 0.62106562
+## 2   2 b 0.27527438
+## 3   3 c 0.06028045
+## 4   4 d 0.00236066
+## 5   5 e 0.77148894
+## 6   6 f 0.25827041
+## 7   7 g 0.95547380
+## 8   8 h 0.91641872
+## 9   9 i 0.46932779
+## 10 10 j 0.69871766</code></pre>
+<pre class="r"><code>df = rbind(df,d)
+df</code></pre>
+<pre><code>##     x y                   z
+## 1   1 a   0.621065617538989
+## 2   2 b   0.275274384999648
+## 3   3 c  0.0602804461959749
+## 4   4 d 0.00236066011711955
+## 5   5 e   0.771488944068551
+## 6   6 f   0.258270406164229
+## 7   7 g   0.955473798559979
+## 8   8 h   0.916418720269576
+## 9   9 i   0.469327789265662
+## 10 10 j   0.698717659106478
+## 11 11 k   0.433247548062354</code></pre>
+</div>
+<div id="因子" class="section level3">
+<h3>因子</h3>
+<p>定義: 索引資料框架的欄位，統計函式必須使用因子分組資料。</p>
+<pre class="r"><code>x&lt;-rep(1:4,each=25) 
+factor(x)  ## 將向量轉換成因子，設定層次(levels)及層次順序</code></pre>
+<pre><code>##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+##  [42] 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4
+##  [83] 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4
+## Levels: 1 2 3 4</code></pre>
+<pre class="r"><code>x&lt;-1:100
+cut(x,4)   ## 指定切割區間數，將向量轉換成因子</code></pre>
+<pre><code>##   [1] (0.901,25.8] (0.901,25.8] (0.901,25.8] (0.901,25.8] (0.901,25.8] (0.901,25.8]
+##   [7] (0.901,25.8] (0.901,25.8] (0.901,25.8] (0.901,25.8] (0.901,25.8] (0.901,25.8]
+##  [13] (0.901,25.8] (0.901,25.8] (0.901,25.8] (0.901,25.8] (0.901,25.8] (0.901,25.8]
+##  [19] (0.901,25.8] (0.901,25.8] (0.901,25.8] (0.901,25.8] (0.901,25.8] (0.901,25.8]
+##  [25] (0.901,25.8] (25.8,50.5]  (25.8,50.5]  (25.8,50.5]  (25.8,50.5]  (25.8,50.5] 
+##  [31] (25.8,50.5]  (25.8,50.5]  (25.8,50.5]  (25.8,50.5]  (25.8,50.5]  (25.8,50.5] 
+##  [37] (25.8,50.5]  (25.8,50.5]  (25.8,50.5]  (25.8,50.5]  (25.8,50.5]  (25.8,50.5] 
+##  [43] (25.8,50.5]  (25.8,50.5]  (25.8,50.5]  (25.8,50.5]  (25.8,50.5]  (25.8,50.5] 
+##  [49] (25.8,50.5]  (25.8,50.5]  (50.5,75.2]  (50.5,75.2]  (50.5,75.2]  (50.5,75.2] 
+##  [55] (50.5,75.2]  (50.5,75.2]  (50.5,75.2]  (50.5,75.2]  (50.5,75.2]  (50.5,75.2] 
+##  [61] (50.5,75.2]  (50.5,75.2]  (50.5,75.2]  (50.5,75.2]  (50.5,75.2]  (50.5,75.2] 
+##  [67] (50.5,75.2]  (50.5,75.2]  (50.5,75.2]  (50.5,75.2]  (50.5,75.2]  (50.5,75.2] 
+##  [73] (50.5,75.2]  (50.5,75.2]  (50.5,75.2]  (75.2,100]   (75.2,100]   (75.2,100]  
+##  [79] (75.2,100]   (75.2,100]   (75.2,100]   (75.2,100]   (75.2,100]   (75.2,100]  
+##  [85] (75.2,100]   (75.2,100]   (75.2,100]   (75.2,100]   (75.2,100]   (75.2,100]  
+##  [91] (75.2,100]   (75.2,100]   (75.2,100]   (75.2,100]   (75.2,100]   (75.2,100]  
+##  [97] (75.2,100]   (75.2,100]   (75.2,100]   (75.2,100]  
+## Levels: (0.901,25.8] (25.8,50.5] (50.5,75.2] (75.2,100]</code></pre>
+<pre class="r"><code>df &lt;- data.frame(y = sample(1:16,size = 100,replace = TRUE), x = as.factor(rep(1:4,each=25)) )
+plot(y ~ x,data=df)</code></pre>
+<p><img src="base_R_demo_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div id="列表" class="section level3">
+<h3>列表</h3>
+<p>定義: 集合型態及數量不一致的資料</p>
+<pre class="r"><code>l&lt;-list(x= 1:5,
+        y= c(&#39;a&#39;,&#39;b&#39;),
+        z= df)
+
+l[[2]]      ## 取得第二個物件數值 </code></pre>
+<pre><code>## [1] &quot;a&quot; &quot;b&quot;</code></pre>
+<pre class="r"><code>l[3]        ## 取得列表第三個物件名稱與數值</code></pre>
+<pre><code>## $z
+##      y x
+## 1   12 1
+## 2   15 1
+## 3    6 1
+## 4    8 1
+## 5    2 1
+## 6   16 1
+## 7    3 1
+## 8    6 1
+## 9    6 1
+## 10   5 1
+## 11   7 1
+## 12   5 1
+## 13  14 1
+## 14  16 1
+## 15  13 1
+## 16   9 1
+## 17  13 1
+## 18  16 1
+## 19   8 1
+## 20   5 1
+## 21   8 1
+## 22   8 1
+## 23  10 1
+## 24  10 1
+## 25   5 1
+## 26   7 2
+## 27   6 2
+## 28  12 2
+## 29  12 2
+## 30  12 2
+## 31   4 2
+## 32  16 2
+## 33   7 2
+## 34  10 2
+## 35  12 2
+## 36   6 2
+## 37   1 2
+## 38   2 2
+## 39  14 2
+## 40  10 2
+## 41   9 2
+## 42  10 2
+## 43   9 2
+## 44  16 2
+## 45   4 2
+## 46   7 2
+## 47   1 2
+## 48  15 2
+## 49   7 2
+## 50  11 2
+## 51   5 3
+## 52   3 3
+## 53  11 3
+## 54  16 3
+## 55   6 3
+## 56   3 3
+## 57  12 3
+## 58   7 3
+## 59   7 3
+## 60  16 3
+## 61   2 3
+## 62  11 3
+## 63  13 3
+## 64   5 3
+## 65  11 3
+## 66   9 3
+## 67   6 3
+## 68   3 3
+## 69   4 3
+## 70   3 3
+## 71   9 3
+## 72   5 3
+## 73  13 3
+## 74  15 3
+## 75  16 3
+## 76   9 4
+## 77   7 4
+## 78  10 4
+## 79  13 4
+## 80   2 4
+## 81  14 4
+## 82   4 4
+## 83   1 4
+## 84  10 4
+## 85  14 4
+## 86   2 4
+## 87   4 4
+## 88   7 4
+## 89   9 4
+## 90  14 4
+## 91   9 4
+## 92   9 4
+## 93   4 4
+## 94   8 4
+## 95  14 4
+## 96   4 4
+## 97   8 4
+## 98  15 4
+## 99   8 4
+## 100  8 4</code></pre>
+<pre class="r"><code>l$x         ## 取得列表x物件數值</code></pre>
+<pre><code>## [1] 1 2 3 4 5</code></pre>
+<pre class="r"><code>l[&#39;z&#39;]      ## 取得列表z物件名稱與數值</code></pre>
+<pre><code>## $z
+##      y x
+## 1   12 1
+## 2   15 1
+## 3    6 1
+## 4    8 1
+## 5    2 1
+## 6   16 1
+## 7    3 1
+## 8    6 1
+## 9    6 1
+## 10   5 1
+## 11   7 1
+## 12   5 1
+## 13  14 1
+## 14  16 1
+## 15  13 1
+## 16   9 1
+## 17  13 1
+## 18  16 1
+## 19   8 1
+## 20   5 1
+## 21   8 1
+## 22   8 1
+## 23  10 1
+## 24  10 1
+## 25   5 1
+## 26   7 2
+## 27   6 2
+## 28  12 2
+## 29  12 2
+## 30  12 2
+## 31   4 2
+## 32  16 2
+## 33   7 2
+## 34  10 2
+## 35  12 2
+## 36   6 2
+## 37   1 2
+## 38   2 2
+## 39  14 2
+## 40  10 2
+## 41   9 2
+## 42  10 2
+## 43   9 2
+## 44  16 2
+## 45   4 2
+## 46   7 2
+## 47   1 2
+## 48  15 2
+## 49   7 2
+## 50  11 2
+## 51   5 3
+## 52   3 3
+## 53  11 3
+## 54  16 3
+## 55   6 3
+## 56   3 3
+## 57  12 3
+## 58   7 3
+## 59   7 3
+## 60  16 3
+## 61   2 3
+## 62  11 3
+## 63  13 3
+## 64   5 3
+## 65  11 3
+## 66   9 3
+## 67   6 3
+## 68   3 3
+## 69   4 3
+## 70   3 3
+## 71   9 3
+## 72   5 3
+## 73  13 3
+## 74  15 3
+## 75  16 3
+## 76   9 4
+## 77   7 4
+## 78  10 4
+## 79  13 4
+## 80   2 4
+## 81  14 4
+## 82   4 4
+## 83   1 4
+## 84  10 4
+## 85  14 4
+## 86   2 4
+## 87   4 4
+## 88   7 4
+## 89   9 4
+## 90  14 4
+## 91   9 4
+## 92   9 4
+## 93   4 4
+## 94   8 4
+## 95  14 4
+## 96   4 4
+## 97   8 4
+## 98  15 4
+## 99   8 4
+## 100  8 4</code></pre>
+</div>
+</div>
+<div id="常用內建函式" class="section level2">
+<h2>常用內建函式</h2>
+<div id="數學運算函式" class="section level3">
+<h3>數學運算函式</h3>
+<p>有至少一個欄位的資料，使用數學運算函式能做簡單統計。</p>
+<pre class="r"><code>x &lt;- runif(10)
+y &lt;- rnorm(10)
+
+log(x)            ##自然對數  </code></pre>
+<pre><code>##  [1] -0.3566000 -4.0721797 -0.0120860 -0.6579778 -0.6154751 -2.4411421 -1.1079870
+##  [8] -1.6395847 -0.5904822 -1.3458387</code></pre>
+<pre class="r"><code>exp(x)            ##自然指數  </code></pre>
+<pre><code>##  [1] 2.013858 1.017186 2.685822 1.678495 1.716666 1.090964 1.391278 1.214170 1.740304
+## [10] 1.297347</code></pre>
+<pre class="r"><code>max(x)            ##最大值</code></pre>
+<pre><code>## [1] 0.9879867</code></pre>
+<pre class="r"><code>min(x)            ##最小值</code></pre>
+<pre><code>## [1] 0.01704021</code></pre>
+<pre class="r"><code>round(exp(x), 2)  ##顯示數值到小數點第2位</code></pre>
+<pre><code>##  [1] 2.01 1.02 2.69 1.68 1.72 1.09 1.39 1.21 1.74 1.30</code></pre>
+<pre class="r"><code>signif(log(x), 3) ##小數點第3位起簡寫數值</code></pre>
+<pre><code>##  [1] -0.3570 -4.0700 -0.0121 -0.6580 -0.6150 -2.4400 -1.1100 -1.6400 -0.5900 -1.3500</code></pre>
+<pre class="r"><code>quantile(x)       ##百分位數</code></pre>
+<pre><code>##         0%        25%        50%        75%       100% 
+## 0.01704021 0.21062579 0.42406029 0.55064106 0.98798674</code></pre>
+<pre class="r"><code>rank(x)           ##次序位數</code></pre>
+<pre><code>##  [1]  9  1 10  6  7  2  5  3  8  4</code></pre>
+<pre class="r"><code>sum(x)            ##總和  </code></pre>
+<pre><code>## [1] 4.189087</code></pre>
+<pre class="r"><code>mean(x)           ##平均</code></pre>
+<pre><code>## [1] 0.4189087</code></pre>
+<pre class="r"><code>median(x)         ##中位數</code></pre>
+<pre><code>## [1] 0.4240603</code></pre>
+<pre class="r"><code>var(x)            ##樣本變異數</code></pre>
+<pre><code>## [1] 0.08898948</code></pre>
+<pre class="r"><code>sd(x)             ##樣本標準差</code></pre>
+<pre><code>## [1] 0.298311</code></pre>
+<pre class="r"><code>cor(x,y)          ##相關</code></pre>
+<pre><code>## [1] 0.2866583</code></pre>
+</div>
+<div id="統計函式" class="section level3">
+<h3>統計函式</h3>
+<p>預設內建統計函式已經涵蓋基礎統計方法</p>
+<pre class="r"><code>prop.test(x,seq(10,100,by=10))   ## 分組平均比例顯著性考驗</code></pre>
+<pre><code>## 
+##  10-sample test for equality of proportions without continuity correction
+## 
+## data:  x out of seq(10, 100, by = 10)
+## X-squared = 9.055, df = 9, p-value = 0.4322
+## alternative hypothesis: two.sided
+## sample estimates:
+##       prop 1       prop 2       prop 3       prop 4       prop 5       prop 6 
+## 0.0700052430 0.0008520103 0.0329328915 0.0129474386 0.0108076817 0.0014510226 
+##       prop 7       prop 8       prop 9      prop 10 
+## 0.0047174719 0.0024257578 0.0061562228 0.0026032129</code></pre>
+<pre class="r"><code>t.test(x,y)                      ## 獨立分組平均數 t檢定</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  x and y
+## t = 1.4605, df = 9.9424, p-value = 0.175
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.3249729  1.5586955
+## sample estimates:
+##  mean of x  mean of y 
+##  0.4189087 -0.1979526</code></pre>
+<pre class="r"><code>group &lt;- factor(rep(c(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;),c(3,3,4) ))
+pairwise.t.test(x,group)    ## 計算t檢定的相依樣本變數相關性</code></pre>
+<pre><code>## 
+##  Pairwise comparisons using t tests with pooled SD 
+## 
+## data:  x and group 
+## 
+##   a b
+## b 1 -
+## c 1 1
+## 
+## P value adjustment method: holm</code></pre>
+<pre class="r"><code>aov.1 &lt;- aov(x~group)                ## 變異數分析
+lm.1 &lt;- lm(x~group)                 ## 線性模型
+glm.1 &lt;- glm(x~group)                ## 通用線性模型
+
+summary(glm.1)                   ## 簡報變異數分析, 線性模型, 通用線性模型</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = x ~ group)
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -0.55132  -0.12404   0.06362   0.15298   0.41963  
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)   0.5684     0.1828   3.110   0.0171 *
+## groupb       -0.1866     0.2585  -0.722   0.4938  
+## groupc       -0.2337     0.2418  -0.967   0.3659  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 0.1001965)
+## 
+##     Null deviance: 0.80091  on 9  degrees of freedom
+## Residual deviance: 0.70138  on 7  degrees of freedom
+## AIC: 9.8058
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
+</div>
+<div id="機率分佈函式" class="section level3">
+<h3>機率分佈函式</h3>
+<p>使用機率分佈函式製造符合假設的模擬資料，預覽研究設計的合理性與可執行程度。</p>
+<pre class="r"><code>##常態分佈
+norm_data &lt;- rnorm(100)   ## 製造隨機變數
+pnorm(norm_data)          ## 累積機率函數</code></pre>
+<pre><code>##   [1] 0.28754076 0.51614055 0.11533270 0.37583920 0.38349006 0.40143092 0.47628619
+##   [8] 0.96567948 0.94428996 0.05153122 0.67601850 0.45322326 0.74175540 0.96301778
+##  [15] 0.16488902 0.84967152 0.14891826 0.48065028 0.49897130 0.95508592 0.69676354
+##  [22] 0.40384524 0.55540165 0.29709372 0.34106681 0.13690275 0.95300104 0.12681372
+##  [29] 0.64534788 0.83637305 0.05534070 0.27754352 0.39241178 0.96278304 0.92483937
+##  [36] 0.04174737 0.06161664 0.30321702 0.72873428 0.40755533 0.48750375 0.28616043
+##  [43] 0.72894913 0.60388962 0.26053929 0.68763193 0.12883879 0.08994129 0.23105025
+##  [50] 0.91773425 0.72893962 0.98931135 0.66760656 0.45555464 0.39783952 0.32569874
+##  [57] 0.37810967 0.54017187 0.56014245 0.22310352 0.84732184 0.08689220 0.23248027
+##  [64] 0.25874549 0.91740830 0.75789148 0.63282327 0.10781929 0.85427624 0.68732155
+##  [71] 0.72324944 0.09457459 0.18474871 0.63689684 0.55673876 0.06701235 0.49556891
+##  [78] 0.38406212 0.95531925 0.12941438 0.27819926 0.73847311 0.26919075 0.36865233
+##  [85] 0.30523545 0.59740102 0.18992323 0.89153665 0.01943938 0.65372474 0.74605095
+##  [92] 0.08678619 0.32290318 0.71112333 0.83466173 0.76578626 0.02494195 0.45756485
+##  [99] 0.62893673 0.86306539</code></pre>
+<pre class="r"><code>dnorm(norm_data)          ## 機率密度函數</code></pre>
+<pre><code>##   [1] 0.34093432 0.39861573 0.19450152 0.37946172 0.38180569 0.38670240 0.39823728
+##   [8] 0.07603590 0.11237431 0.10564300 0.35945096 0.39619680 0.32323113 0.08083662
+##  [15] 0.24812486 0.23349899 0.23203512 0.39847293 0.39894095 0.09464108 0.34937478
+##  [22] 0.38729759 0.39508922 0.34615639 0.36684880 0.21920904 0.09815499 0.20793198
+##  [29] 0.37216239 0.24689169 0.11178577 0.33518263 0.38434543 0.08125573 0.14178656
+##  [36] 0.08921535 0.12162558 0.34936476 0.33141875 0.38818290 0.39874655 0.34015773
+##  [43] 0.33128784 0.38533751 0.32471172 0.35395979 0.21023394 0.16231191 0.30442224
+##  [50] 0.15183262 0.33129364 0.02824545 0.36319372 0.39646393 0.38578914 0.36023095
+##  [57] 0.38017336 0.39691799 0.39440027 0.29847388 0.23591919 0.15819383 0.30547051
+##  [64] 0.32355571 0.15228534 0.31235531 0.37662156 0.18534816 0.22868727 0.35411148
+##  [71] 0.33471373 0.16846039 0.26670409 0.37521717 0.39490067 0.12982515 0.39891767
+##  [78] 0.38197477 0.09424500 0.21088466 0.33556898 0.32534394 0.33014861 0.37711940
+##  [85] 0.35039877 0.38699224 0.27129787 0.18614452 0.04726350 0.36894503 0.32041569
+##  [92] 0.15804961 0.35895699 0.34168059 0.24856228 0.30673226 0.05833126 0.39668325
+##  [99] 0.37792039 0.21924390</code></pre>
+<pre class="r"><code>qnorm(pnorm(norm_data))   ## 量數 = 隨機變數</code></pre>
+<pre><code>##   [1] -0.560583466  0.040469404 -1.198646559 -0.316427038 -0.296327317 -0.249645075
+##   [7] -0.059476759  1.820775216  1.591842552 -1.630184815  0.456593859 -0.117521862
+##  [13]  0.648766664  1.786833312 -0.974561070  1.035025612 -1.041084075 -0.048521599
+##  [19] -0.002578582  1.696304860  0.515114633 -0.243406549  0.139320735 -0.532777760
+##  [25] -0.409553368 -1.094340868  1.674675512 -1.141582878  0.372790668  0.979660147
+##  [31] -1.595137881 -0.590154545 -0.273038569  1.783936888  1.438397663 -1.730759143
+##  [37] -1.541343206 -0.515170270  0.608989436 -0.233838112 -0.031328566 -0.564636764
+##  [43]  0.609637844  0.263427925 -0.641683702  0.489149114 -1.131897376 -1.341116626
+##  [49] -0.735392492  1.389991373  0.609609127  2.301253694  0.433313708 -0.111639468
+##  [55] -0.258943221 -0.451821633 -0.310449267  0.100866732  0.151330380 -0.761753650
+##  [61]  1.025014559 -1.360143903 -0.730703081 -0.647217814  1.387847769  0.699536127
+##  [67]  0.339340215 -1.238209003  1.054951486  0.488272421  0.592521945 -1.313100219
+##  [73] -0.897415172  0.350176405  0.142705869 -1.498417946 -0.011107318 -0.294829359
+##  [79]  1.698775434 -1.129163742 -0.588199313  0.638645196 -0.615262323 -0.335424810
+##  [85] -0.509401403  0.246625646 -0.878179244  1.234741564 -2.065467703  0.395396196
+##  [91]  0.662114110 -1.360814276 -0.459595822  0.556669387  0.972752070  0.725040011
+##  [97] -1.960958254 -0.106570521  0.329038554  1.094195537</code></pre>
+<p>比照以上的示範，自由測試<a href="https://scgeeker.github.io/Reproducible_STAT/cheatsheets/base-r-TC.pdf">秘訣速查表</a>列出的其他機率函式：卜瓦松分佈,二項分佈,均勻分佈。</p>
+</div>
+<div id="繪圖函式" class="section level3">
+<h3>繪圖函式</h3>
+<p>有上百筆資料時，視覺化是理解資料的最佳方式</p>
+<pre class="r"><code>plot(dnorm(norm_data)~norm_data)  ## 視覺化機率密度函數</code></pre>
+<p><img src="base_R_demo_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<pre class="r"><code>plot(pnorm(norm_data)~qnorm(pnorm(norm_data)))  ## 視覺化累積機率函數</code></pre>
+<p><img src="base_R_demo_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
+<p>比照以上的示範，嘗試視覺化<a href="https://scgeeker.github.io/Reproducible_STAT/cheatsheets/base-r-TC.pdf">秘訣速查表</a>列出的其他機率函式：卜瓦松分佈,二項分佈,均勻分佈。</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

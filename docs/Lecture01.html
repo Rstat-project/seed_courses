@@ -14,8 +14,8 @@
 
 <title>講義1: 評估與解讀效果量</title>
 
-<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -428,9 +428,19 @@ div.tocify {
 <blockquote>
 <p>Kirk (1996): 某種延緩阿滋海默症患者智力退化的療程測試，找來6名患者接受測試，另外6名接受對照療程。經過一段時間，接受測試療程的患者智力測驗平均分數比對照療程高13分，統計檢定t = 1.61, p = .14。這種結果無統計顯著性，但是沒有實用顯著性嗎？</p>
 </blockquote>
+<p>示範<a href="https://easystats.github.io/effectsize/"><code>effectsize</code></a>套件，轉換t統計值為Cohen’s d</p>
+<pre class="r"><code>## This example is from Kirk(1996): A researcher tested the medication that might raise the IQ of people suffering from Alzheimer&#39;s disease.
+
+effectsize::t_to_d(1.61, 11)</code></pre>
+<pre><code>## d    |        95% CI
+## --------------------
+## 0.97 | [-0.30, 2.20]</code></pre>
+<blockquote>
+<p>實例：請下載這份<a href="https://raw.githubusercontent.com/SCgeeker/LAB_metaprojects/main/Projects/202102_PL/0_reproduced_practice/2_power_simulation.html">檔案</a>以及開啟這份<a href="https://online.ucpress.edu/collabra/article/7/1/18898/116069/Straight-From-the-Scientist-s-Mouth-Plain-Language">研究論文</a></p>
+</blockquote>
 </div>
-<div id="效果量是什麼" class="section level3">
-<h3>效果量是什麼</h3>
+<div id="效果量是什麼為何研究報告要呈現" class="section level3">
+<h3>效果量是什麼？為何研究報告要呈現？</h3>
 <ul>
 <li><p>現實世界的社會科學聽眾只會關心實用顯著性。</p></li>
 <li><p>效果量(effect size)是專業研究結果與通俗說明的中介載體。</p></li>
@@ -440,11 +450,18 @@ div.tocify {
 <li><p>日常生活的成年人士依賴效果量大小資訊做出各種判斷</p></li>
 </ul>
 <blockquote>
-<p>早鳥預訂讓你省下多少% <a href="https://www.edh.tw/article/7328">跳繩10分鐘相當於做什麼運動</a></p>
+<p>你自已有興趣或想研究的主題，有什麼明確的效果量描述？</p>
 </blockquote>
+<!---
+> 早鳥預訂讓你省下多少%
+> [跳繩10分鐘相當於做什麼運動](https://www.edh.tw/article/7328)
+--->
 </div>
 <div id="報告效果量的三大建議" class="section level3">
 <h3>報告效果量的三大建議</h3>
+<blockquote>
+<p>所有統計分析輸出的效果量只是真實效果量的估計值！</p>
+</blockquote>
 <ol style="list-style-type: decimal">
 <li><p>明確說明使用的效果量指標</p></li>
 <li><p>以<strong>信賴區間</strong>表示效果量測量結果的精確性</p></li>

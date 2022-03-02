@@ -1,0 +1,29 @@
+---
+title: "Undergraduate 1-2 practice"
+author: "Student's name"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+
+## 預先安裝/載入tidyverse
+if(!require(tidyverse)){install.packages("tidyverse");library(tidyverse)}else{library(tidyverse)}
+
+```
+
+## Data sets for this section
+
+
+## Load data
+
+
+## Data wrangling
+
+
+## Data visualisation

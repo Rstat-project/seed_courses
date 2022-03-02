@@ -9,9 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="協同編輯" />
 
 
-<title>Reversals_Examples</title>
+<title>講義1課後作業：編輯effectsize 套件使用指南</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -256,22 +257,99 @@ $(document).ready(function () {
 
 
 
+<h1 class="title toc-ignore">講義1課後作業：編輯<code>effectsize</code> 套件使用指南</h1>
+<h4 class="author">協同編輯</h4>
 
 </div>
 
 
-<div id="誤讀不理解統計資訊的媒體報導" class="section level2">
-<h2>誤讀/不理解統計資訊的媒體報導</h2>
+<p>經過<a href="Lecture01.html">第一堂課程</a>，為了各位學員之後在各種場域教授與討論效果量的計算與解讀，有一套可示範的R程式碼及說明範例是相當有用的。我們將彙整Ben-Shachar等人(2020)開發的<a href="https://easystats.github.io/effectsize/index.html">R套件<code>effect size</code></a>，與Ellis(2010)Chapter 1,2的內容，以接力協作的方式編輯這份作業。每位學員貢獻一點成果，換取更多人在研究教學上的便利。</p>
+<blockquote>
+<p>編輯建議：1. 使用純文字與<a href="http://tug.ctan.org/info/latex-refsheet/LaTeX_RefSheet.pdf">Latex編碼</a>編輯效果量公式及範例說明; 2. 在R chunk內放置可執行的R程式碼; 3. 隨時按’Knit’渲染可得編輯成果; 4. 編輯完成請在<a href="https://github.com/Rstat-project/seed_courses/discussions">討論區</a>留言提交作業成果。</p>
+</blockquote>
+<div id="計算效果量" class="section level2">
+<h2>計算效果量</h2>
+<div id="d-family-difference-between-groups" class="section level3">
+<h3>d family ~ difference between groups</h3>
+<div id="groups-compared-on-dichotomous-outcomes" class="section level4">
+<h4>Groups compared on dichotomous outcomes</h4>
 <ul>
-<li>(中央社 2022/2/12) <a href="https://www.cna.com.tw/news/aopl/202202120087.aspx">美CDC研究：加強針4個月後保護力大幅下降</a> ~ <a href="https://www.cdc.gov/mmwr/volumes/71/wr/mm7107e2.htm?s_cid=mm7107e2_w">原始論文</a>, 見Table 2</li>
+<li><p>The risk difference in probabilities</p></li>
+<li><p>The relative risk</p></li>
+<li><p>The odds ratio</p></li>
 </ul>
 </div>
-<div id="有瑕疵的心理學研究" class="section level2">
-<h2>有瑕疵的心理學研究</h2>
+<div id="groups-compared-on-continuous-outcomes" class="section level4">
+<h4>Groups compared on continuous outcomes</h4>
 <ul>
-<li><p>FORRT: <a href="https://forrt.org/reversals/">心理學知識反轉觀察</a></p></li>
-<li><p>Ulrich Schimmack(2022): <a href="https://replicationindex.com/2022/02/13/false-psychology-glossary/">偽陽心理學理論包</a></p></li>
+<li>Cohen’s d</li>
 </ul>
+<p>比較獨立樣本平均數的效果量Cohen’s d計算公式 <span class="math display">\[Cohen&#39;s \space d = \frac{M_1 - M_2}{SD_{pooled}} \]</span></p>
+<pre class="r"><code>## 獨立樣本比較範例
+cohens_d(mpg ~ am, data=mtcars)</code></pre>
+<pre><code>## Cohen&#39;s d |         95% CI
+## --------------------------
+## -1.48     | [-2.27, -0.67]
+## 
+## - Estimated using pooled SD.</code></pre>
+<pre class="r"><code>## 輸出效果量及95%信賴區間</code></pre>
+<ul>
+<li><p>Glass’s delta( <span class="math inline">\(\triangle\)</span> )</p></li>
+<li><p>Hedges’ g</p></li>
+<li><p>Probability of superiority</p></li>
+</ul>
+</div>
+</div>
+<div id="r-family-measures-of-association" class="section level3">
+<h3>r family ~ measures of association</h3>
+<div id="correlation-indexes" class="section level4">
+<h4>Correlation indexes</h4>
+<p>(Two variables are continuous)</p>
+<ul>
+<li>The Pearson product moment correlation coefﬁcient (<span class="math inline">\(r\)</span>)</li>
+</ul>
+<p>(Two variables are ordinal)</p>
+<ul>
+<li><p>Spearman’s rho or the rank correlation coefﬁcient (<span class="math inline">\(\rho\)</span>)</p></li>
+<li><p>Kendall’s tau (<span class="math inline">\(\tau\)</span>)</p></li>
+</ul>
+<p>(One continous and one ordinal)</p>
+<ul>
+<li>The point-biserial correlation coefﬁcient (<span class="math inline">\(r_{pb}\)</span>)</li>
+</ul>
+<p>(Contigency table)</p>
+<ul>
+<li><p>The phi coefﬁcient (<span class="math inline">\(\phi\)</span>)</p></li>
+<li><p>Pearson’s contingency coefﬁcient (C)</p></li>
+<li><p>Cram´er’s V (V)</p></li>
+<li><p>Goodman and Kruskal’s lambda (<span class="math inline">\(\lambda\)</span>)</p></li>
+</ul>
+</div>
+<div id="proportion-of-variance-indexes" class="section level4">
+<h4>Proportion of variance indexes</h4>
+<ul>
+<li><p>The coefﬁcient of determination (<span class="math inline">\(r^2\)</span>)</p></li>
+<li><p>the (uncorrected) coefﬁcient of multiple determination (<span class="math inline">\(R^2\)</span>$)</p></li>
+<li><p>the coefﬁcient of multiple determination adjusted for sample size and the number of predictor variables (<span class="math inline">\(_{adj}R^2\)</span>$)</p></li>
+<li><p>Cohen’s f (<span class="math inline">\(f\)</span>)</p></li>
+<li><p>Cohen’s f squared</p></li>
+<li><p>Epsilon squared (<span class="math inline">\(eps^2\)</span>)</p></li>
+<li><p>the (uncorrected) correlation ratio (<span class="math inline">\(\eta^2\)</span>)</p></li>
+<li><p>Omega squared (<span class="math inline">\(\omega^2\)</span>)</p></li>
+<li><p>The squared canonical correlation coefﬁcient (<span class="math inline">\(R^2_C\)</span>)</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="解讀效果量" class="section level2">
+<h2>解讀效果量</h2>
+<blockquote>
+<p><code>effectsize</code>套件收錄統計學者的建議，提供使用者查詢預估效果量的<strong>份量</strong>。</p>
+</blockquote>
+<div id="參考資源" class="section level4">
+<h4>參考資源</h4>
+<p>Ben-Shachar, M. S., Lüdecke, D., &amp; Makowski, D. (2020). effectsize: Estimation of effect size indices and standardized parameters. Journal of Open Source Software, 5(56), 2815. <a href="https://doi.org/10.21105/joss.02815" class="uri">https://doi.org/10.21105/joss.02815</a></p>
+</div>
 </div>
 
 
