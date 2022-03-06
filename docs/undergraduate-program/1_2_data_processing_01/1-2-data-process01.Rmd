@@ -15,9 +15,28 @@ knitr::opts_chunk$set(
 ## 預先安裝/載入tidyverse
 if(!require(tidyverse)){install.packages("tidyverse");library(tidyverse)}else{library(tidyverse)}
 
+## 預先安裝/載入babynames
+if(!require(babynames)){install.packages("babynames");library(babynames)}else{library(babynames)}
 ```
 
-## Data sets for this section
+
+## 本節演練資料介紹
+
+```{r data-import}
+## 見下一節“預覽資料”說明
+
+## 參考 https://psyteachr.github.io/quant-fun-v2/data-wrangling-1.html#dw1-a1
+library(babynames) ## 匯入已建資料集babynames
+## ?babynames  ##查詢babynames資訊
+
+
+## 下載/匯入Woodworth et al. (2018)資料集
+## 參考https://psyteachr.github.io/quant-fun-v2/starting-with-data.html#ld-a1
+woodworth2018_dat <- read_csv("https://psyteachr.github.io/quant-fun-v2/ahi-cesd.csv")
+
+woodworth2018_pinfo <- read_csv("https://psyteachr.github.io/quant-fun-v2/participant-info.csv")
+```
+
 
 
 ## Load data
