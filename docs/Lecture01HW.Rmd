@@ -1,0 +1,128 @@
+---
+title: "講義1課後作業：編輯`effectsize` 套件使用指南"
+author: "協同編輯"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = TRUE,
+	warning = FALSE
+)
+
+if(!require(effectsize)){install.packages("effectisize");library(effectsize)}else{library(effectsize)}
+```
+
+
+
+
+經過[第一堂課程](Lecture01.html)，為了各位學員之後在各種場域教授與討論效果量的計算與解讀，有一套可示範的R程式碼及說明範例是相當有用的。我們將彙整Ben-Shachar等人(2020)開發的[R套件`effect size`](https://easystats.github.io/effectsize/index.html)，與Ellis(2010)Chapter 1,2的內容，以接力協作的方式編輯這份作業。每位學員貢獻一點成果，換取更多人在研究教學上的便利。
+
+
+> 編輯建議：1. 使用純文字與[Latex編碼](http://tug.ctan.org/info/latex-refsheet/LaTeX_RefSheet.pdf)編輯效果量公式及範例說明; 2. 在R chunk內放置可執行的R程式碼; 3. 隨時按'Knit'渲染可得編輯成果; 4. 編輯完成請在[討論區](https://github.com/Rstat-project/seed_courses/discussions)留言提交作業成果。
+
+
+## 計算效果量
+
+### d family ~ difference between groups
+
+#### Groups compared on dichotomous outcomes
+
+
+- The risk difference in probabilities
+
+- The relative risk
+
+- The odds ratio
+
+#### Groups compared on continuous outcomes
+
+- Cohen’s d
+
+比較獨立樣本平均數的效果量Cohen's d計算公式
+$$Cohen's \space d = \frac{M_1 - M_2}{SD_{pooled}} $$
+
+```{r echo=TRUE}
+## 獨立樣本比較範例
+cohens_d(mpg ~ am, data=mtcars)
+## 輸出效果量及95%信賴區間
+```
+
+
+- Glass’s delta( $\triangle$ )
+
+- Hedges’ g 
+
+- Probability of superiority
+
+
+### r family ~ measures of association
+
+
+#### Correlation indexes
+
+(Two variables are continuous)
+
+- The Pearson product moment correlation coefﬁcient ($r$) 
+
+
+(Two variables are ordinal)
+
+- Spearman’s rho or the rank correlation coefﬁcient ($\rho$)
+
+- Kendall’s tau ($\tau$)
+
+(One continous and one ordinal)
+
+- The point-biserial correlation coefﬁcient ($r_{pb}$)
+
+(Contigency table)
+
+- The phi coefﬁcient ($\phi$)
+
+- Pearson’s contingency coefﬁcient (C)
+
+- Cram´er’s V (V)
+
+- Goodman and Kruskal’s lambda ($\lambda$)
+
+
+#### Proportion of variance indexes
+
+- The coefﬁcient of determination ($r^2$)
+
+
+- the (uncorrected) coefﬁcient of multiple determination ($R^2$$)
+
+
+- the coefﬁcient of multiple determination adjusted for sample size and the number of predictor variables ($_{adj}R^2$$)
+
+
+- Cohen’s f ($f$)
+
+
+- Cohen’s f squared
+
+
+- Epsilon squared ($eps^2$)
+
+
+- the (uncorrected) correlation ratio ($\eta^2$)
+
+
+- Omega squared ($\omega^2$)
+
+
+- The squared canonical correlation coefﬁcient ($R^2_C$)
+
+## 解讀效果量
+
+> `effectsize`套件收錄統計學者的建議，提供使用者查詢預估效果量的**份量**。
+
+
+
+
+#### 參考資源
+
+Ben-Shachar, M. S., Lüdecke, D., & Makowski, D. (2020). effectsize: Estimation of effect size indices and standardized parameters. Journal of Open Source Software, 5(56), 2815. https://doi.org/10.21105/joss.02815

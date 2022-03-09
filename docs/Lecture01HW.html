@@ -9,10 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="陳紹慶" />
+<meta name="author" content="協同編輯" />
 
 
-<title>可重製研究操作教學套件</title>
+<title>講義1課後作業：編輯effectsize 套件使用指南</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -30,9 +30,6 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -222,69 +219,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -292,16 +226,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -333,100 +257,103 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">可重製研究操作教學套件</h1>
-<h4 class="author">陳紹慶</h4>
-<h4 class="date">2022 三月 09</h4>
+<h1 class="title toc-ignore">講義1課後作業：編輯<code>effectsize</code> 套件使用指南</h1>
+<h4 class="author">協同編輯</h4>
 
 </div>
 
 
-<!---
-Each program shares [the initial lecture](Lecture00.html). This lecture will give the trainees the space to rethink why they learn the statistics; their latest motivation to learn/use statistics. The initial overview presents the scenarios and reasons of the reproducibility crisis. 
---->
-<p>這份統計學習套件整合四種對象的學習模組：教師、研究生、高年級大學生（大學部大二以上)、大學部大一學生。所有套件共享<a href="Lecture00.html">啟動講義</a>與<a href="base_R_demo.zip">基礎 R 語法寫作示範*</a>，提供與各種目標學員入門課程、與教師溝通建立學習目標的話題、以及概覽可重製危機的現況及可能成因。</p>
-<p>* 請先下載zip檔，解壓縮後以Rstudio開啟<code>base_R_demo.Rmd</code>，依檔案開頭的說明，生成網頁檔瀏覽示範內容。</p>
-<div id="種子教師工作坊workshop-for-future-tutors" class="section level2">
-<h2>種子教師工作坊(Workshop for future tutors)</h2>
-<ol start="0" style="list-style-type: decimal">
-<li><p><a href="base_R_demo.zip">基礎 R 語法寫作示範*</a></p></li>
-<li><p><a href="Lecture01.html">如何評估及解讀效果量</a></p></li>
-</ol>
+<p>經過<a href="Lecture01.html">第一堂課程</a>，為了各位學員之後在各種場域教授與討論效果量的計算與解讀，有一套可示範的R程式碼及說明範例是相當有用的。我們將彙整Ben-Shachar等人(2020)開發的<a href="https://easystats.github.io/effectsize/index.html">R套件<code>effect size</code></a>，與Ellis(2010)Chapter 1,2的內容，以接力協作的方式編輯這份作業。每位學員貢獻一點成果，換取更多人在研究教學上的便利。</p>
+<blockquote>
+<p>編輯建議：1. 使用純文字與<a href="http://tug.ctan.org/info/latex-refsheet/LaTeX_RefSheet.pdf">Latex編碼</a>編輯效果量公式及範例說明; 2. 在R chunk內放置可執行的R程式碼; 3. 隨時按’Knit’渲染可得編輯成果; 4. 編輯完成請在<a href="https://github.com/Rstat-project/seed_courses/discussions">討論區</a>留言提交作業成果。</p>
+</blockquote>
+<div id="計算效果量" class="section level2">
+<h2>計算效果量</h2>
+<div id="d-family-difference-between-groups" class="section level3">
+<h3>d family ~ difference between groups</h3>
+<div id="groups-compared-on-dichotomous-outcomes" class="section level4">
+<h4>Groups compared on dichotomous outcomes</h4>
 <ul>
-<li>Ellis (2010) Chapter 1,2 講授</li>
-<li>可用的R packages及函式範例</li>
-<li>R packages收集標註黑客松</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li><a href="Lecture02.html">設計有高考驗力的研究</a></li>
-</ol>
-<ul>
-<li>Ellis (2010) Chapter 3 講授</li>
-<li><a href="https://psyarxiv.com/9d3yf/">Lakens (2021)</a></li>
-</ul>
-<ol start="3" style="list-style-type: decimal">
-<li><a href="Lecture03.html">評估已出版研究的考驗力</a></li>
-</ol>
-<ul>
-<li>Ellis (2010) Chapter 4 講授</li>
+<li><p>The risk difference in probabilities</p></li>
+<li><p>The relative risk</p></li>
+<li><p>The odds ratio</p></li>
 </ul>
 </div>
-<div id="研究生學習模組training-program-for-graudates" class="section level2">
-<h2>研究生學習模組(Training program for graudates)</h2>
-<ol style="list-style-type: decimal">
-<li><a href="Program_postgraudate.html">PsyteachR可重製統計增能課表</a></li>
-</ol>
+<div id="groups-compared-on-continuous-outcomes" class="section level4">
+<h4>Groups compared on continuous outcomes</h4>
 <ul>
-<li><a href="https://psyteachr.github.io/#Postgraduate_Books">PsyteachR Postgraudate books</a></li>
+<li>Cohen’s d</li>
 </ul>
-<ol start="2" style="list-style-type: decimal">
-<li><a href="Lecture01.html">如何評估及解讀效果量</a></li>
-</ol>
+<p>比較獨立樣本平均數的效果量Cohen’s d計算公式 <span class="math display">\[Cohen&#39;s \space d = \frac{M_1 - M_2}{SD_{pooled}} \]</span></p>
+<pre class="r"><code>## 獨立樣本比較範例
+cohens_d(mpg ~ am, data=mtcars)</code></pre>
+<pre><code>## Cohen&#39;s d |         95% CI
+## --------------------------
+## -1.48     | [-2.27, -0.67]
+## 
+## - Estimated using pooled SD.</code></pre>
+<pre class="r"><code>## 輸出效果量及95%信賴區間</code></pre>
 <ul>
-<li>Ellis (2010) Chapter 1,2 講授</li>
-<li>可用的R packages及函式範例</li>
-</ul>
-<ol start="3" style="list-style-type: decimal">
-<li><a href="Lecture02.html">設計有高考驗力的研究</a></li>
-</ol>
-<ul>
-<li>Ellis (2010) Chapter 3 講授</li>
-<li><a href="https://psyarxiv.com/9d3yf/">Lakens (2021)</a></li>
+<li><p>Glass’s delta( <span class="math inline">\(\triangle\)</span> )</p></li>
+<li><p>Hedges’ g</p></li>
+<li><p>Probability of superiority</p></li>
 </ul>
 </div>
-<div id="高年級大學生學習模組training-program-for-undergraudates" class="section level2">
-<h2>高年級大學生學習模組(Training program for undergraudates)</h2>
-<ol style="list-style-type: decimal">
-<li><a href="Program_undergraudate.html">PsyteachR可重製統計增能課表</a></li>
-</ol>
+</div>
+<div id="r-family-measures-of-association" class="section level3">
+<h3>r family ~ measures of association</h3>
+<div id="correlation-indexes" class="section level4">
+<h4>Correlation indexes</h4>
+<p>(Two variables are continuous)</p>
 <ul>
-<li><a href="https://psyteachr.github.io/#Undergraduate_Series">PsyteachR Undergraduate Series</a></li>
+<li>The Pearson product moment correlation coefﬁcient (<span class="math inline">\(r\)</span>)</li>
 </ul>
-<ol start="2" style="list-style-type: decimal">
-<li><a href="Lecture01.html">如何評估及解讀效果量</a></li>
-</ol>
+<p>(Two variables are ordinal)</p>
 <ul>
-<li>Ellis (2010) Chapter 1 講授</li>
+<li><p>Spearman’s rho or the rank correlation coefﬁcient (<span class="math inline">\(\rho\)</span>)</p></li>
+<li><p>Kendall’s tau (<span class="math inline">\(\tau\)</span>)</p></li>
+</ul>
+<p>(One continous and one ordinal)</p>
+<ul>
+<li>The point-biserial correlation coefﬁcient (<span class="math inline">\(r_{pb}\)</span>)</li>
+</ul>
+<p>(Contigency table)</p>
+<ul>
+<li><p>The phi coefﬁcient (<span class="math inline">\(\phi\)</span>)</p></li>
+<li><p>Pearson’s contingency coefﬁcient (C)</p></li>
+<li><p>Cram´er’s V (V)</p></li>
+<li><p>Goodman and Kruskal’s lambda (<span class="math inline">\(\lambda\)</span>)</p></li>
 </ul>
 </div>
-<div id="大學新鮮人學習模組training-program-for-freshman" class="section level2">
-<h2><a href="Program_freshman.html">大學新鮮人學習模組</a>(Training program for freshman)</h2>
-<ol style="list-style-type: decimal">
-<li><p>報告寫作工具指引</p></li>
-<li><p>機率論</p></li>
-<li><p>累積思考成品的寫作方法</p></li>
-</ol>
-<div id="參考資源" class="section level3">
-<h3>參考資源</h3>
-<p>Ellis, P. D. (2010). The essential guide to effect sizes: Statistical power, meta-analysis, and the interpretation of research results. <em>Cambridge University Press</em>.</p>
-<p>Lakens, D. (2021, January 4). Sample Size Justification. <a href="https://doi.org/10.31234/osf.io/9d3yf" class="uri">https://doi.org/10.31234/osf.io/9d3yf</a></p>
-<p>The psyTeachR team. (2022). PsyTeachR. <a href="https://psyteachr.github.io/" class="uri">https://psyteachr.github.io/</a></p>
+<div id="proportion-of-variance-indexes" class="section level4">
+<h4>Proportion of variance indexes</h4>
+<ul>
+<li><p>The coefﬁcient of determination (<span class="math inline">\(r^2\)</span>)</p></li>
+<li><p>the (uncorrected) coefﬁcient of multiple determination (<span class="math inline">\(R^2\)</span>$)</p></li>
+<li><p>the coefﬁcient of multiple determination adjusted for sample size and the number of predictor variables (<span class="math inline">\(_{adj}R^2\)</span>$)</p></li>
+<li><p>Cohen’s f (<span class="math inline">\(f\)</span>)</p></li>
+<li><p>Cohen’s f squared</p></li>
+<li><p>Epsilon squared (<span class="math inline">\(eps^2\)</span>)</p></li>
+<li><p>the (uncorrected) correlation ratio (<span class="math inline">\(\eta^2\)</span>)</p></li>
+<li><p>Omega squared (<span class="math inline">\(\omega^2\)</span>)</p></li>
+<li><p>The squared canonical correlation coefﬁcient (<span class="math inline">\(R^2_C\)</span>)</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="解讀效果量" class="section level2">
+<h2>解讀效果量</h2>
+<blockquote>
+<p><code>effectsize</code>套件收錄統計學者的建議，提供使用者查詢預估效果量的<strong>份量</strong>。</p>
+</blockquote>
+<div id="參考資源" class="section level4">
+<h4>參考資源</h4>
+<p>Ben-Shachar, M. S., Lüdecke, D., &amp; Makowski, D. (2020). effectsize: Estimation of effect size indices and standardized parameters. Journal of Open Source Software, 5(56), 2815. <a href="https://doi.org/10.21105/joss.02815" class="uri">https://doi.org/10.21105/joss.02815</a></p>
 </div>
 </div>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -459,35 +386,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

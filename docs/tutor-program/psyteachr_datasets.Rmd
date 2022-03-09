@@ -1,0 +1,133 @@
+---
+title: "Psyteachr data sets overview"
+author: "CSC"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+
+## 預先安裝/載入tidyverse
+if(!require(tidyverse)){install.packages("tidyverse");library(tidyverse)}else{library(tidyverse)}
+```
+
+簡介出現在[PsyTeachr](https://psyteachr.github.io/)電子書的示範用資料集，以及演練的場景。
+
+## babynames
+
+- 出現單元：[Data Skills ~ Data wrangling 1](https://psyteachr.github.io/data-skills-v1/data-wrangling-1.html); [Fundamentals of Quantitative Analysis ~ Data wrangling 1](https://psyteachr.github.io/quant-fun-v2/data-wrangling-1.html)
+
+- 演練場景：部分資料視覺化；六種最常用`dplyr`函式：`select()`,`filter()`,`mutate()`,`arrange()`,`group_by()`,`summarise()`；初識管道運算子(%>%)。
+
+```{r import-babynames}
+
+## 參考 https://psyteachr.github.io/quant-fun-v2/data-wrangling-1.html#dw1-a1
+library(babynames) ## 匯入已建資料集babynames
+## ?babynames  ##查詢babynames資訊
+
+
+```
+
+
+`r knitr::kable(summary(babynames))`
+
+## Web-based positive psycholgical interventions
+
+- 開啟[資料編碼薄文字檔](codebook.txt)
+
+- 出現單元：Data Skills ~ [Getting to know the data](https://psyteachr.github.io/data-skills-v1/getting-to-know-the-data.html),[Loading data](https://psyteachr.github.io/data-skills-v1/loading-data.html),[Data wrangling 2](https://psyteachr.github.io/data-skills-v1/data-wrangling-2.html),[Intro to Data Viz](https://psyteachr.github.io/data-skills-v1/intro-to-data-viz.html),[Scatterplots](https://psyteachr.github.io/data-skills-v1/scatterplots.html); Fundamentals of Quantitative Analysis ~[Starting with data](https://psyteachr.github.io/quant-fun-v2/starting-with-data.html), [Intro to Data Visualisation](https://psyteachr.github.io/quant-fun-v2/intro-to-data-visualisation.html)
+
+- 演練場景：ggplot函式繪製barplot, violine-boxplot, scatter plot；六種最常用`dplyr`函式：`select()`,`filter()`,`mutate()`,`arrange()`,`group_by()`,`summarise()`；資料合併`inner_join()`
+
+
+```{r import-positive}
+
+## 下載/匯入Woodworth et al. (2018)資料集
+## 參考https://psyteachr.github.io/quant-fun-v2/starting-with-data.html#ld-a1
+woodworth2018_dat <- read_csv("https://psyteachr.github.io/quant-fun-v2/ahi-cesd.csv")
+
+glimpse(woodworth2018_dat)
+
+woodworth2018_pinfo <- read_csv("https://psyteachr.github.io/quant-fun-v2/participant-info.csv")
+
+```
+
+
+`r knitr::kable(summary(woodworth2018_pinfo))`
+
+## 自閉症光譜量表(AQ-10)
+
+- [中文版量表資訊](http://ericdata.com/tw/detail.aspx?no=80089)
+
+- 出現單元：Data Skills ~ [AQ data and recap](https://psyteachr.github.io/data-skills-v1/aq-data-and-recap.html), [Reshaping data](https://psyteachr.github.io/data-skills-v1/reshaping-data.html), [Pipes](https://psyteachr.github.io/data-skills-v1/pipes.html), [Mega pipe](https://psyteachr.github.io/data-skills-v1/mega-pipe.html); Analysis ~ [Data-Wrangling: A Key Skill](https://psyteachr.github.io/analysis-v2/data-wrangling-a-key-skill.html); Fundamentals of Quantitative Analysis ~ [Data Wrangling 3](https://psyteachr.github.io/quant-fun-v2/data-wrangling-3.html)
+
+- 演練場景：資料表單轉換、合併；管道運算子(%>%)；描述統計表格設計
+
+
+```{r import-AQ}
+
+## 下載/匯入AQ資料集
+## 參考https://psyteachr.github.io/quant-fun-v2/data-wrangling-3.html#analysing-the-autism-spectrum-quotient-aq
+AQ_responses <- read_csv("https://psyteachr.github.io/quant-fun-v2/responses.csv")
+
+AQ_qformats <- read_csv("https://psyteachr.github.io/quant-fun-v2/qformats.csv")
+
+AQ_scoring <- read_csv("https://psyteachr.github.io/quant-fun-v2/scoring.csv")
+
+AQ_pinfo <- read_csv("https://psyteachr.github.io/quant-fun-v2/pinfo.csv")
+```
+
+
+`r knitr::kable(head(AQ_responses,6))`
+
+
+`r knitr::kable(AQ_qformats)`
+
+
+`r knitr::kable(AQ_scoring)`
+
+- 受測者資訊只有研究生版收錄
+
+`r knitr::kable(head(AQ_pinfo))`
+
+
+## Pong task
+
+![Source: Times Illustrated by Julie and Julien Libersat](https://timesillustrated.com/wp-content/uploads/2012/11/pong.gif)
+
+- 出現單元：Analysis ~ [Data-Wrangling: A Key Skill](https://psyteachr.github.io/analysis-v2/data-wrangling-a-key-skill.html); Fundamentals of Quantitative Analysis ~ [Data Wrangling 2](https://psyteachr.github.io/quant-fun-v2/data-wrangling-2.html)
+
+- 演練場景：六種最常用`dplyr`函式：`select()`,`filter()`,`mutate()`,`arrange()`,`group_by()`,`summarise()`；管道運算子(%>%)；描述統計表格設計
+
+
+```{r import-pong}
+## 下載/匯入Witt et al.(2018)資料集
+## 參考 https://psyteachr.github.io/quant-fun-v2/data-wrangling-2.html#dw2-a1
+pong_data <- read_csv("https://psyteachr.github.io/quant-fun-v2/data/chpt5/PongBlueRedBack%201-16%20Codebook.csv")
+
+```
+
+
+
+`r knitr::kable(summary(pong_data))`
+
+- 變項說明
+
+|Variable|Type|Description|
+|:---:|---|---|
+|Participant|integer|participant number|
+|JudgedSpeed|integer|speed judgement (1 = fast, 0 = slow)|
+|PaddleLength|integer|paddle length (pixels)|
+|BallSpeed|integer|ball speed (2 pixels/4ms)|
+|TrialNumber|integer|trial number|
+|BackgroundColor|character|background display colour|
+|HitOrMiss|integer|hit ball = 1, missed ball = 0|
+|BlockNumber|integer|block number (out of 12 blocks)|

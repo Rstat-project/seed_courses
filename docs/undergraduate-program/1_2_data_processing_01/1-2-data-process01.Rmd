@@ -24,7 +24,7 @@ if(!require(babynames)){install.packages("babynames");library(babynames)}else{li
 
 本節示範檔案包含[Level 1: Data Skills](https://psyteachr.github.io/data-skills/)(以下簡稱level 1)的單元4~8。其他資料視覺化學習素材，推薦參考[Data visualisation using R, for researchers who don’t use R](https://psyteachr.github.io/introdataviz/)。
 
-學習重點有常用的六種資料整頓`dplyr`(整合於`tidyverse`)函式：`select()`,`filter()`,`mutate()`,`arrange()`,`group_by()`,`summarise()`，以及柱狀圖/箱形圖為範例的ggplot2視覺化語法。
+學習重點有常用的六種`dplyr`(整合於`tidyverse`)資料整頓函式：`select()`,`filter()`,`mutate()`,`arrange()`,`group_by()`,`summarise()`，以及柱狀圖/箱形圖為範例的ggplot2視覺化語法。
 
 
 ## 演練資料集來源
@@ -253,3 +253,25 @@ ggplot(data = dat,aes(x = year,y = prop, colour=name))+
 
 > 有多少參與者的收入被判定為極端值？
 
+- 參考Level 1單元8，完成能回答以下問題的散佈圖
+
+```{r positive-data-scatterplot01}
+## 編輯程式碼，重製Figure 8.1
+```
+
+> 如何描述幸福感評分與憂鬱感評分的關係？
+
+
+```{r positive-data-scatterplot02}
+## 編輯程式碼，重製Figure 8.3
+```
+
+> 根據上圖，能否判斷兩種量表評分有性別差異？
+
+
+```{r positive-data-scatterplot02}
+## 編輯程式碼，以幸福感評分74分區別兩組受測者，重製Figure 8.4
+```
+
+
+> 根據上圖，你會如何解釋兩組參與者的差異？

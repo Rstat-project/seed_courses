@@ -1,0 +1,84 @@
+---
+title: "1.1 Start to Learn Programming and R"
+author: "陳穎暐"   ## 更換為學生姓名
+date: "2022/03/01"            ## 輸入完成作業日期
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+## 初識R Markdown及R物件(Object)
+
+透過簡單的自我介紹，認識R chunk與R物件。
+
+```{r aboutme}
+name <- "陳穎暐"  ##輸入個人姓名
+age <-  24    ##輸入目前年齡
+today <- Sys.Date(2022/02/22)  ## 不必更動
+next_birthday <- as.Date("2022/11/02")  ##輸入下一次生日日期
+```
+
+按下'Knit'，檢視網頁裡下一行顯示成果。
+
+我是`r name`，今年`r age`歲。今天離我的下一次生日還有 `r next_birthday - today`天。
+
+> (用R studio軟件來不同的方式學習統計)
+
+
+
+在下一個chunk `mybest` 建立物件，表達你想介紹的家人或好友資訊，在chunk之後以inline code輸出有這些資訊的句子。
+
+---
+{r mybest：黃楊雯}
+年齡：18
+喜愛動漫：鬼滅之刃
+---
+
+
+## 安裝及套件
+
+```
+
+檢查個人的Rstudio有安裝`tidyverse`套件。在下方兩個標記符號之間，寫出安裝及匯入`tidyverse`的程式碼。
+
+
+``` ## 下一行寫出程式碼，勿更動這一行
+..install.package("tidyverse")
+
+``` ## 上一行寫完程式碼，勿更動這一行
+"library('tidyverse')"
+
+> (可看到不同套入的程序的方式，如可做表格等等)
+
+
+## R物件
+
+在下一個chunk `iris`寫出查詢Iris Data的說明文件，顯示物件型態，以及預覽資料內容的三行程式碼。
+
+```{r iris}
+data(iris)
+class(iris)
+str(iris)
+
+ ```
+ 
+
+設定你製發一份調查聚餐意願的問卷，項目有聚餐日期(自行設定有那幾天)，聚餐時間(午餐、晚餐)，聚餐地點(自行設定有那些地點)以及餐點選項(自行設定有什麼選擇)。在下一個chunk `survey` 建立一個資料框架(data.frame)包含至少三位回覆者的回應。
+
+```{r survey}
+ 
+date<-c("2022/04/03","2022/04/04","2022/04/05")
+time<-c("5:30","6:30","7:30")
+locate<-c("Nandos","KFC","Sushi King")
+type<-c("western","fast food","japanese")
+data.frame(date,time,locate,type) 
+print("data")
+```
+
+
