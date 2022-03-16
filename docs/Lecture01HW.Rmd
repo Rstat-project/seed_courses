@@ -17,10 +17,10 @@ if(!require(effectsize)){install.packages("effectisize");library(effectsize)}els
 
 
 
-經過[第一堂課程](Lecture01.html)，為了各位學員之後在各種場域教授與討論效果量的計算與解讀，有一套可示範的R程式碼及說明範例是相當有用的。我們將彙整Ben-Shachar等人(2020)開發的[R套件`effect size`](https://easystats.github.io/effectsize/index.html)，與Ellis(2010)Chapter 1,2的內容，以接力協作的方式編輯這份作業。每位學員貢獻一點成果，換取更多人在研究教學上的便利。
+經過[第一堂課程](Lecture01.html)，為了各位學員之後在各種場域教授與討論效果量的計算與解讀，有可示範的R程式碼及說明範例是相當有用的。我們將彙整Ben-Shachar等人(2020)開發的[R套件`effect size`](https://easystats.github.io/effectsize/index.html)，與Ellis(2010)Chapter 1,2的內容，以接力協作的方式編輯這份作業。每位學員貢獻一點成果，換取更多人在研究教學上的便利。
 
 
-> 編輯建議：1. 使用純文字與[Latex編碼](http://tug.ctan.org/info/latex-refsheet/LaTeX_RefSheet.pdf)編輯效果量公式及範例說明; 2. 在R chunk內放置可執行的R程式碼; 3. 隨時按'Knit'渲染可得編輯成果; 4. 編輯完成請在[討論區](https://github.com/Rstat-project/seed_courses/discussions)留言提交作業成果。
+> 編輯流程：<br>1. 使用純文字與[Latex編碼](http://tug.ctan.org/info/latex-refsheet/LaTeX_RefSheet.pdf)編輯效果量公式及範例說明;<br> 2. 在R chunk內放置可執行的R程式碼;<br> 3. 隨時按'Knit'渲染可得編輯成果;<br> 4. 編輯完成在[討論區](https://github.com/Rstat-project/seed_courses/discussions)留言提交Rmd編輯成果。
 
 
 ## 計算效果量
@@ -118,7 +118,7 @@ cohens_d(mpg ~ am, data=mtcars)
 
 ## 解讀效果量
 
-> `effectsize`套件收錄統計學者的建議，提供使用者查詢預估效果量的**份量**。
+> `effectsize`套件收錄統計學者的建議，提供使用者查詢預估效果量的**份量**。在此彙整解讀效果量用的函式與使用方法。
 
 
 

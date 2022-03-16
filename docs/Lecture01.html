@@ -1,687 +1,1039 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="陳紹慶" />
+  <title>評估與解讀效果量</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="site_libs/reveal.js-3.3.0.1/css/reveal.css"/>
 
-<meta charset="utf-8" />
-<meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
-
-
-<meta name="author" content="陳紹慶" />
-
-
-<title>講義1: 評估與解讀效果量</title>
-
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
-<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
-
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
   }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</script>
-
-
-
-
-
-
-
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-img {
-  max-width:100%;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-summary {
-  display: list-item;
-}
-pre code {
-  padding: 0;
-}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<link rel="stylesheet" href="site_libs/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
 
-<style type="text/css">
-.dropdown-submenu {
-  position: relative;
-}
-.dropdown-submenu>.dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  border-radius: 0 6px 6px 6px;
-}
-.dropdown-submenu:hover>.dropdown-menu {
-  display: block;
-}
-.dropdown-submenu>a:after {
-  display: block;
-  content: " ";
-  float: right;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: #cccccc;
-  margin-top: 5px;
-  margin-right: -10px;
-}
-.dropdown-submenu:hover>a:after {
-  border-left-color: #adb5bd;
-}
-.dropdown-submenu.pull-left {
-  float: none;
-}
-.dropdown-submenu.pull-left>.dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  border-radius: 6px 0 6px 6px;
-}
-</style>
 
-<script type="text/javascript">
-// manage active state of menu based on current page
-$(document).ready(function () {
-  // active menu anchor
-  href = window.location.pathname
-  href = href.substr(href.lastIndexOf('/') + 1)
-  if (href === "")
-    href = "index.html";
-  var menuAnchor = $('a[href="' + href + '"]');
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
-
-  // Navbar adjustments
-  var navHeight = $(".navbar").first().height() + 15;
-  var style = document.createElement('style');
-  var pt = "padding-top: " + navHeight + "px; ";
-  var mt = "margin-top: -" + navHeight + "px; ";
-  var css = "";
-  // offset scroll position for anchor links (for fixed navbar)
-  for (var i = 1; i <= 6; i++) {
-    css += ".section h" + i + "{ " + pt + mt + "}\n";
-  }
-  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
-  document.head.appendChild(style);
-});
-</script>
-
-<!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-  background-color: transparent;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
-<!-- code folding -->
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
 
 
 
-<style type="text/css">
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
 
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
 
 @media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
 }
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
 }
 
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
 }
 
-div.main-container {
-  max-width: 1200px;
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
 }
 
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
 }
 
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
 }
 
-.tocify ul, .tocify li {
-  line-height: 20px;
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
 }
 
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
 }
 
-.tocify .list-group-item {
-  border-radius: 0px;
+.reveal img {
+	box-shadow: none;
 }
 
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
 
-</style>
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
 
 
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
 
+    <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 </head>
-
 <body>
+  <div class="reveal">
+    <div class="slides">
 
+<section>
+    <h1 class="title">評估與解讀效果量</h1>
+    <h2 class="author">陳紹慶</h2>
+</section>
 
-<div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
-
-
-
-
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html"></a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="index.html">首頁</a>
-</li>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div><!--/.container -->
-</div><!--/.navbar -->
-
-<div id="header">
-
-
-
-<h1 class="title toc-ignore">講義1: 評估與解讀效果量</h1>
-<h4 class="author">陳紹慶</h4>
-
-</div>
-
-
-<blockquote>
-<p>這份講義以Ellis (2010) Chapter 1,2為組織主幹，搭配相關資源隨教學歷史更新。講義內容將透過種子教師工作坊的指派作業持續更新完善。</p>
-</blockquote>
-<div id="認識效果量" class="section level1">
+<section id="認識效果量" class="title-slide slide level1">
 <h1>認識效果量</h1>
-<div id="兩大效果量指標家族" class="section level2">
-<h2>兩大效果量指標家族</h2>
-<ul>
-<li>已被發明的效果量指標達到70多種(Kirk, 2003)</li>
-<li><strong>效果</strong>在學術情境與日常生活有用辭差異</li>
-<li>效果量指標的選擇取決於研究者的知識論</li>
-</ul>
 <blockquote>
-<p>種子教師工作坊請下載<a href="Lecture01HW.Rmd">作業Rmd</a></p>
+<p>講義的<a href="Lecture01.Rmd">源始Rmd</a>;種子教師工作坊請下載<a href="Lecture01HW.Rmd">作業Rmd</a></p>
 </blockquote>
-<div id="d-family-difference-between-groups" class="section level3">
-<h3>d family ~ difference between groups</h3>
-<div id="groups-compared-on-dichotomous-outcomes" class="section level4">
-<h4>Groups compared on dichotomous outcomes</h4>
+<!--- 
+這份講義以Ellis (2010) Chapter 1,2為組織主幹，搭配相關資源隨教學歷史更新。講義內容將透過種子教師工作坊的指派作業持續更新完善。
+--->
 <ul>
-<li>透過至少一種間斷變項設定比較條件，測得的比較數值差異。</li>
-<li>差異：各資料點與期數數值的距離</li>
+<li class="fragment">已被發明的效果量指標達到70多種(Kirk, 2003)</li>
+<li class="fragment"><strong>效果</strong>在學術情境與日常生活有用辭差異</li>
+<li class="fragment">效果量指標的選擇取決於研究者的知識論</li>
 </ul>
+</section>
+
+<section>
+<section id="兩大效果量指標家族" class="title-slide slide level1">
+<h1>兩大效果量指標家族</h1>
+
+</section>
+<section id="d-family-difference-between-groups" class="slide level2">
+<h2>d family ~ difference between groups</h2>
+<ul>
+<li class="fragment">透過至少一種間斷變項設定比較條件，測得的比較數值差異。</li>
+<li class="fragment">差異：各資料點與<strong>期望數值</strong>的距離</li>
+</ul>
+<div class="fragment">
 <blockquote>
-<p>例如~蘇格拉底教授平均一堂課當掉80%的學生; 柏拉圖教授平均一堂課當掉50%的學生</p>
+<p>舉例~<br>蘇格拉底教授平均一堂課當掉80%的學生; 柏拉圖教授平均一堂課當掉50%的學生。不同立場的期望數值決定兩位教授的評價。</p>
 </blockquote>
-<ul>
-<li><p>The risk difference in probabilities</p></li>
-<li><p>The relative risk</p></li>
-<li><p>The odds ratio</p></li>
-</ul>
 </div>
-<div id="groups-compared-on-continuous-outcomes" class="section level4">
-<h4>Groups compared on continuous outcomes</h4>
+<!---
+
+- Groups compared on dichotomous outcomes
+
+
+
+- The risk difference in probabilities
+
+- The relative risk
+
+- The odds ratio
+
+- Groups compared on continuous outcomes
+
+- Cohen’s d
+
+- Glass’s delta( $\triangle$ )
+
+- Hedges’ g 
+
+- Probability of superiority
+
+--->
+</section>
+<section id="r-family-measures-of-association" class="slide level2">
+<h2>r family ~ measures of association</h2>
 <ul>
-<li><p>Cohen’s d</p></li>
-<li><p>Glass’s delta( <span class="math inline">\(\triangle\)</span> )</p></li>
-<li><p>Hedges’ g</p></li>
-<li><p>Probability of superiority</p></li>
+<li class="fragment">變項之間關聯性的測量</li>
+<li class="fragment">關聯性：各資料點距離各變項<strong>集中量數</strong>的差異乘積</li>
 </ul>
-</div>
-</div>
-<div id="r-family-measures-of-association" class="section level3">
-<h3>r family ~ measures of association</h3>
-<ul>
-<li>變項之間關聯性的測量</li>
-<li>關聯性：各資料點距離各變項<strong>集中量數</strong>的差異乘積</li>
-</ul>
+<div class="fragment">
 <blockquote>
 <p>維基百科依變項尺度再分類為兩個家族</p>
 </blockquote>
-<div id="correlation-indexes" class="section level4">
-<h4>Correlation indexes</h4>
-<p>(Two variables are continuous)</p>
-<ul>
-<li>The Pearson product moment correlation coefﬁcient (<span class="math inline">\(r\)</span>)</li>
-</ul>
-<p>(Two variables are ordinal)</p>
-<ul>
-<li><p>Spearman’s rho or the rank correlation coefﬁcient (<span class="math inline">\(\rho\)</span>)</p></li>
-<li><p>Kendall’s tau (<span class="math inline">\(\tau\)</span>)</p></li>
-</ul>
-<p>(One continous and one ordinal)</p>
-<ul>
-<li>The point-biserial correlation coefﬁcient (<span class="math inline">\(r_{pb}\)</span>)</li>
-</ul>
-<p>(Contigency table)</p>
-<ul>
-<li><p>The phi coefﬁcient (<span class="math inline">\(\phi\)</span>)</p></li>
-<li><p>Pearson’s contingency coefﬁcient (C)</p></li>
-<li><p>Cram´er’s V (V)</p></li>
-<li><p>Goodman and Kruskal’s lambda (<span class="math inline">\(\lambda\)</span>)</p></li>
-</ul>
 </div>
-<div id="proportion-of-variance-indexes" class="section level4">
-<h4>Proportion of variance indexes</h4>
+<!---
+
+#### Correlation indexes
+
+(Two variables are continuous)
+
+- The Pearson product moment correlation coefﬁcient ($r$) 
+
+
+(Two variables are ordinal)
+
+- Spearman’s rho or the rank correlation coefﬁcient ($\rho$)
+
+- Kendall’s tau ($\tau$)
+
+(One continous and one ordinal)
+
+- The point-biserial correlation coefﬁcient ($r_{pb}$)
+
+(Contigency table)
+
+- The phi coefﬁcient ($\phi$)
+
+- Pearson’s contingency coefﬁcient (C)
+
+- Cram´er’s V (V)
+
+- Goodman and Kruskal’s lambda ($\lambda$)
+
+
+#### Proportion of variance indexes
+
+- The coefﬁcient of determination ($r^2$)
+
+
+- the (uncorrected) coefﬁcient of multiple determination ($R^2$$)
+
+
+- the coefﬁcient of multiple determination adjusted for sample size and the number of predictor variables ($_{adj}R^2$$)
+
+
+- Cohen’s f ($f$)
+
+
+- Cohen’s f squared
+
+
+- Epsilon squared ($eps^2$)
+
+
+- the (uncorrected) correlation ratio ($\eta^2$)
+
+
+- Omega squared ($\omega^2$)
+
+
+- The squared canonical correlation coefﬁcient ($R^2_C$)
+
+--->
+</section></section>
+<section>
+<section id="什麼是有顯著效果的研究" class="title-slide slide level1">
+<h1>什麼是有顯著效果的研究</h1>
 <ul>
-<li><p>The coefﬁcient of determination (<span class="math inline">\(r^2\)</span>)</p></li>
-<li><p>the (uncorrected) coefﬁcient of multiple determination (<span class="math inline">\(R^2\)</span>$)</p></li>
-<li><p>the coefﬁcient of multiple determination adjusted for sample size and the number of predictor variables (<span class="math inline">\(_{adj}R^2\)</span>$)</p></li>
-<li><p>Cohen’s f (<span class="math inline">\(f\)</span>)</p></li>
-<li><p>Cohen’s f squared</p></li>
-<li><p>Epsilon squared (<span class="math inline">\(eps^2\)</span>)</p></li>
-<li><p>the (uncorrected) correlation ratio (<span class="math inline">\(\eta^2\)</span>)</p></li>
-<li><p>Omega squared (<span class="math inline">\(\omega^2\)</span>)</p></li>
-<li><p>The squared canonical correlation coefﬁcient (<span class="math inline">\(R^2_C\)</span>)</p></li>
+<li class="fragment">實用顯著性(practical significance): 現實世界能讓人感到變化的事物作用</li>
+<li class="fragment">統計顯著性(statistical significance): 資料分析顯示極低機率不會發生的作用</li>
 </ul>
-</div>
-</div>
-<div id="什麼是有顯著效果的研究" class="section level3">
-<h3>什麼是有顯著效果的研究</h3>
-<ul>
-<li>實用顯著性(practical significance): 現實世界能讓人感到變化的事物作用</li>
-<li>統計顯著性(statistical significance): 資料分析顯示極低機率不會發生的作用</li>
-</ul>
+<div class="fragment">
 <blockquote>
 <p>Kirk (1996): 某種延緩阿滋海默症患者智力退化的療程測試，找來6名患者接受測試，另外6名接受對照療程。經過一段時間，接受測試療程的患者智力測驗平均分數比對照療程高13分，統計檢定t = 1.61, p = .14。這種結果無統計顯著性，但是沒有實用顯著性嗎？</p>
 </blockquote>
+</div>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
 <p>示範<a href="https://easystats.github.io/effectsize/"><code>effectsize</code></a>套件，轉換t統計值為Cohen’s d</p>
-<pre class="r"><code>## This example is from Kirk(1996): A researcher tested the medication that might raise the IQ of people suffering from Alzheimer&#39;s disease.
-
-effectsize::t_to_d(1.61, 11)</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Run the below code for requirement</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;effectsize&quot;)</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>effectsize<span class="sc">::</span><span class="fu">t_to_d</span>(<span class="fl">1.61</span>, <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## d    |        95% CI
 ## --------------------
-## 0.97 | [-0.30, 2.20]</code></pre>
-<blockquote>
-<p>實例：請下載這份<a href="https://raw.githubusercontent.com/SCgeeker/LAB_metaprojects/main/Projects/202102_PL/0_reproduced_practice/2_power_simulation.html">檔案</a>以及開啟這份<a href="https://online.ucpress.edu/collabra/article/7/1/18898/116069/Straight-From-the-Scientist-s-Mouth-Plain-Language">研究論文</a></p>
-</blockquote>
-</div>
-<div id="效果量是什麼為何研究報告要呈現" class="section level3">
-<h3>效果量是什麼？為何研究報告要呈現？</h3>
+## 1.02 | [-0.32, 2.31]</code></pre>
+<!---
+
+## 實例：Easiness effect of reading plain summary
+
+>   (editing)
+請下載這份[檔案](https://raw.githubusercontent.com/SCgeeker/LAB_metaprojects/main/Projects/202102_PL/0_reproduced_practice/2_power_simulation.html)以及開啟這份[研究論文](https://online.ucpress.edu/collabra/article/7/1/18898/116069/Straight-From-the-Scientist-s-Mouth-Plain-Language)
+
+--->
+</section></section>
+<section>
+<section id="效果量是什麼" class="title-slide slide level1">
+<h1>效果量是什麼？</h1>
 <ul>
-<li><p>現實世界的社會科學聽眾只會關心實用顯著性。</p></li>
-<li><p>效果量(effect size)是專業研究結果與通俗說明的中介載體。</p></li>
-<li><p>當代社會科學學術寫作指南均有建議如何報告效果量。</p></li>
-<li><p>理想的效果量測量以發生作用的母群為對象，現實考量只能取得隨機樣本進行測量，形成測量誤差與精確性等研究方法課題。</p></li>
-<li><p>講究實用顯著性，效果量大小是重點；講究統計顯著性，效果量測量精確性是關鍵。</p></li>
-<li><p>日常生活的成年人士依賴效果量大小資訊做出各種判斷</p></li>
+<li class="fragment">現實世界的社會科學聽眾只會關心實用顯著性。</li>
+<li class="fragment">效果量(effect size)是專業研究結果與通俗說明的中介載體。</li>
+<li class="fragment">當代社會科學學術寫作指南均有建議如何報告效果量。</li>
 </ul>
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+<ul>
+<li class="fragment"><p>理想的效果量測量以發生作用的母群為對象，現實考量只能取得隨機樣本進行測量，形成測量誤差與精確性等研究方法課題。</p></li>
+<li class="fragment"><p>講究實用顯著性，效果量大小是重點；講究統計顯著性，效果量測量精確性是關鍵。</p></li>
+<li class="fragment"><p>日常生活的成年人士依賴效果量大小資訊做出各種判斷</p></li>
+</ul>
+<div class="fragment">
 <blockquote>
 <p>你自已有興趣或想研究的主題，有什麼明確的效果量描述？</p>
 </blockquote>
+</div>
 <!---
 > 早鳥預訂讓你省下多少%
 > [跳繩10分鐘相當於做什麼運動](https://www.edh.tw/article/7328)
 --->
-</div>
-<div id="報告效果量的三大建議" class="section level3">
-<h3>報告效果量的三大建議</h3>
+</section>
+<section id="為何研究報告要呈現效果量" class="slide level2">
+<h2>為何研究報告要呈現效果量？</h2>
+<p><strong>Ellis (2010) Box 2.1 測試兩大科幻族群的忠誠度</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">N</th>
+<th style="text-align: center;">Mean</th>
+<th style="text-align: center;">SD</th>
+<th style="text-align: center;">t</th>
+<th style="text-align: center;">p</th>
+<th style="text-align: center;">Cohen’s d</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Study 1</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">星戰粉</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">1.52</td>
+<td style="text-align: center;">&gt;.05</td>
+<td style="text-align: center;">0.56</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">星艦迷</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Study 2</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">星戰粉</td>
+<td style="text-align: center;">30</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">2.15</td>
+<td style="text-align: center;">&lt;.05</td>
+<td style="text-align: center;">0.56</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">星艦迷</td>
+<td style="text-align: center;">30</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li class="fragment">只呈現統計顯著性但不呈現效果量，會導致研究者誤解研究結果。</li>
+</ul>
+</section></section>
+<section id="報告效果量的三個建議" class="title-slide slide level1">
+<h1>報告效果量的三個建議</h1>
+<div class="fragment">
 <blockquote>
 <p>所有統計分析輸出的效果量只是真實效果量的估計值！</p>
 </blockquote>
-<ol style="list-style-type: decimal">
-<li><p>明確說明使用的效果量指標</p></li>
-<li><p>以<strong>信賴區間</strong>表示效果量測量結果的精確性</p></li>
+</div>
+<ol type="1">
+<li class="fragment"><p>明確說明使用的效果量指標</p></li>
+<li class="fragment"><p>以<strong>信賴區間</strong>表示效果量測量結果的精確性</p></li>
 </ol>
+<div class="fragment">
 <blockquote>
 <p>d = 0.25 95%CI [0.6 0.41]</p>
 </blockquote>
-<ol start="3" style="list-style-type: decimal">
-<li>儘可能不要使用術語報告效果大小</li>
+</div>
+<ol start="3" type="1">
+<li class="fragment">儘可能不要使用術語報告效果大小</li>
 </ol>
+</section>
+
+<section>
+<section id="解讀效果量有多麼不容易" class="title-slide slide level1">
+<h1>解讀效果量有多麼不容易</h1>
+<div class="fragment">
+<p><small>一種效果量的陳述，對<strong>不同族群</strong>有不同意義。</small></p>
 </div>
+<div class="fragment">
+<p><img data-src="images/People202112.jpg" alt="政大選研中心 2022上半年調查結果" /></p>
 </div>
-</div>
-<div id="解讀效果量" class="section level1">
-<h1>解讀效果量</h1>
-<div id="解讀效果量有多麼不容易" class="section level2">
-<h2>解讀效果量有多麼不容易</h2>
-<p>一種效果量的陳述，對不同族群有不同意義。效果量的解讀必定涉及價值判斷。處理第一手資料的研究者有義務報導能充分解讀效果量的所有統計資訊。</p>
+</section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+<ul>
+<li class="fragment">效果量的解讀必定涉及價值判斷。</li>
+<li class="fragment">處理第一手資料的研究者有義務報導能充分解讀效果量的所有統計資訊。</li>
+</ul>
+<!--- 
+臺灣民眾臺灣人/中國人認同趨勢分佈(1992年06月~2021年12月)
+https://esc.nccu.edu.tw/PageDoc/Detail?fid=7804&id=6960
+--->
+</section>
+<section id="section-3" class="slide level2">
+<h2></h2>
+<ul>
+<li class="fragment"><strong>心理學的效果量解讀需要更多功夫的主要原因</strong>，是因為大多研究結果是根據潛在變項編製的量表，綜合測得的分數推測可能不存在的假設性感知，與人類的感知世界無直接關聯性。</li>
+</ul>
+<div class="fragment">
 <blockquote>
-<p><a href="https://esc.nccu.edu.tw/PageDoc/Detail?fid=7804&amp;id=6960">政大選研中心(2022)</a>:2021年認同自己是台灣人也是中國人的台灣民眾，比1992年少了15%</p>
+<p>正向心理學的減憂鬱療程(Woodworth et al., 2018)：<strong>CESD憂鬱感量表</strong> <br> 共有20題，4選項單選題，其中4題是反向題</p>
 </blockquote>
-<ul>
-<li><p>Ellis (2010) Box 2.1:只呈現統計顯著性但不呈現效果量，會導致研究者誤解研究結果。</p></li>
-<li><p><strong>心理學的效果量解讀需要更多功夫的主要原因</strong>，是因為大多研究結果是根據潛在變項編製的量表，綜合測得的分數推測可能不存在的假設性感覺，與人類的感知世界無直接關聯性。</p></li>
-</ul>
-<blockquote>
-<p>正向心理學的減憂鬱療程(Woodworth et al., 2018)：<strong>CESD憂鬱感量表</strong></p>
-</blockquote>
-<div id="解讀線索1-研究問題的脈絡" class="section level3">
-<h3>解讀線索1 ~ 研究問題的脈絡</h3>
-<ul>
-<li><p>微小效果量在合理的脈絡有巨大意義：疫情二級警戒期間，學校有兩位人員確診，要立即停課。</p></li>
-<li><p>少數事件造成的效果可能引發更影響更大的事件：數千公里外的海底火山爆發，幾小時後可能會發生海嘯。</p></li>
-<li><p>微小效果積少成多可能帶來巨大改變：棒球隊勝率與球員打擊率的正相關。</p></li>
-<li><p>微小效果的發現帶來技術革新或觀念的更新：<a href="https://w.wiki/4prL">1854 Broad Street cholera outbreak</a></p></li>
-</ul>
 </div>
-<div id="解讀線索2-更新知識的貢獻" class="section level3">
-<h3>解讀線索2 ~ 更新知識的貢獻</h3>
+</section></section>
+<section>
+<section id="解讀效果量的線索" class="title-slide slide level1">
+<h1>解讀效果量的線索</h1>
 <ul>
-<li><p>再現研究與過去研究估計的效果量不一致：研究操作的不同？測量對象的特質不同？新研究是新發現？</p></li>
-<li><p>不同時空測得的效果量貢獻獨特的意義：整合分析(meta analysis)總和不同研究的效果量估計。</p></li>
-<li><p>更嚴謹的最新研究所估計的效果量，能更新理論的逼真度(Verisimilitude, Scheel et al., 2021)</p></li>
+<li class="fragment">研究問題的脈絡</li>
+<li class="fragment">更新知識的貢獻</li>
+<li class="fragment">Cohen指南</li>
 </ul>
-</div>
-<div id="解讀線索3-cohen指南" class="section level3">
-<h3>解讀線索3 ~ Cohen指南</h3>
-<p>效果量大小分級表(Table 2.1)</p>
+</section>
+<section id="研究問題的脈絡" class="slide level2">
+<h2>研究問題的脈絡</h2>
+<ul>
+<li class="fragment"><p>微小效果量在合理的脈絡有巨大意義：疫情二級警戒期間，學校有兩位人員確診，要立即停課。</p></li>
+<li class="fragment"><p>少數事件造成的效果可能引發更影響更大的事件：數千公里外的海底火山爆發，幾小時後可能會發生海嘯。</p></li>
+<li class="fragment"><p>微小效果積少成多可能帶來巨大改變：棒球隊勝率與球員打擊率的正相關。</p></li>
+<li class="fragment"><p>微小效果的發現在關鍵時機帶來技術革新或觀念更新：<a href="https://w.wiki/4prL">1854 Broad Street cholera outbreak</a></p></li>
+</ul>
+</section>
+<section id="更新知識的貢獻" class="slide level2">
+<h2>更新知識的貢獻</h2>
+<ul>
+<li class="fragment"><p>再現研究與過去研究估計的效果量不一致：研究操作的不同？測量對象的特質不同？新研究是新發現？</p></li>
+<li class="fragment"><p>不同時空測得的效果量貢獻獨特的意義：整合分析(meta analysis)總和不同研究的效果量估計。</p></li>
+<li class="fragment"><p>更嚴謹的最新研究所估計的效果量，能更新理論的逼真度(Verisimilitude, Scheel et al., 2021)</p></li>
+</ul>
+</section>
+<section id="cohen指南" class="slide level2">
+<h2>Cohen指南</h2>
+<!---
+效果量大小分級表(Ellis, 2010 Table 2.1)
+--->
+<p><small>適用場景：(1)新開創的研究問題；(2)保守預測重製研究的結果</small></p>
 <table>
 <thead>
 <tr class="header">
 <th>Test</th>
 <th>Effect size index</th>
-<th align="center">small size</th>
-<th align="center">medium size</th>
-<th align="center">large size</th>
+<th style="text-align: center;">small size</th>
+<th style="text-align: center;">medium size</th>
+<th style="text-align: center;">large size</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Comparison of independent means</td>
 <td><span class="math inline">\(d, \triangle, Hedges&#39;g\)</span></td>
-<td align="center">.20</td>
-<td align="center">.50</td>
-<td align="center">.80</td>
+<td style="text-align: center;">.20</td>
+<td style="text-align: center;">.50</td>
+<td style="text-align: center;">.80</td>
 </tr>
 <tr class="even">
 <td>Comparison of two correlations</td>
 <td>q</td>
-<td align="center">.10</td>
-<td align="center">.30</td>
-<td align="center">.50</td>
+<td style="text-align: center;">.10</td>
+<td style="text-align: center;">.30</td>
+<td style="text-align: center;">.50</td>
 </tr>
 <tr class="odd">
 <td>Difference between proportions</td>
 <td>Cohen’s g</td>
-<td align="center">.05</td>
-<td align="center">.15</td>
-<td align="center">.25</td>
+<td style="text-align: center;">.05</td>
+<td style="text-align: center;">.15</td>
+<td style="text-align: center;">.25</td>
 </tr>
 <tr class="even">
 <td>Correlation</td>
 <td>r</td>
-<td align="center">.10</td>
-<td align="center">.30</td>
-<td align="center">.50</td>
+<td style="text-align: center;">.10</td>
+<td style="text-align: center;">.30</td>
+<td style="text-align: center;">.50</td>
 </tr>
 <tr class="odd">
 <td></td>
 <td><span class="math inline">\(r^2\)</span></td>
-<td align="center">.01</td>
-<td align="center">.09</td>
-<td align="center">.25</td>
+<td style="text-align: center;">.01</td>
+<td style="text-align: center;">.09</td>
+<td style="text-align: center;">.25</td>
 </tr>
 <tr class="even">
 <td>Cosstabulation</td>
 <td><span class="math inline">\(w, \phi, V, C\)</span></td>
-<td align="center">.10</td>
-<td align="center">.30</td>
-<td align="center">.50</td>
+<td style="text-align: center;">.10</td>
+<td style="text-align: center;">.30</td>
+<td style="text-align: center;">.50</td>
 </tr>
 <tr class="odd">
 <td>ANOVA</td>
 <td><span class="math inline">\(f\)</span></td>
-<td align="center">.10</td>
-<td align="center">.25</td>
-<td align="center">.40</td>
+<td style="text-align: center;">.10</td>
+<td style="text-align: center;">.25</td>
+<td style="text-align: center;">.40</td>
 </tr>
 <tr class="even">
 <td></td>
 <td><span class="math inline">\(\eta^2\)</span></td>
-<td align="center">.01</td>
-<td align="center">.06</td>
-<td align="center">.14</td>
+<td style="text-align: center;">.01</td>
+<td style="text-align: center;">.06</td>
+<td style="text-align: center;">.14</td>
 </tr>
 <tr class="odd">
 <td>Multiple regression</td>
 <td><span class="math inline">\(R^2\)</span></td>
-<td align="center">.02</td>
-<td align="center">.13</td>
-<td align="center">.26</td>
+<td style="text-align: center;">.02</td>
+<td style="text-align: center;">.13</td>
+<td style="text-align: center;">.26</td>
 </tr>
 <tr class="even">
 <td></td>
 <td><span class="math inline">\(f^2\)</span></td>
-<td align="center">.02</td>
-<td align="center">.15</td>
-<td align="center">.35</td>
+<td style="text-align: center;">.02</td>
+<td style="text-align: center;">.15</td>
+<td style="text-align: center;">.35</td>
 </tr>
 </tbody>
 </table>
-<p>適用場景：(1)新開創的研究問題；(2)保守預測重製研究的結果</p>
-</div>
-</div>
-</div>
+</section></section>
+    </div>
+  </div>
+
+  <script src="site_libs/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="site_libs/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+        // Display a presentation progress bar
+        progress: true,
+        // Display the page number of the current slide
+        slideNumber: false,
+        // Push each slide change to the browser history
+        history: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
+        // Vertical centering of slides
+        center: false,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // Loop the presentation
+        loop: false,
+        // Change the presentation direction to be RTL
+        rtl: false,
+        // Turns fragments on and off globally
+        fragments: true,
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+        // Transition style
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
 
 
 
-</div>
-</div>
-
-</div>
+        // Optional reveal.js plugins
+        dependencies: [
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
 
 <script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
-}
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
-</script>
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
-  });
-});
-</script>
-
-<!-- code folding -->
-
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
-
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
   })();
 </script>
 
-</body>
+
+  </body>
 </html>
