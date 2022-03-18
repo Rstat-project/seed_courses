@@ -14,7 +14,7 @@
 
 <title>可重製研究操作教學套件</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -64,6 +64,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -84,6 +85,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -309,7 +313,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -342,12 +346,12 @@ div.tocify {
 <!---
 Each program shares [the initial lecture](Lecture00.html). This lecture will give the trainees the space to rethink why they learn the statistics; their latest motivation to learn/use statistics. The initial overview presents the scenarios and reasons of the reproducibility crisis. 
 --->
-<p>這份統計學習套件整合四種對象的學習模組：教師、研究生、高年級大學生（大學部大二以上)、大學部大一學生。所有套件共享<a href="Lecture00.html">啟動講義</a>與<a href="base_R_demo.zip">基礎 R 語法寫作示範*</a>，提供與各種目標學員入門課程、與教師溝通建立學習目標的話題、以及概覽可重製危機的現況及可能成因。</p>
-<p>* 請先下載zip檔，解壓縮後以Rstudio開啟<code>base_R_demo.Rmd</code>，依檔案開頭的說明，生成網頁檔瀏覽示範內容。</p>
+<p>這份統計學習套件整合四種對象的學習模組：教師、研究生、高年級大學生（大學部大二以上)、大學部大一學生。所有套件共享<a href="Lecture00.html">啟動講義</a>與<a href="files/base_R_demo.zip">基礎 R 語法寫作示範*</a>，提供與各種目標學員入門課程、與教師溝通建立學習目標的話題、以及概覽可重製危機的現況及可能成因。</p>
+<p>* 請先下載<a href="files/base_R_demo.zip">zip檔</a>，解壓縮後以Rstudio開啟<code>base_R_demo.Rmd</code>，依檔案開頭的說明，生成網頁檔瀏覽示範內容。</p>
 <div id="種子教師工作坊workshop-for-future-tutors" class="section level2">
 <h2>種子教師工作坊(Workshop for future tutors)</h2>
 <ol start="0" style="list-style-type: decimal">
-<li><p><a href="base_R_demo.zip">基礎 R 語法寫作示範*</a></p></li>
+<li><p><a href="files/base_R_demo.zip">基礎 R 語法寫作示範*</a></p></li>
 <li><p><a href="Lecture01.html">如何評估及解讀效果量</a></p></li>
 </ol>
 <ul>
@@ -371,6 +375,9 @@ Each program shares [the initial lecture](Lecture00.html). This lecture will giv
 </div>
 <div id="研究生學習模組training-program-for-graudates" class="section level2">
 <h2>研究生學習模組(Training program for graudates)</h2>
+<ul>
+<li><a href="files/graduate-program.zip">預備用R project</a></li>
+</ul>
 <ol style="list-style-type: decimal">
 <li><a href="Program_postgraudate.html">PsyteachR可重製統計增能課表</a></li>
 </ol>
@@ -394,6 +401,9 @@ Each program shares [the initial lecture](Lecture00.html). This lecture will giv
 </div>
 <div id="高年級大學生學習模組training-program-for-undergraudates" class="section level2">
 <h2>高年級大學生學習模組(Training program for undergraudates)</h2>
+<ul>
+<li><a href="files/undergraduate_progress.zip">預備用R project</a></li>
+</ul>
 <ol style="list-style-type: decimal">
 <li><a href="Program_undergraudate.html">PsyteachR可重製統計增能課表</a></li>
 </ol>

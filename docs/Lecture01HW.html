@@ -14,7 +14,7 @@
 
 <title>講義1課後作業：編輯effectsize 套件使用指南</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -61,6 +61,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -81,6 +82,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -233,7 +237,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -263,7 +267,7 @@ $(document).ready(function () {
 </div>
 
 
-<p>經過<a href="Lecture01.html">第一堂課程</a>，為了各位學員之後在各種場域教授與討論效果量的計算與解讀，有可示範的R程式碼及說明範例是相當有用的。我們將彙整Ben-Shachar等人(2020)開發的<a href="https://easystats.github.io/effectsize/index.html">R套件<code>effect size</code></a>，與Ellis(2010)Chapter 1,2的內容，以接力協作的方式編輯這份作業。每位學員貢獻一點成果，換取更多人在研究教學上的便利。</p>
+<p>經過<a href="Lecture01.html">第一堂課程</a>，為了各位學員之後在各種場域教授與討論效果量的計算與解讀，提供示範用的R程式碼及說明範例是相當有用的。我們將彙整Ben-Shachar等人(2020)開發的<a href="https://easystats.github.io/effectsize/index.html">R套件<code>effect size</code></a>，與Ellis(2010)Chapter 1,2的內容，以接力協作的方式編輯這份作業。每位學員貢獻一點成果，換取更多人在研究教學上的便利。</p>
 <blockquote>
 <p>編輯流程：<br>1. 使用純文字與<a href="http://tug.ctan.org/info/latex-refsheet/LaTeX_RefSheet.pdf">Latex編碼</a>編輯效果量公式及範例說明;<br> 2. 在R chunk內放置可執行的R程式碼;<br> 3. 隨時按’Knit’渲染可得編輯成果;<br> 4. 編輯完成在<a href="https://github.com/Rstat-project/seed_courses/discussions">討論區</a>留言提交Rmd編輯成果。</p>
 </blockquote>
