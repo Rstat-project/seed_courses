@@ -15,6 +15,10 @@ if(!require(effectsize)){install.packages("effectisize");library(effectsize)}els
 ```
 
 
+```{r}
+effectsize::t_to_d(1.61, 10)
+```
+
 
 
 經過[第一堂課程](Lecture01.html)，為了各位學員之後在各種場域教授與討論效果量的計算與解讀，提供示範用的R程式碼及說明範例是相當有用的。我們將彙整Ben-Shachar等人(2020)開發的[R套件`effect size`](https://easystats.github.io/effectsize/index.html)，與Ellis(2010)Chapter 1,2的內容，以接力協作的方式編輯這份作業。每位學員貢獻一點成果，換取更多人在研究教學上的便利。
@@ -70,6 +74,7 @@ cohens_d(mpg ~ am, data=mtcars)
 
 - The Pearson product moment correlation coefﬁcient ($r$) 
 
+**負責學員** [魏志名(嘉義大學)](https://github.com/Wei1108)
 
 (Two variables are ordinal)
 
@@ -96,6 +101,7 @@ cohens_d(mpg ~ am, data=mtcars)
 
 - The coefﬁcient of determination ($r^2$)
 
+**負責學員** [蕭富聲(佛光大學)](https://github.com/FGU-Xiao)
 
 - the (uncorrected) coefﬁcient of multiple determination ($R^2$$)
 
