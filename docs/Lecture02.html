@@ -1,491 +1,786 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="陳紹慶" />
+  <title>講義2: 設計有高考驗力的研究</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="site_libs/reveal.js-3.3.0.1/css/reveal.css"/>
 
-<meta charset="utf-8" />
-<meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
-
-
-<meta name="author" content="陳紹慶" />
-
-
-<title>講義2: 設計有高考驗力的研究</title>
-
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
-<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
-
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
   }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</script>
-
-
-
-
-
-
-
-
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-img {
-  max-width:100%;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-summary {
-  display: list-item;
-}
-details > summary > p:only-child {
-  display: inline;
-}
-pre code {
-  padding: 0;
-}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<link rel="stylesheet" href="site_libs/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
 
-<style type="text/css">
-.dropdown-submenu {
-  position: relative;
-}
-.dropdown-submenu>.dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  border-radius: 0 6px 6px 6px;
-}
-.dropdown-submenu:hover>.dropdown-menu {
-  display: block;
-}
-.dropdown-submenu>a:after {
-  display: block;
-  content: " ";
-  float: right;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: #cccccc;
-  margin-top: 5px;
-  margin-right: -10px;
-}
-.dropdown-submenu:hover>a:after {
-  border-left-color: #adb5bd;
-}
-.dropdown-submenu.pull-left {
-  float: none;
-}
-.dropdown-submenu.pull-left>.dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  border-radius: 6px 0 6px 6px;
-}
-</style>
 
-<script type="text/javascript">
-// manage active state of menu based on current page
-$(document).ready(function () {
-  // active menu anchor
-  href = window.location.pathname
-  href = href.substr(href.lastIndexOf('/') + 1)
-  if (href === "")
-    href = "index.html";
-  var menuAnchor = $('a[href="' + href + '"]');
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
-
-  // Navbar adjustments
-  var navHeight = $(".navbar").first().height() + 15;
-  var style = document.createElement('style');
-  var pt = "padding-top: " + navHeight + "px; ";
-  var mt = "margin-top: -" + navHeight + "px; ";
-  var css = "";
-  // offset scroll position for anchor links (for fixed navbar)
-  for (var i = 1; i <= 6; i++) {
-    css += ".section h" + i + "{ " + pt + mt + "}\n";
-  }
-  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
-  document.head.appendChild(style);
-});
-</script>
-
-<!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-  background-color: transparent;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
-<!-- code folding -->
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
 
 
 
-<style type="text/css">
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
 
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
 
 @media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
 }
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
 }
 
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
 }
 
-div.main-container {
-  max-width: 1200px;
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
 }
 
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
 }
 
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
 }
 
-.tocify ul, .tocify li {
-  line-height: 20px;
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
 }
 
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
 }
 
-.tocify .list-group-item {
-  border-radius: 0px;
+.reveal img {
+	box-shadow: none;
 }
 
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
 
-</style>
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
 
 
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
 
+    <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 </head>
-
 <body>
+  <div class="reveal">
+    <div class="slides">
 
+<section>
+    <h1 class="title">講義2: 設計有高考驗力的研究</h1>
+    <h2 class="author">陳紹慶</h2>
+</section>
 
-<div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
-
-
-
-
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html"></a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="index.html">首頁</a>
-</li>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div><!--/.container -->
-</div><!--/.navbar -->
-
-<div id="header">
-
-
-
-<h1 class="title toc-ignore">講義2: 設計有高考驗力的研究</h1>
-<h4 class="author">陳紹慶</h4>
-
-</div>
-
-
+<section>
+<section id="啟動問題" class="title-slide slide level1">
+<h1>啟動問題</h1>
 <blockquote>
-<p>這份講義以Ellis(2010)第三章為主幹，補充更新的教程及建議。</p>
+<p>講義的<a href="Lecture02.Rmd">源始Rmd</a>;所有課程學員請下載<a href="Lecture02HW.Rmd">作業Rmd</a>,種子教師工作坊請下載<a href="Lecture02after.md">增能指引</a>。</p>
 </blockquote>
-<ul>
-<li>啟動問題：我的研究需要收集多少人的資料才能得到<strong>有意義</strong>的結果？</li>
-</ul>
-<div id="研究風險觀" class="section level2">
-<h2>研究風險觀</h2>
-<ul>
-<li>Null vs. Alternative</li>
-</ul>
-<blockquote>
-<p>虛無假設 vs. 對立假設</p>
-</blockquote>
-<blockquote>
-<p>No effect vs. A detectable effect</p>
-</blockquote>
-<blockquote>
-<p>假設存在的效果在測量尺度為0 vs. 假設存在的效果在測量尺度非0</p>
-</blockquote>
-<ul>
-<li>Type I error</li>
-</ul>
-<blockquote>
-<p>實際的效果為0，根據分析結果宣稱非0 <br> <span class="math inline">\(\alpha = p(\frac{d \neq 0}{\theta = 0})\)</span></p>
-</blockquote>
-<ul>
-<li>Type II error</li>
-</ul>
-<blockquote>
-<p>實際的效果非0，根據分析結果宣稱為0 <br> <span class="math inline">\(\beta = p(\frac{d = 0}{\theta \neq 0})\)</span></p>
-</blockquote>
-<ul>
-<li>分析結果出錯的風險管理</li>
-</ul>
-<ol style="list-style-type: decimal">
-<li><span class="math inline">\(\alpha\)</span>/<span class="math inline">\(\beta\)</span> 那種犯錯損失較嚴重？</li>
-<li><span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span> 都是條件機率</li>
-</ol>
-<ul>
-<li>考驗力封頂或太低造成的風險問題</li>
-</ul>
-<ol style="list-style-type: decimal">
-<li>為了證實必定有效的結果或否證實際不存在的效果要耗費更多沈默成本</li>
-<li>為了獲得統計顯著結果，收集更多資料得到的益處太小(效果量偏低)。</li>
-</ol>
-<blockquote>
-<p>為何常聽到建議 <span class="math inline">\(\alpha &lt; .05\)</span>, <span class="math inline">\(1 - \beta\)</span>至少.80</p>
-</blockquote>
-<blockquote>
-<p>Cohen’s suggested balance ~ <span class="math inline">\(\frac{\alpha}{\beta} = \frac{1}{4}\)</span></p>
-</blockquote>
-<blockquote>
-<p>為何不是建議<span class="math inline">\(\frac{\alpha}{\beta} = \frac{1}{1}\)</span></p>
-</blockquote>
+<!---
+ 本講以Ellis(2010)第三章為主幹，補充更新的教程及建議。
+--->
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+<p>我的研究需要收集多少資料才能得到<strong>有意義</strong>的結果？<br/><br/></p>
+<p>我能運用的研究資源足夠收集可支持研究假設的資料嗎？</p>
+</section></section>
+<section>
+<section id="研究風險來源" class="title-slide slide level1">
+<h1>研究風險來源</h1>
 <table>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
 <thead>
 <tr class="header">
-<th align="center"></th>
-<th align="center">There is no effect<br>(null=true)</th>
-<th align="center">There is an effect<br>(null=false)</th>
+<th style="text-align: center;">Null</th>
+<th style="text-align: center;">Alternative</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="center">We claim no effect<br>(ES=0)</td>
-<td align="center">Correct conclusion<br>(<span class="math inline">\(p = 1 - \alpha\)</span>)</td>
-<td align="center">Type II error<br>(<span class="math inline">\(p = \beta\)</span>)</td>
+<td style="text-align: center;">虛無假設</td>
+<td style="text-align: center;">對立假設</td>
 </tr>
 <tr class="even">
-<td align="center">We claim an effect<br>(ES <span class="math inline">\(\neq\)</span> 0)</td>
-<td align="center">Type I error<br>(<span class="math inline">\(p = \alpha\)</span>)</td>
-<td align="center">Correct conclusion<br>(<span class="math inline">\(p = 1 - \beta\)</span>)</td>
+<td style="text-align: center;">No effect</td>
+<td style="text-align: center;">A detectable effect</td>
 </tr>
 <tr class="odd">
-<td align="center"></td>
-<td align="center">Universe X</td>
-<td align="center">Universe Y</td>
+<td style="text-align: center;">假設存在的效果在測量尺度為0</td>
+<td style="text-align: center;">假設存在的效果在測量尺度非0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">實際的效果為0，結論宣稱非0</td>
+<td style="text-align: center;">實際的效果非0，結論宣稱為0</td>
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p>發表偏誤經常導致Type I error被低估</p>
-</blockquote>
 <ul>
-<li>透視影響考驗力的因素</li>
+<li class="fragment"><p><strong>我有興趣的是那個假設？</strong></p></li>
+<li class="fragment"><p><strong>我了解想要測試的效果，有事前評估偵測到效果的條件嗎？</strong></p></li>
 </ul>
-<p><a href="https://rpsychologist.com/d3/nhst/">視覺化展示</a> by Kristoffer Magnusson</p>
-</div>
-<div id="考驗力分析的取向" class="section level2">
-<h2>考驗力分析的取向</h2>
-<div id="prospective-power-anbalysis" class="section level3">
-<h3>Prospective power anbalysis</h3>
-<ol style="list-style-type: decimal">
-<li>功用1: 預估得到有統計意義結果需要的樣本數</li>
+</section>
+<section id="分析結果出錯的風險" class="slide level2">
+<h2>分析結果出錯的風險</h2>
+<p><img data-src="images/Type%20I%20and%20II%20error.jpg" alt="Credit: Unbiased Research(2016/4/11)" /></p>
+<ul>
+<li class="fragment">Play <a href="https://rpsychologist.com/d3/nhst/">Understanding Statistical Power and Significance Testing</a> by Kristoffer Magnusson</li>
+</ul>
+</section>
+<section id="使用統計檢定不管風險的缺陷ellis-2010-box-3.1" class="slide level2">
+<h2>使用統計檢定不管風險的缺陷(Ellis, 2010; Box 3.1)</h2>
+<!---
+ 本講摘要Ellis(2010) Box 3.1
+--->
+<ol type="1">
+<li class="fragment"><p>考驗力接近封頂(100%)，任何統計檢定都能顯著。<strong>未設想虛無假設的背景，統計顯著即無意義。</strong></p></li>
+<li class="fragment"><p>以p value有沒有小於顯著水準，決定結果有沒有意義。<strong>忽略p value的連續性。</strong></p></li>
+<li class="fragment"><p>效果量與樣本數都會影響p value。<strong>過度簡化必定低估或高估p value的意義。</strong></p></li>
+<li class="fragment"><p>統計顯著不代表預期的效果真實存在。<strong>不提醒學習者很容易造成誤用統計檢定。</strong></p></li>
 </ol>
+</section>
+<section id="延伸閱讀" class="slide level2">
+<h2>延伸閱讀</h2>
+<ul>
+<li class="fragment">想了解更多近年討論，推薦從美國統計學會公開聲明入門。</li>
+<li class="fragment">Wasserstein, R. L., &amp; Lazar, N. A. (2016). The ASA’s Statement on p-Values: Context, Process, and Purpose. The American Statistician, 70(2), 129–133. <a href="https://doi.org/10.1080/00031305.2016.1154108" class="uri">https://doi.org/10.1080/00031305.2016.1154108</a></li>
+<li class="fragment">有教授或討論統計方法的課程，應引用相關討論的文章或講演資訊。 #HW01</li>
+</ul>
+</section></section>
+<section>
+<section id="評估風險必知" class="title-slide slide level1">
+<h1>評估風險必知</h1>
+<ol type="1">
+<li class="fragment"><span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span> 是彼此獨立的條件機率</li>
+</ol>
+<div class="fragment">
+<p><strong>Type I error</strong><br/></p>
+<blockquote>
+<p>實際的效果為0，根據分析結果宣稱非0 <br> <span class="math inline">\(\alpha = p(\frac{d \neq 0}{\theta = 0})\)</span></p>
+</blockquote>
+</div>
+<div class="fragment">
+<p><strong>Type II error</strong><br/></p>
+<blockquote>
+<p>實際的效果非0，根據分析結果宣稱為0 <br> <span class="math inline">\(\beta = p(\frac{d = 0}{\theta \neq 0})\)</span></p>
+</blockquote>
+</div>
+</section>
+<section id="alphabeta-那種風險損失較嚴重" class="slide level2">
+<h2>2. <span class="math inline">\(\alpha\)</span>/<span class="math inline">\(\beta\)</span> 那種風險損失較嚴重？</h2>
+<ul>
+<li class="fragment"><p>證實必定有效的結果/否證實際不存在的效果所耗費的沈默成本？</p></li>
+<li class="fragment"><p>效果量偏低，獲得統計顯著結果的益處是什麼？</p></li>
+<li class="fragment"><p>現實資源能否支持<span class="math inline">\(\frac{\alpha}{\beta}\)</span>平衡損益？</p></li>
+</ul>
+</section>
+<section id="什麼是合適的alphabeta" class="slide level2">
+<h2>3. 什麼是合適的<span class="math inline">\(\alpha\)</span>/<span class="math inline">\(\beta\)</span></h2>
+<ul>
+<li class="fragment"><p>Cohen’s suggested balance ~ <span class="math inline">\(\frac{\alpha}{\beta} = \frac{1}{4}\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(\alpha &lt; .05\)</span>, <span class="math inline">\(1 - \beta\)</span>至少.80</p></li>
+<li class="fragment"><p>“The notion that failure to find is less serious than finding something that is not there accords with the conventional scientific view” (Cohen, 1988)</p></li>
+</ul>
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">There is no effect<br>(null=true)</th>
+<th style="text-align: center;">There is an effect<br>(null=false)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">We claim no effect<br>(ES=0)</td>
+<td style="text-align: center;">Correct conclusion<br>(<span class="math inline">\(p = 1 - \alpha\)</span>)</td>
+<td style="text-align: center;">Type II error<br>(<span class="math inline">\(p = \beta\)</span>)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">We claim an effect<br>(ES <span class="math inline">\(\neq\)</span> 0)</td>
+<td style="text-align: center;">Type I error<br>(<span class="math inline">\(p = \alpha\)</span>)</td>
+<td style="text-align: center;">Correct conclusion<br>(<span class="math inline">\(p = 1 - \beta\)</span>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">Universe X</td>
+<td style="text-align: center;">Universe Y</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li class="fragment"><p>為研究結果負責的研究者，應該有能力判斷最合適的<span class="math inline">\(\frac{\alpha}{\beta}\)</span>s</p></li>
+<li class="fragment"><p>發表偏誤經常導致<span class="math inline">\(\alpha\)</span>被低估</p></li>
+<li class="fragment"><p>可重製研究通常要求<span class="math inline">\(1 - \beta\)</span> 至少達到 .90。參考<a href="https://www.nature.com/nathumbehav/submission-guidelines/registeredreports">Nature Human Behaviour</a>、<a href="https://drive.google.com/file/d/1mApMxCmFH2GFd3m-qiw89y6rLjUDRDdY/view">Collabra: Psychology</a>等期刊的註冊報告投稿指南。</p></li>
+</ul>
+</section></section>
+<section>
+<section id="考驗力分析概論" class="title-slide slide level1">
+<h1>考驗力分析概論</h1>
+<style>
+.container{
+  display: grid;
+  grid-auto-flow: column;
+}
+</style>
+<div class="container">
+<div class="col">
+<p><img data-src="images/chimpanzee.jpg" /></p>
+</div>
+<div class="col">
+<ul>
+<li class="fragment">A ~ <span class="math inline">\(\alpha\)</span></li>
+<li class="fragment">P ~ Power</li>
+<li class="fragment">E ~ Effect size</li>
+<li class="fragment">S ~ Sample size</li>
+<li class="fragment">知道其中三個就能估算另一個</li>
+<li class="fragment">Play again <a href="https://rpsychologist.com/d3/nhst/">Understanding Statistical Power and Significance Testing</a></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="考驗力分析實作取向" class="slide level2">
+<h2>考驗力分析實作取向</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Prior power analysis</th>
+<th style="text-align: center;">Post-hoc power analysis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">A,P,E -&gt; S <br> <strong>A,P,S -&gt; E</strong> <br> P,E,S -&gt; A</td>
+<td style="text-align: center;">A,E,S - &gt; P</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li class="fragment"><p><a href="https://psyteachr.github.io/analysis-v2/apes---alpha-power-effect-sizes-sample-size.html#useful-links">Psyteachr resource list</a></p></li>
+<li class="fragment"><p>效果量指標可<a href="https://www.escal.site/">互相轉換</a>，或運用已知資訊計算。</p></li>
+<li class="fragment"><p>各種研究場域都有合適的估算工具，研究者應以<strong>現實需要</strong>選擇工具。</p></li>
+</ul>
+<!---
+- > 單一獨變項比較或兩個自變項相關性等簡單實驗設計，都可運用[G*Power](https://stats.oarc.ucla.edu/other/gpower/)處理考驗力分析。超出規格的設計，例如有隨機效果(random effect)的設計，應使用能生成模擬數據的工具。
+--->
+</section></section>
+<section>
+<section id="examples-of-power-analysis" class="title-slide slide level1">
+<h1>Examples of power analysis</h1>
+<p>演練範例之前，請先下載<a href="Lecture02HW.Rmd">作業Rmd</a>以及確認安裝R套件<code>effectisize</code>及<code>pwr</code>。</p>
+</section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+<p>功用1: 預估得到有統計意義結果需要的樣本數</p>
 <blockquote>
 <p>Kirk (1996): 某種延緩阿滋海默症患者智力退化的療程測試，找來6名患者接受測試，另外6名接受對照療程。經過一段時間，接受測試療程的患者智力測驗平均分數比對照療程高13分，統計檢定t = 1.61, p = .14。要得到考驗力達.80的.05顯著結果，需要多少受測者？</p>
 </blockquote>
-<pre class="r"><code>## This example is from Kirk(1996): A researcher tested the medication that might raise the IQ of people suffering from Alzheimer&#39;s disease.
-
-## two tailed test
-pwr::pwr.t.test(n=20,
-                d=unlist(effectsize::t_to_d(1.61, 11))[&quot;d&quot;],
-                type = &quot;two.sample&quot;,
-                alternative = &quot;two.sided&quot;)</code></pre>
+<ul>
+<li class="fragment">請先查閱<code>pwr::pwr.t.test</code>說明文件。</li>
+</ul>
+</section>
+<section id="section-3" class="slide level2">
+<h2></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## This example is from Kirk(1996): A researcher tested the medication that might raise the IQ of people suffering from Alzheimer&#39;s disease.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">## two tailed test</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>pwr<span class="sc">::</span><span class="fu">pwr.t.test</span>(<span class="at">d=</span><span class="fu">unlist</span>(effectsize<span class="sc">::</span><span class="fu">t_to_d</span>(<span class="fl">1.61</span>, <span class="dv">11</span>))[<span class="st">&quot;d&quot;</span>],</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">power =</span> .<span class="dv">80</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">type =</span> <span class="st">&quot;two.sample&quot;</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##      Two-sample t test power calculation 
 ## 
-##               n = 20
+##               n = 17.66778
 ##               d = 0.9708665
 ##       sig.level = 0.05
-##           power = 0.8489039
+##           power = 0.8
 ##     alternative = two.sided
 ## 
 ## NOTE: n is number in *each* group</code></pre>
-<pre class="r"><code>## one tailed test
-pwr::pwr.t.test(n=16,
-                d=unlist(effectsize::t_to_d(1.61, 11))[&quot;d&quot;],
-                type = &quot;two.sample&quot;,
-                alternative = &quot;greater&quot;)</code></pre>
+</section>
+<section id="section-4" class="slide level2">
+<h2></h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## This example is from Kirk(1996): A researcher tested the medication that might raise the IQ of people suffering from Alzheimer&#39;s disease.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">## one tailed test</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>pwr<span class="sc">::</span><span class="fu">pwr.t.test</span>(<span class="at">d=</span><span class="fu">unlist</span>(effectsize<span class="sc">::</span><span class="fu">t_to_d</span>(<span class="fl">1.61</span>, <span class="dv">11</span>))[<span class="st">&quot;d&quot;</span>],</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">power =</span> .<span class="dv">80</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">type =</span> <span class="st">&quot;two.sample&quot;</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##      Two-sample t test power calculation 
 ## 
-##               n = 16
+##               n = 13.84772
 ##               d = 0.9708665
 ##       sig.level = 0.05
-##           power = 0.8504582
+##           power = 0.8
 ##     alternative = greater
 ## 
 ## NOTE: n is number in *each* group</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>功用2: 以現有資料估計可該樣本數可達到的考驗力</li>
-</ol>
-<pre class="r"><code>pwr::pwr.t.test(n=6,
-                d=unlist(effectsize::t_to_d(1.61, 11))[&quot;d&quot;],
-                type = &quot;two.sample&quot;,
-                alternative = &quot;two.sided&quot;)</code></pre>
+</section>
+<section id="section-5" class="slide level2">
+<h2></h2>
+<p>功用2: 以現有資料估計現有資訊可達到的考驗力</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pwr<span class="sc">::</span><span class="fu">pwr.t.test</span>(<span class="at">n=</span><span class="dv">6</span>,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">d=</span><span class="fu">unlist</span>(effectsize<span class="sc">::</span><span class="fu">t_to_d</span>(<span class="fl">1.61</span>, <span class="dv">11</span>))[<span class="st">&quot;d&quot;</span>],</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">type =</span> <span class="st">&quot;two.sample&quot;</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##      Two-sample t test power calculation 
 ## 
@@ -496,96 +791,247 @@ pwr::pwr.t.test(n=16,
 ##     alternative = two.sided
 ## 
 ## NOTE: n is number in *each* group</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>功用3: 設定合理的顯著水準</li>
-</ol>
-<pre class="r"><code>pwr::pwr.t.test(n=6,
-                d=unlist(effectsize::t_to_d(1.61, 11))[&quot;d&quot;],
-                type = &quot;two.sample&quot;,
-                sig.level =.44, 
-                alternative = &quot;two.sided&quot;)</code></pre>
+</section>
+<section id="section-6" class="slide level2">
+<h2></h2>
+<p>功用3: 設定合理的顯著水準</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pwr<span class="sc">::</span><span class="fu">pwr.t.test</span>(<span class="at">n=</span><span class="dv">6</span>,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">d=</span><span class="fu">unlist</span>(effectsize<span class="sc">::</span><span class="fu">t_to_d</span>(<span class="fl">1.61</span>, <span class="dv">11</span>))[<span class="st">&quot;d&quot;</span>],</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">type =</span> <span class="st">&quot;two.sample&quot;</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">sig.level =</span> <span class="cn">NULL</span>, </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">power =</span> .<span class="dv">80</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##      Two-sample t test power calculation 
 ## 
 ##               n = 6
 ##               d = 0.9708665
-##       sig.level = 0.44
-##           power = 0.8190846
+##       sig.level = 0.4050134
+##           power = 0.8
 ##     alternative = two.sided
 ## 
 ## NOTE: n is number in *each* group</code></pre>
-<pre class="r"><code>pwr::pwr.t.test(n=6,
-                d=unlist(effectsize::t_to_d(1.61, 11))[&quot;d&quot;],
-                type = &quot;two.sample&quot;,
-                sig.level =.3, 
-                alternative = &quot;two.sided&quot;)</code></pre>
+</section>
+<section id="section-7" class="slide level2">
+<h2></h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pwr<span class="sc">::</span><span class="fu">pwr.t.test</span>(<span class="at">n=</span><span class="dv">6</span>,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">d=</span><span class="fu">unlist</span>(effectsize<span class="sc">::</span><span class="fu">t_to_d</span>(<span class="fl">1.61</span>, <span class="dv">11</span>))[<span class="st">&quot;d&quot;</span>],</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">type =</span> <span class="st">&quot;two.sample&quot;</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">sig.level =</span> <span class="cn">NULL</span>, </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">power =</span> .<span class="dv">80</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##      Two-sample t test power calculation 
 ## 
 ##               n = 6
 ##               d = 0.9708665
-##       sig.level = 0.3
-##           power = 0.7290407
+##       sig.level = 0.4050134
+##           power = 0.8
 ##     alternative = two.sided
 ## 
 ## NOTE: n is number in *each* group</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>功用4: 設計有高考驗力的再現研究</li>
-</ol>
+</section>
+<section id="section-8" class="slide level2">
+<h2></h2>
+<p>功用4: 設計有高考驗力的再現研究</p>
 <blockquote>
 <p>兩件探討同一組變項的相關研究分別報告不顯著的相關係數.2及.24，樣本數分別為78與63。這兩件研究的考驗力分別達到多少？要設計能達到.80考驗力的研究需要多少樣本數？</p>
 </blockquote>
+<p>事前分析評估的最適樣本數，不代表研究結果必定達到設定的統計顯著。</p>
+</section>
+<section id="section-9" class="slide level2">
+<h2></h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>pwr<span class="sc">::</span><span class="fu">pwr.r.test</span>(<span class="at">n=</span><span class="dv">78</span>, <span class="at">r=</span>.<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## 
+##      approximate correlation power calculation (arctangh transformation) 
+## 
+##               n = 78
+##               r = 0.2
+##       sig.level = 0.05
+##           power = 0.4228927
+##     alternative = two.sided</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pwr<span class="sc">::</span><span class="fu">pwr.r.test</span>(<span class="at">n=</span><span class="dv">63</span>, <span class="at">r=</span>.<span class="dv">24</span>)</span></code></pre></div>
+<pre><code>## 
+##      approximate correlation power calculation (arctangh transformation) 
+## 
+##               n = 63
+##               r = 0.24
+##       sig.level = 0.05
+##           power = 0.4796724
+##     alternative = two.sided</code></pre>
+</section>
+<section id="section-10" class="slide level2">
+<h2></h2>
+<p>設定成功的再現研究應發現r = .22。</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>power <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(size <span class="cf">in</span> <span class="fu">seq</span>(<span class="dv">70</span>,<span class="dv">160</span>,<span class="dv">10</span>)){</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>power <span class="ot">&lt;-</span> <span class="fu">c</span>(power, <span class="fu">round</span>(<span class="fu">as.numeric</span>(<span class="fu">unlist</span>(pwr<span class="sc">::</span><span class="fu">pwr.r.test</span>(<span class="at">n=</span>size, <span class="at">r=</span>.<span class="dv">22</span>))[<span class="st">&quot;power&quot;</span>]), <span class="dv">2</span>)) </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>pwr_report <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">size=</span><span class="fu">seq</span>(<span class="dv">70</span>,<span class="dv">160</span>,<span class="dv">10</span>),</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  power</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</section>
+<section id="section-11" class="slide level2">
+<h2></h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">size</th>
+<th style="text-align: right;">power</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">70</td>
+<td style="text-align: right;">0.45</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">0.51</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">0.55</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">0.60</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">110</td>
+<td style="text-align: right;">0.64</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">120</td>
+<td style="text-align: right;">0.68</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">130</td>
+<td style="text-align: right;">0.72</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">140</td>
+<td style="text-align: right;">0.75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">150</td>
+<td style="text-align: right;">0.78</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">0.80</td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section>
+<section id="估計研究設計需要的樣本數" class="title-slide slide level1">
+<h1>估計研究設計需要的樣本數</h1>
+
+</section>
+<section id="設定樣本數的策略" class="slide level2">
+<h2>設定樣本數的策略</h2>
 <ul>
-<li>事前分析評估的最適樣本數，不代表研究結果必定達到設定的統計顯著。</li>
+<li class="fragment"><p>研究設計有文獻資料參考，可運用整合分析(meta analysis)估計可能的效果量，評估所需樣本數</p></li>
+<li class="fragment"><p>研究設計無文獻資料參考，建議製表挑選合理的樣本數。</p></li>
 </ul>
-</div>
-<div id="post-hoc-power-analysis" class="section level3">
-<h3>post hoc power analysis</h3>
-<ul>
-<li><p>通常分析事後考驗力無太大意義</p></li>
-<li><p>低考驗力的無顯著結果難以得到肯定效果存在結論</p></li>
-</ul>
-<div id="不顯著結果的事後考驗力分析為何無意義" class="section level4">
-<h4>不顯著結果的事後考驗力分析為何無意義</h4>
-<ul>
-<li><p>低考驗力研究得到的效果量估計值通常不精確，特別是小樣本易受抽樣偏誤扭曲。</p></li>
-<li><p>不顯著的p值越高，考驗力越低。</p></li>
-<li><p>不顯著的結果無法判斷目標效果究竟有沒有存在。</p></li>
-</ul>
-</div>
-<div id="顯著結果的事後考驗力分析為何有意義" class="section level4">
-<h4>顯著結果的事後考驗力分析為何有意義</h4>
-<ul>
-<li><p>偵測發表偏誤</p></li>
-<li><p>檢驗研究者的QRP：<a href="https://www.p-curve.com/">p Curve</a>; <a href="https://replicationindex.com/2020/01/10/z-curve-2-0/">z Curve</a></p></li>
-</ul>
-</div>
-</div>
-</div>
-<div id="估計研究設計需要的樣本數" class="section level2">
-<h2>估計研究設計需要的樣本數</h2>
-<div id="設定樣本數的策略" class="section level3">
-<h3>設定樣本數的策略</h3>
-<ul>
-<li><p>研究設計有文獻資料參考，可運用整合分析(meta analysis)估計可能的效果量，評估所需樣本數</p></li>
-<li><p>研究設計無文獻資料參考，建議製表挑選合理的樣本數。</p></li>
-</ul>
+</section>
+<section id="section-12" class="slide level2">
+<h2></h2>
 <blockquote>
 <p>設定<span class="math inline">\(\alpha = .05\)</span>的獨立樣本雙尾檢定比較，達到指定考驗力80%所需最少樣本數。</p>
 </blockquote>
-</div>
-<div id="最小可偵測效果量" class="section level3">
-<h3>最小可偵測效果量</h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>d_t <span class="ot">&lt;-</span> <span class="fu">seq</span>(.<span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">1</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>n_t <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(d_t)){</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>n_t <span class="ot">&lt;-</span> <span class="fu">c</span>(n_t,<span class="fu">round</span>(<span class="fu">as.numeric</span>(<span class="fu">unlist</span>(pwr<span class="sc">::</span><span class="fu">pwr.t.test</span>(<span class="at">d=</span>d_t[i],</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">power=</span>.<span class="dv">80</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">type=</span><span class="st">&quot;two.sample&quot;</span>,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>))[<span class="st">&quot;n&quot;</span>]))<span class="sc">*</span><span class="dv">2</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">ES =</span> d_t,</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> n_t</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+</section>
+<section id="section-13" class="slide level2">
+<h2></h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">ES</th>
+<th style="text-align: right;">N</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">3142</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">786</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">350</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">198</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">128</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">90</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">66</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">52</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">34</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[N = N_1 + N_2\]</span></p>
+</section>
+<section id="最小可偵測效果量" class="slide level2">
+<h2>最小可偵測效果量</h2>
 <ul>
-<li>以現用資源能收集到的樣本數，評估指定考驗力能偵測的效果量</li>
+<li class="fragment"><p>以現用資源能收集到的樣本數，評估指定考驗力能偵測的效果量</p></li>
+<li class="fragment"><p>又稱<strong>最小有意義效果量</strong>(smallest effect size of interest, <strong>SESOI</strong>)</p></li>
+<li class="fragment"><p>延伸閱讀: <a href="https://linkinghub.elsevier.com/retrieve/pii/S0022103121000627">Anvari and Lakens (2021)</a>, <a href="https://online.ucpress.edu/collabra/article/8/1/33267/120491/Sample-Size-Justification">Lakens (2022)</a> #HW2</p></li>
 </ul>
+</section>
+<section id="section-14" class="slide level2">
+<h2></h2>
 <blockquote>
 <p>簡單迴歸範例</p>
 </blockquote>
-<pre class="r"><code>## simple regression
-pwr::pwr.r.test(n=100,
-                power = .8,
-                alternative = &quot;two.sided&quot;)</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## simple regression</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>pwr<span class="sc">::</span><span class="fu">pwr.r.test</span>(<span class="at">n=</span><span class="dv">100</span>,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">power =</span> .<span class="dv">8</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##      approximate correlation power calculation (arctangh transformation) 
 ## 
@@ -594,127 +1040,129 @@ pwr::pwr.r.test(n=100,
 ##       sig.level = 0.05
 ##           power = 0.8
 ##     alternative = two.sided</code></pre>
+</section>
+<section id="section-15" class="slide level2">
+<h2></h2>
 <blockquote>
 <p>多元迴歸範例</p>
 </blockquote>
-<pre class="r"><code>pwr::pwr.f2.test(u = 5,
-                 v = (200-5-1),
-                f2 = .3^2/(1-.3^2),
-                sig.level = .5^5)</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pwr<span class="sc">::</span><span class="fu">pwr.f2.test</span>(<span class="at">u =</span> <span class="dv">5</span>,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">v =</span> (<span class="dv">200-5-1</span>),</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">sig.level =</span> .<span class="dv">5</span><span class="sc">^</span><span class="dv">5</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">power=</span>.<span class="dv">8</span>)</span></code></pre></div>
 <pre><code>## 
 ##      Multiple regression power calculation 
 ## 
 ##               u = 5
 ##               v = 194
-##              f2 = 0.0989011
+##              f2 = 0.07408376
 ##       sig.level = 0.03125
-##           power = 0.9177891</code></pre>
-</div>
-<div id="考驗力與測量精確度" class="section level3">
-<h3>考驗力與測量精確度</h3>
-<ul>
-<li>效果量估計值要包括信賴區間的主要理由：不只以平均值歸類效果量的大小。</li>
-</ul>
-</div>
-<div id="測量誤差的來源與對策" class="section level3">
-<h3>測量誤差的來源與對策</h3>
-<ul>
-<li>相關分析經常因測量誤差導致相關係數被低估</li>
-<li>量表項目一致性可用來校正相關係數估計值</li>
-<li>相關係數估計值若未校正，很可能錯估考驗力 ~ Ellis (2018) Table 3.4</li>
-</ul>
-<p>##　考驗力分析的R套件</p>
-</div>
-<div id="pwr" class="section level3">
-<h3><code>pwr</code></h3>
-<ul>
-<li>根據研究設計與指定考驗力，估計可測得的效果量最小樣本數</li>
-<li>根據研究設計與指定考驗力，估計目標樣本數可測得的合理效果量</li>
-</ul>
-</div>
-<div id="effectsize" class="section level3">
-<h3><code>effectsize</code></h3>
-<ul>
-<li>轉換效果量指標</li>
-</ul>
-</div>
-</div>
+##           power = 0.8</code></pre>
+</section></section>
+<section id="教師增能作業" class="title-slide slide level1">
+<h1>教師增能作業</h1>
+<p>種子教師工作坊請下載請下載<a href="Lecture02after.md">增能指引</a>，延續學習成果。</p>
+<!---
+
+Blocked in 0527 workshop
+
+# 考驗力與測量精確度
+
+- 效果量估計值要包括信賴區間的主要理由：不只以平均值歸類效果量的大小。
+
+## 測量誤差的來源與對策
+
+- 相關分析經常因測量誤差導致相關係數被低估
+- 量表項目一致性可用來校正相關係數估計值
+- 相關係數估計值若未校正，很可能錯估考驗力 ~ Ellis (2018) Table 3.4
+
+
+#　考驗力分析的R套件
+
+### `pwr` 
+
+- 根據研究設計與指定考驗力，估計可測得的效果量最小樣本數
+- 根據研究設計與指定考驗力，估計目標樣本數可測得的合理效果量
+
+
+### `effectsize` 
+
+- 轉換效果量指標
 
 
 
-</div>
-</div>
+# post hoc power analysis
 
-</div>
+
+- 通常分析事後考驗力無太大意義
+
+- 低考驗力的無顯著結果難以得到肯定效果存在結論
+
+## 不顯著結果的事後考驗力分析為何無意義
+
+- 低考驗力研究得到的效果量估計值通常不精確，特別是小樣本易受抽樣偏誤扭曲。
+
+- 不顯著的p值越高，考驗力越低。
+
+- 不顯著的結果無法判斷目標效果究竟有沒有存在。
+
+## 顯著結果的事後考驗力分析為何有意義
+
+- 偵測發表偏誤
+
+- 檢驗研究者的QRP：[p Curve](https://www.p-curve.com/); [z Curve](https://replicationindex.com/2020/01/10/z-curve-2-0/)
+
+
+--->
+</section>
+    </div>
+  </div>
+
+  <script src="site_libs/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="site_libs/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: false,
+        // Transition style
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
 
 <script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
-}
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
-</script>
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
-  });
-});
-</script>
-
-<!-- code folding -->
-
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
-
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
   })();
 </script>
 
-</body>
+
+  </body>
 </html>

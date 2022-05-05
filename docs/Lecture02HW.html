@@ -9,10 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="陳紹慶" />
+<meta name="author" content="my name" />
 
 
-<title>可重製研究操作教學套件</title>
+<title>Lecture02_HW.Rmd</title>
 
 <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -30,9 +30,6 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -226,69 +223,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -296,16 +230,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -337,105 +261,109 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">可重製研究操作教學套件</h1>
-<h4 class="author">陳紹慶</h4>
+<h1 class="title toc-ignore">Lecture02_HW.Rmd</h1>
+<h4 class="author">my name</h4>
+<h4 class="date">2022/5/4</h4>
 
 </div>
 
 
-<!---
-Each program shares [the initial lecture](Lecture00.html). This lecture will give the trainees the space to rethink why they learn the statistics; their latest motivation to learn/use statistics. The initial overview presents the scenarios and reasons of the reproducibility crisis. 
---->
-<p>這份統計學習套件整合四種對象的學習模組：教師、研究生、高年級大學生（大學部大二以上)、大學部大一學生。所有套件共享<a href="Lecture00.html">啟動講義</a>與<a href="files/base_R_demo.zip">基礎 R 語法寫作示範*</a>，提供與各種目標學員入門課程、與教師溝通建立學習目標的話題、以及概覽可重製危機的現況及可能成因。</p>
-<p>* 請先下載<a href="files/base_R_demo.zip">zip檔</a>，解壓縮後以Rstudio開啟<code>base_R_demo.Rmd</code>，依檔案開頭的說明，生成網頁檔瀏覽示範內容。</p>
-<div id="種子教師工作坊workshop-for-future-tutors" class="section level2">
-<h2>種子教師工作坊(Workshop for future tutors)</h2>
-<ol start="0" style="list-style-type: decimal">
-<li><p><a href="files/base_R_demo.zip">基礎 R 語法寫作示範*</a></p></li>
-<li><p><a href="Lecture01.html">如何評估及解讀效果量</a></p></li>
-</ol>
+<div id="pwr實作演練" class="section level2">
+<h2>pwr實作演練</h2>
 <ul>
-<li>Ellis (2010) Chapter 1,2 講授</li>
-<li>可用的R packages及函式範例</li>
-<li>R packages收集標註黑客松</li>
+<li>題目改編自<a href="https://psyteachr.github.io/analysis-v2/apes---alpha-power-effect-sizes-sample-size.html#practical-apes-calculations">PsyteachR: Analysis 8.3</a></li>
 </ul>
-<ol start="2" style="list-style-type: decimal">
-<li><a href="Lecture02.html">設計有高考驗力的研究</a></li>
-</ol>
+<p><strong>Cohen’s d的建議大小</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">effect_size</th>
+<th align="right">d</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">very small</td>
+<td align="right">0.1</td>
+</tr>
+<tr class="even">
+<td align="left">small</td>
+<td align="right">0.2</td>
+</tr>
+<tr class="odd">
+<td align="left">small</td>
+<td align="right">0.3</td>
+</tr>
+<tr class="even">
+<td align="left">small</td>
+<td align="right">0.4</td>
+</tr>
+<tr class="odd">
+<td align="left">medium</td>
+<td align="right">0.5</td>
+</tr>
+<tr class="even">
+<td align="left">medium</td>
+<td align="right">0.6</td>
+</tr>
+<tr class="odd">
+<td align="left">medium</td>
+<td align="right">0.7</td>
+</tr>
+<tr class="even">
+<td align="left">large</td>
+<td align="right">0.8</td>
+</tr>
+<tr class="odd">
+<td align="left">large</td>
+<td align="right">0.9</td>
+</tr>
+</tbody>
+</table>
+<p>單一樣本t檢定/相依樣本t檢定的Cohen’s d</p>
+<p><span class="math display">\[d = \frac{t}{sqrt(N)}\]</span></p>
+<p>獨立樣本t檢定的Cohen’s d</p>
+<p><span class="math display">\[d = \frac{2t}{sqrt(df)}\]</span></p>
+<div id="task-1-effect-size-from-a-one-sample-t-test" class="section level3">
+<h3>Task 1: Effect size from a one-sample t-test</h3>
+<p>剛才完成一項單一樣本t檢定，報告結果 <em>t</em>(23) = 2.35, <em>p</em> = .002。請寫出能回答以下問題的R code：</p>
 <ul>
-<li>Ellis (2010) Chapter 3 講授</li>
-<li>跨 <a href="https://psyarxiv.com/9d3yf/">Lakens (2021)</a></li>
-</ul>
-<ol start="3" style="list-style-type: decimal">
-<li><a href="Lecture03.html">評估跨研究的效果量及考驗力</a></li>
-</ol>
-<ul>
-<li>Ellis (2010) Chapter 4 講授</li>
-</ul>
-</div>
-<div id="研究生學習模組training-program-for-graudates" class="section level2">
-<h2>研究生學習模組(Training program for graudates)</h2>
-<ul>
-<li><a href="files/graduate-program.zip">預備用R project</a></li>
-</ul>
-<ol style="list-style-type: decimal">
-<li><a href="Program_postgraudate.html">PsyteachR可重製統計增能課表</a></li>
-</ol>
-<ul>
-<li><a href="https://psyteachr.github.io/#Postgraduate_Books">PsyteachR Postgraudate books</a></li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li><a href="Lecture01.html">如何評估及解讀效果量</a></li>
-</ol>
-<ul>
-<li>Ellis (2010) Chapter 1,2 講授</li>
-<li>可用的R packages及函式範例</li>
-</ul>
-<ol start="3" style="list-style-type: decimal">
-<li><a href="Lecture02.html">設計有高考驗力的研究</a></li>
-</ol>
-<ul>
-<li>Ellis (2010) Chapter 3 講授</li>
-<li><a href="https://psyarxiv.com/9d3yf/">Lakens (2021)</a></li>
-</ul>
-</div>
-<div id="高年級大學生學習模組training-program-for-undergraudates" class="section level2">
-<h2>高年級大學生學習模組(Training program for undergraudates)</h2>
-<ul>
-<li><a href="files/undergraduate_progress.zip">預備用R project</a></li>
-</ul>
-<ol style="list-style-type: decimal">
-<li><a href="Program_undergraudate.html">PsyteachR可重製統計增能課表</a></li>
-</ol>
-<ul>
-<li><a href="https://psyteachr.github.io/#Undergraduate_Series">PsyteachR Undergraduate Series</a></li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li><a href="Lecture01.html">如何評估及解讀效果量</a></li>
-</ol>
-<ul>
-<li>Ellis (2010) Chapter 1 講授</li>
+<li>計算效果量到小數點後二位：</li>
+<li>根據Cohen(1988)的建議，這是一個___效果量。</li>
 </ul>
 </div>
-<div id="大學新鮮人學習模組training-program-for-freshman" class="section level2">
-<h2><a href="Program_freshman.html">大學新鮮人學習模組</a>(Training program for freshman)</h2>
-<ol style="list-style-type: decimal">
-<li><p>報告寫作工具指引</p></li>
-<li><p>機率論</p></li>
-<li><p>累積思考成品的寫作方法</p></li>
-</ol>
-<div id="參考資源" class="section level3">
-<h3>參考資源</h3>
-<p>Ellis, P. D. (2010). The essential guide to effect sizes: Statistical power, meta-analysis, and the interpretation of research results. <em>Cambridge University Press</em>.</p>
-<p>Lakens, D. (2021, January 4). Sample Size Justification. <a href="https://doi.org/10.31234/osf.io/9d3yf" class="uri">https://doi.org/10.31234/osf.io/9d3yf</a></p>
-<p>The psyTeachR team. (2022). PsyTeachR. <a href="https://psyteachr.github.io/" class="uri">https://psyteachr.github.io/</a></p>
+<div id="task-2-effect-size-from-a-two-sample-t-test" class="section level3">
+<h3>Task 2: Effect size from a two-sample t-test</h3>
+<p>剛才完成一項獨立樣本t檢定，報告結果 <em>t</em>(34) = 3.2, <em>p</em> = .001。請寫出能回答以下問題的R code：</p>
+<ul>
+<li>計算效果量到小數點後二位：</li>
+<li>根據Cohen(1988)的建議，這是一個___效果量。</li>
+</ul>
+</div>
+<div id="task-3-effect-size-from-a-one-sample-t-test" class="section level3">
+<h3>Task 3: Effect size from a one-sample t-test</h3>
+<p>剛才完成一項相依樣本t檢定，報告結果 <em>t</em>(40) = 2.8, <em>p</em> = .005。請寫出能回答以下問題的R code：</p>
+<ul>
+<li>計算效果量到小數點後二位：</li>
+<li>根據Cohen(1988)的建議，這是一個___效果量。</li>
+</ul>
+</div>
+<div id="task-4-t-value-and-effect-size-for-a-between-subjects-experiment" class="section level3">
+<h3>Task 4: t-value and effect size for a between-subjects experiment</h3>
+</div>
+<div id="task-5-sample-size-for-standard-power-one-sample-t-test" class="section level3">
+<h3>Task 5: Sample size for standard power one-sample t-test</h3>
+</div>
+<div id="task-6-effect-size-from-a-high-power-between-subjects-t-test" class="section level3">
+<h3>Task 6: Effect size from a high power between-subjects t-test</h3>
+</div>
+<div id="task-7-power-of-published-research" class="section level3">
+<h3>Task 7: Power of Published Research</h3>
 </div>
 </div>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -468,35 +396,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

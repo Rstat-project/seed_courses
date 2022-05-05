@@ -1,0 +1,86 @@
+---
+title: "Lecture02_HW.Rmd"
+author: "my name"
+date: "2022/5/4"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+
+if(!require(effectsize)){install.packages("effectsize")}
+
+if(!require(pwr)){install.packages("pwr")}
+```
+
+
+
+
+## pwr實作演練
+
+- 題目改編自[PsyteachR: Analysis 8.3](https://psyteachr.github.io/analysis-v2/apes---alpha-power-effect-sizes-sample-size.html#practical-apes-calculations)
+
+**Cohen's d的建議大小**
+
+```{r d_table, echo=FALSE}
+d <- seq(from=.1,to=.9,by=.1)
+effect_size <- effectsize::interpret_cohens_d(seq(from=.1,to=.9,by=.1))
+
+bench <- data.frame(
+  effect_size,
+  d
+)
+```
+
+`r knitr::kable(bench)`
+
+單一樣本t檢定/相依樣本t檢定的Cohen's d
+
+$$d = \frac{t}{sqrt(N)}$$
+
+獨立樣本t檢定的Cohen's d
+
+$$d = \frac{2t}{sqrt(df)}$$
+
+
+### Task 1: Effect size from a one-sample t-test
+
+剛才完成一項單一樣本t檢定，報告結果 _t_(23) = 2.35, _p_ = .002。請寫出能回答以下問題的R code：
+
+- 計算效果量到小數點後二位：
+- 根據Cohen(1988)的建議，這是一個___效果量。
+
+
+### Task 2: Effect size from a two-sample t-test
+
+剛才完成一項獨立樣本t檢定，報告結果 _t_(34) = 3.2, _p_ = .001。請寫出能回答以下問題的R code：
+
+- 計算效果量到小數點後二位：
+- 根據Cohen(1988)的建議，這是一個___效果量。
+
+### Task 3: Effect size from a one-sample t-test
+
+剛才完成一項相依樣本t檢定，報告結果 _t_(40) = 2.8, _p_ = .005。請寫出能回答以下問題的R code：
+
+- 計算效果量到小數點後二位：
+- 根據Cohen(1988)的建議，這是一個___效果量。
+
+### Task 4: t-value and effect size for a between-subjects experiment
+
+
+
+### Task 5: Sample size for standard power one-sample t-test
+
+
+
+### Task 6: Effect size from a high power between-subjects t-test
+
+
+
+### Task 7: Power of Published Research
+
+
