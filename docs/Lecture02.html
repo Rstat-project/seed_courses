@@ -558,8 +558,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <td style="text-align: center;">假設存在的效果在測量尺度非0</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">實際的效果為0，結論宣稱非0</td>
-<td style="text-align: center;">實際的效果非0，結論宣稱為0</td>
+<td style="text-align: center;"><font color="red">實際的效果為0，結論宣稱非0</font></td>
+<td style="text-align: center;"><font color="red">實際的效果非0，結論宣稱為0</font></td>
 </tr>
 </tbody>
 </table>
@@ -627,7 +627,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <ul>
 <li class="fragment"><p>Cohen’s suggested balance ~ <span class="math inline">\(\frac{\alpha}{\beta} = \frac{1}{4}\)</span></p></li>
 <li class="fragment"><p><span class="math inline">\(\alpha &lt; .05\)</span>, <span class="math inline">\(1 - \beta\)</span>至少.80</p></li>
-<li class="fragment"><p>“The notion that failure to find is less serious than finding something that is not there accords with the conventional scientific view” (Cohen, 1988)</p></li>
+<li class="fragment"><p>“The notion that <em>failure to find</em> is less serious than <em>finding something</em> that is not there accords with the conventional scientific view” (Cohen, 1988)</p></li>
+<li class="fragment"><p>Motivation for <strong>p-hacking</strong></p></li>
 </ul>
 </section>
 <section id="section-1" class="slide level2">
@@ -648,13 +649,13 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <tbody>
 <tr class="odd">
 <td style="text-align: center;">We claim no effect<br>(ES=0)</td>
-<td style="text-align: center;">Correct conclusion<br>(<span class="math inline">\(p = 1 - \alpha\)</span>)</td>
-<td style="text-align: center;">Type II error<br>(<span class="math inline">\(p = \beta\)</span>)</td>
+<td style="text-align: center;">Correct conclusion<br>(<span class="math inline">\(1 - \alpha\)</span>)</td>
+<td style="text-align: center;">Type II error<br>(<span class="math inline">\(\beta\)</span>)</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">We claim an effect<br>(ES <span class="math inline">\(\neq\)</span> 0)</td>
-<td style="text-align: center;">Type I error<br>(<span class="math inline">\(p = \alpha\)</span>)</td>
-<td style="text-align: center;">Correct conclusion<br>(<span class="math inline">\(p = 1 - \beta\)</span>)</td>
+<td style="text-align: center;">Type I error<br>(<span class="math inline">\(\alpha\)</span>)</td>
+<td style="text-align: center;">Correct conclusion<br>(<span class="math inline">\(1 - \beta\)</span>)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;"></td>
@@ -664,8 +665,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </tbody>
 </table>
 <ul>
-<li class="fragment"><p>為研究結果負責的研究者，應該有能力判斷最合適的<span class="math inline">\(\frac{\alpha}{\beta}\)</span>s</p></li>
-<li class="fragment"><p>發表偏誤經常導致<span class="math inline">\(\alpha\)</span>被低估</p></li>
+<li class="fragment"><p>為研究結果負責的研究者，應該有能力判斷最合適的<span class="math inline">\(\frac{\alpha}{\beta}\)</span></p></li>
+<li class="fragment"><p><strong>發表偏誤(publication bias)</strong>極有機會導致<span class="math inline">\(\alpha\)</span>被低估</p></li>
 <li class="fragment"><p>可重製研究通常要求<span class="math inline">\(1 - \beta\)</span> 至少達到 .90。參考<a href="https://www.nature.com/nathumbehav/submission-guidelines/registeredreports">Nature Human Behaviour</a>、<a href="https://drive.google.com/file/d/1mApMxCmFH2GFd3m-qiw89y6rLjUDRDdY/view">Collabra: Psychology</a>等期刊的註冊報告投稿指南。</p></li>
 </ul>
 </section></section>
@@ -713,7 +714,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <ul>
 <li class="fragment"><p><a href="https://psyteachr.github.io/analysis-v2/apes---alpha-power-effect-sizes-sample-size.html#useful-links">Psyteachr resource list</a></p></li>
 <li class="fragment"><p>效果量指標可<a href="https://www.escal.site/">互相轉換</a>，或運用已知資訊計算。</p></li>
-<li class="fragment"><p>各種研究場域都有合適的估算工具，研究者應以<strong>現實需要</strong>選擇工具。</p></li>
+<li class="fragment"><p>各種研究場域都有合適的APES估算工具，研究者應以<strong>現實需要</strong>選擇工具。</p></li>
 </ul>
 <!---
 - > 單一獨變項比較或兩個自變項相關性等簡單實驗設計，都可運用[G*Power](https://stats.oarc.ucla.edu/other/gpower/)處理考驗力分析。超出規格的設計，例如有隨機效果(random effect)的設計，應使用能生成模擬數據的工具。
@@ -937,7 +938,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <h2>設定樣本數的策略</h2>
 <ul>
 <li class="fragment"><p>研究設計有文獻資料參考，可運用整合分析(meta analysis)估計可能的效果量，評估所需樣本數</p></li>
-<li class="fragment"><p>研究設計無文獻資料參考，建議製表挑選合理的樣本數。</p></li>
+<li class="fragment"><p>研究設計無文獻資料參考，可執行敏感度分析(sensitivity analysis)設定合理的樣本數。</p></li>
 </ul>
 </section>
 <section id="section-12" class="slide level2">
@@ -958,8 +959,9 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">ES =</span> d_t,</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> n_t</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">Interpretation =</span> effectsize<span class="sc">::</span><span class="fu">interpret_cohens_d</span>(d_t),</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> n_t</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 </section>
 <section id="section-13" class="slide level2">
 <h2></h2>
@@ -967,48 +969,59 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <thead>
 <tr class="header">
 <th style="text-align: right;">ES</th>
+<th style="text-align: left;">Interpretation</th>
 <th style="text-align: right;">N</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">0.1</td>
+<td style="text-align: left;">very small</td>
 <td style="text-align: right;">3142</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">0.2</td>
+<td style="text-align: left;">small</td>
 <td style="text-align: right;">786</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">0.3</td>
+<td style="text-align: left;">small</td>
 <td style="text-align: right;">350</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">0.4</td>
+<td style="text-align: left;">small</td>
 <td style="text-align: right;">198</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">0.5</td>
+<td style="text-align: left;">medium</td>
 <td style="text-align: right;">128</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">0.6</td>
+<td style="text-align: left;">medium</td>
 <td style="text-align: right;">90</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">0.7</td>
+<td style="text-align: left;">medium</td>
 <td style="text-align: right;">66</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">0.8</td>
+<td style="text-align: left;">large</td>
 <td style="text-align: right;">52</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">0.9</td>
+<td style="text-align: left;">large</td>
 <td style="text-align: right;">40</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1.0</td>
+<td style="text-align: left;">large</td>
 <td style="text-align: right;">34</td>
 </tr>
 </tbody>
@@ -1046,8 +1059,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <blockquote>
 <p>多元迴歸範例</p>
 </blockquote>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pwr<span class="sc">::</span><span class="fu">pwr.f2.test</span>(<span class="at">u =</span> <span class="dv">5</span>,</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">v =</span> (<span class="dv">200-5-1</span>),</span>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pwr<span class="sc">::</span><span class="fu">pwr.f2.test</span>(<span class="at">u =</span> <span class="dv">5</span>, <span class="do">## potential number of variables</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">v =</span> (<span class="dv">200-5-1</span>),  <span class="do">## adjusted sample size</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">sig.level =</span> .<span class="dv">5</span><span class="sc">^</span><span class="dv">5</span>,</span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">power=</span>.<span class="dv">8</span>)</span></code></pre></div>
 <pre><code>## 

@@ -42,7 +42,7 @@ knitr::opts_chunk$set(
 |虛無假設 | 對立假設|
 | No effect | A detectable effect |
 | 假設存在的效果在測量尺度為0 | 假設存在的效果在測量尺度非0 |
-| 實際的效果為0，結論宣稱非0 | 實際的效果非0，結論宣稱為0 |
+|  <font color="red">實際的效果為0，結論宣稱非0</font> | <font color="red">實際的效果非0，結論宣稱為0</font> |
 
 - **我有興趣的是那個假設？**
 
@@ -115,19 +115,21 @@ knitr::opts_chunk$set(
 
 - $\alpha < .05$, $1 - \beta$至少.80
 
-- “The notion that failure to find is less serious than finding something that is not there accords with the conventional scientific view” (Cohen, 1988)
+- “The notion that _failure to find_ is less serious than _finding something_ that is not there accords with the conventional scientific view” (Cohen, 1988)
+
+- Motivation for **p-hacking**
 
 ## 
 
 ||There is no effect<br>(null=true)|There is an effect<br>(null=false)|
 |:---:|:---:|:---:|
-|We claim no effect<br>(ES=0)|Correct conclusion<br>($p = 1 - \alpha$)|Type II error<br>($p = \beta$)|
-|We claim an effect<br>(ES $\neq$ 0)|Type I error<br>($p = \alpha$)|Correct conclusion<br>($p = 1 - \beta$)|
+|We claim no effect<br>(ES=0)|Correct conclusion<br>($1 - \alpha$)|Type II error<br>($\beta$)|
+|We claim an effect<br>(ES $\neq$ 0)|Type I error<br>($\alpha$)|Correct conclusion<br>($1 - \beta$)|
 ||Universe X|Universe Y|
 
-- 為研究結果負責的研究者，應該有能力判斷最合適的$\frac{\alpha}{\beta}$s
+- 為研究結果負責的研究者，應該有能力判斷最合適的$\frac{\alpha}{\beta}$
 
-- 發表偏誤經常導致$\alpha$被低估
+- **發表偏誤(publication bias)**極有機會導致$\alpha$被低估
 
 - 可重製研究通常要求$1 - \beta$ 至少達到 .90。參考[Nature Human Behaviour](https://www.nature.com/nathumbehav/submission-guidelines/registeredreports)、[Collabra: Psychology](https://drive.google.com/file/d/1mApMxCmFH2GFd3m-qiw89y6rLjUDRDdY/view)等期刊的註冊報告投稿指南。
 
@@ -166,7 +168,7 @@ knitr::opts_chunk$set(
 
 - 效果量指標可[互相轉換](https://www.escal.site/)，或運用已知資訊計算。
 
-- 各種研究場域都有合適的估算工具，研究者應以**現實需要**選擇工具。
+- 各種研究場域都有合適的APES估算工具，研究者應以**現實需要**選擇工具。
 
 <!---
 - > 單一獨變項比較或兩個自變項相關性等簡單實驗設計，都可運用[G*Power](https://stats.oarc.ucla.edu/other/gpower/)處理考驗力分析。超出規格的設計，例如有隨機效果(random effect)的設計，應使用能生成模擬數據的工具。
@@ -291,7 +293,7 @@ pwr_report <- data.frame(
 
 - 研究設計有文獻資料參考，可運用整合分析(meta analysis)估計可能的效果量，評估所需樣本數
 
-- 研究設計無文獻資料參考，建議製表挑選合理的樣本數。
+- 研究設計無文獻資料參考，可執行敏感度分析(sensitivity analysis)設定合理的樣本數。
 
 ##
 
@@ -312,6 +314,7 @@ n_t <- c(n_t,round(as.numeric(unlist(pwr::pwr.t.test(d=d_t[i],
 
 tb <- data.frame(
     ES = d_t,
+    Interpretation = effectsize::interpret_cohens_d(d_t),
     N = n_t
   )
 ```
@@ -347,8 +350,8 @@ pwr::pwr.r.test(n=100,
 > 多元迴歸範例
 
 ```{r multi-reg, echo=TRUE}
-pwr::pwr.f2.test(u = 5,
-                 v = (200-5-1),
+pwr::pwr.f2.test(u = 5, ## potential number of variables
+                 v = (200-5-1),  ## adjusted sample size
                 sig.level = .5^5,
                 power=.8)
 ```
