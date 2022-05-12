@@ -146,7 +146,7 @@ knitr::opts_chunk$set(
 
 ::: {.container}
 :::: {.col}
-![](images/chimpanzee.jpg)
+[![](images/chimpanzee.jpg)](https://psyteachr.github.io/quant-fun-v2/power-and-effect-sizes.html#designing-studies)
 ::::
 :::: {.col}
 - A ~ $\alpha$
@@ -193,7 +193,7 @@ knitr::opts_chunk$set(
 ## This example is from Kirk(1996): A researcher tested the medication that might raise the IQ of people suffering from Alzheimer's disease.
 
 ## two tailed test
-pwr::pwr.t.test(d=unlist(effectsize::t_to_d(1.61, 11))["d"],
+pwr::pwr.t.test(d=unlist(effectsize::t_to_d(1.61, 10))["d"],
                 power = .80,
                 type = "two.sample",
                 alternative = "two.sided")
@@ -206,7 +206,7 @@ pwr::pwr.t.test(d=unlist(effectsize::t_to_d(1.61, 11))["d"],
 ## This example is from Kirk(1996): A researcher tested the medication that might raise the IQ of people suffering from Alzheimer's disease.
 
 ## one tailed test
-pwr::pwr.t.test(d=unlist(effectsize::t_to_d(1.61, 11))["d"],
+pwr::pwr.t.test(d=unlist(effectsize::t_to_d(1.61, 10))["d"],
                 power = .80,
                 type = "two.sample",
                 alternative = "greater")
@@ -218,7 +218,7 @@ pwr::pwr.t.test(d=unlist(effectsize::t_to_d(1.61, 11))["d"],
 
 ```{r Kirk1996_demo002, echo=TRUE}
 pwr::pwr.t.test(n=6,
-                d=unlist(effectsize::t_to_d(1.61, 11))["d"],
+                d=unlist(effectsize::t_to_d(1.61, 10))["d"],
                 type = "two.sample",
                 alternative = "two.sided")
 ```
@@ -230,7 +230,7 @@ pwr::pwr.t.test(n=6,
 
 ```{r Kirk1996_demo003A, echo=TRUE}
 pwr::pwr.t.test(n=6,
-                d=unlist(effectsize::t_to_d(1.61, 11))["d"],
+                d=unlist(effectsize::t_to_d(1.61, 10))["d"],
                 type = "two.sample",
                 sig.level = NULL, 
                 power = .80,
@@ -241,11 +241,11 @@ pwr::pwr.t.test(n=6,
 
 ```{r Kirk1996_demo003B, echo=TRUE}
 pwr::pwr.t.test(n=6,
-                d=unlist(effectsize::t_to_d(1.61, 11))["d"],
+                d=unlist(effectsize::t_to_d(1.61, 10))["d"],
                 type = "two.sample",
                 sig.level = NULL, 
                 power = .80,
-                alternative = "two.sided")
+                alternative = "great")
 ```
 
 ##
