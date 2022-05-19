@@ -1,0 +1,157 @@
+---
+title: "Lecture02_HW.Rmd"
+author: "my name"
+date: "2022/5/4"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+
+if(!require(effectsize)){install.packages("effectsize")}
+
+if(!require(pwr)){install.packages("pwr")}
+```
+
+
+## 講義筆記
+
+在此可自行增加及編輯文字與R chunk，演練講義題目。
+
+- 功用1: 預估得到有統計意義結果需要的樣本數
+
+```{r example_1}
+## This example is from Kirk(1996): A researcher tested the medication that might raise the IQ of people suffering from Alzheimer's disease.
+## two tailed test
+n_estimation <- pwr::pwr.t.test(d=unlist(effectsize::t_to_d(1.61, 10))["d"],
+                power = .80,
+                type = "two.sample",
+                alternative = "two.sided")
+
+smallest_d <-round(as.numeric(unlist(effectsize::t_to_d(1.61, 10))["d"]),2)
+
+required_n <- round(as.numeric(unlist(n_estimation)["n"]))
+
+```
+
+若重製研究要使用雙尾檢定，在考驗力達.80且顯著水準為.05的條件，效果量至少有`r smallest_d`的顯著結果，需要療程組與對照組各`r required_n`位受測者。
+
+
+### 估計研究設計需要的樣本數
+
+```{r two-sample-sensitivity}
+d_t <- seq(.1,1,.1)  ## possible effect size
+
+n_t <- NULL
+
+for(i in 1:length(d_t)){
+n_t <- c(n_t,round(as.numeric(unlist(pwr::pwr.t.test(d=d_t[i],
+                power=.80,
+                type="two.sample",
+                alternative = "two.sided"))["n"]))*2)
+}
+
+tb <- data.frame(
+    ES = d_t,
+    Interpretation = effectsize::interpret_cohens_d(d_t),
+    N = n_t
+  )
+```
+
+
+
+## pwr實作演練
+
+- 題目改編自[PsyteachR: Analysis 8.3](https://psyteachr.github.io/analysis-v2/apes---alpha-power-effect-sizes-sample-size.html#practical-apes-calculations)
+
+**Cohen's d的建議大小**
+
+```{r d_table, echo=FALSE}
+d <- seq(from=.1,to=.9,by=.1)
+effect_size <- effectsize::interpret_cohens_d(seq(from=.1,to=.9,by=.1))
+
+bench <- data.frame(
+  effect_size,
+  d
+)
+```
+
+`r knitr::kable(bench)`
+
+單一樣本t檢定/相依樣本t檢定的Cohen's d
+
+$$d = \frac{t}{sqrt(N)}$$
+
+獨立樣本t檢定的Cohen's d
+
+$$d = \frac{2t}{sqrt(df)}$$
+
+
+### Task 1: Effect size from a one-sample t-test
+
+剛才完成一項單一樣本t檢定，報告結果 _t_(23) = 2.35, _p_ = .002。請寫出能回答以下問題的R code：
+
+- 計算效果量到小數點後二位：
+- 根據Cohen(1988)的建議，這是一個___效果量。
+
+
+### Task 2: Effect size from between-subjects t-test
+
+剛才完成一項獨立樣本t檢定，報告結果 _t_(34) = 3.2, _p_ = .001。請寫出能回答以下問題的R code：
+
+- 計算效果量到小數點後二位：
+- 根據Cohen(1988)的建議，這是一個___效果量。
+
+### Task 3: Effect size from a within-subject t-test
+
+剛才完成一項相依樣本t檢定，報告結果 _t_(40) = 2.8, _p_ = .005。請寫出能回答以下問題的R code：
+
+- 計算效果量到小數點後二位：
+- 根據Cohen(1988)的建議，這是一個___效果量。
+
+### Task 4: t-value and effect size for a between-subjects experiment
+
+剛才完成一項參與者間實驗的描述統計：第一組~ M = 15, SD = 1.1, n = 30; 第二組 ~ M = 17, SD = 1.3, n = 30。請寫出能回答以下問題的R code：
+
+- 計算t分數到小數點後二位：
+- 計算Cohen's d到小數點後二位：
+- 根據Cohen(1988)的建議，這是一個___效果量。
+
+### Task 5: Sample size for standard power one-sample t-test
+
+即將進行的單一樣本實驗預期可測得的Cohen's d = .27，設定考驗力.90，顯著水準.01等條件下，進行雙尾t檢定。請寫出能回答以下問題的R code：
+
+- 最少參與者人數是____人
+
+
+### Task 6: Effect size from a high power between-subjects t-test
+
+即將進行的參與者間分組比較實驗，計畫各組收集75人。設定考驗力.85，顯著水準.05等條件下，進行單尾t檢定。請寫出能回答以下問題的R code：
+
+- 計算最小Cohen's d到小數點後二位：
+- 根據Cohen(1988)的建議，這是一個___效果量。
+- 如果實際發現的效果量Cohen's d = 0.4，是否有達到預設考驗力？
+
+
+### Task 7: Sample size for a correlation
+
+即將進行的相關性調查研究預期可測得的r = .35，設定考驗力.90，顯著水準.05等條件下，進行雙尾t檢定。請寫出能回答以下問題的R code：
+
+- 最少參與者人數是____人
+
+### Task 8: Effect size for a correlation analysis
+
+即將進行的相關性調查研究計畫收集75人。設定考驗力.80，顯著水準.05等條件下，進行單尾t檢定。請寫出能回答以下問題的R code：
+
+- 計算最小r到小數點後二位：
+- 根據Cohen(1988)的建議，這是一個___效果量。
+- 如果實際發現的效果量r = 0.3，是否有達到預設考驗力？
+
+
+### Task 8: Power of Published Research
+
+<!--- asking the source code from 熊恩筠等人(2022) --->

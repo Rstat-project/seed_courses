@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 
 # 啟動問題
 
-> 講義的[源始Rmd](Lecture02.Rmd);所有課程學員請下載[作業Rmd](Lecture02HW.Rmd),種子教師工作坊請下載[增能指引](Lecture02after.md)。
+> 講義的[源始Rmd](Lecture02.Rmd);所有課程學員請下載[作業Rmd](files/Lecture02HW.Rmd),種子教師工作坊請下載[增能指引](files/Lecture02after.md)。
 
 
 <!---
@@ -352,13 +352,13 @@ pwr::pwr.r.test(n=100,
 ```{r multi-reg, echo=TRUE}
 pwr::pwr.f2.test(u = 5, ## potential number of variables
                  v = (200-5-1),  ## adjusted sample size
-                sig.level = .5^5,
+                sig.level = .05^5,
                 power=.8)
 ```
 
 # 教師增能作業
 
-種子教師工作坊請下載請下載[增能指引](Lecture02after.md)，延續學習成果。
+種子教師工作坊請下載請下載[增能指引](files/Lecture02after.md)，延續學習成果。
 
 <!---
 

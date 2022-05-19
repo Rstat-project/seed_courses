@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 
 # 認識效果量
 
-> 講義的[源始Rmd](Lecture01.Rmd);種子教師工作坊請下載[作業Rmd](Lecture01HW.Rmd)
+> 講義的[源始Rmd](Lecture01.Rmd);種子教師工作坊請下載[作業Rmd](files/Lecture01HW.Rmd)
 
 <!--- 
 這份講義以Ellis (2010) Chapter 1,2為組織主幹，搭配相關資源隨教學歷史更新。講義內容將透過種子教師工作坊的指派作業持續更新完善。
