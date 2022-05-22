@@ -1,0 +1,173 @@
+---
+title: "TCPSR種子計畫Lecture02 HW09 example"
+author: "陳紹慶"
+date: "`r Sys.Date()`"
+bibliography: examples.bib
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+    toc_float: true
+    code_folding: 'hide'
+    self_contained: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+library(tidyverse)
+library(effectsize)
+library(quickpsy)
+```
+
+
+
+## 示範資料說明
+
+```{r data-import}
+## import the raw data and convert into long table
+all_data <- bind_rows(
+  readxl::read_xlsx("curve fitting data.xlsx",sheet = "Normal_FACE") %>%
+  pivot_longer(NT001:NT024,names_to = "ID",values_to = "Response") %>% bind_cols(Group = "Normal",Condition = "Face"),
+
+readxl::read_xlsx("curve fitting data.xlsx",sheet = "Autism_FACE") %>%
+  pivot_longer(AS001:AS024,names_to = "ID",values_to = "Response") %>% bind_cols(Group = "Autisum",Condition = "Face"),
+
+readxl::read_xlsx("curve fitting data.xlsx",sheet = "Normal_OBJ") %>%
+  pivot_longer(NT001:NT024,names_to = "ID",values_to = "Response") %>% bind_cols(Group = "Normal",Condition = "Object"),
+
+readxl::read_xlsx("curve fitting data.xlsx",sheet = "Autism_OBJ") %>%
+  pivot_longer(AS001:AS024,names_to = "ID",values_to = "Response") %>% bind_cols(Group = "Autisum",Condition = "Object"))
+
+```
+
+@xiongenyunBiJiaoZiBiZhengChengRenYuYiBanChengRenDeLianKongHeWuTiQuBianNengLiYiBianXingDianFanTanTao2022 比較24位自閉症成年人士及24位心智正常人士，進行變形臉孔區辨作業與變形物體區辨作業，比較自閉症族群與正常人士辨識臉孔與物體正確率達75%的最低變形程度閾值。變形臉孔區辨作業操作臉孔變形程度(15%,30%,45%,60%,75%)，變形物體區辨作業操作臉孔變形程度(12%,24%,36%,48%,60%)，研究者紀錄參與者能正確辨識目標臉孔的次數。研究結果顯示只有變形臉孔區辨作業的部分條件 出現組間差異，若要重製或延伸這項研究，我們能如何評估效果量及事後考驗力？
+
+感謝簡惠玲老師提供[原始研究資料](files/curve fitting data.xlsx)。歡迎使用[本文源始Rmd](files/example.Rmd)及[參考文獻bib](files/examples.bib)重製及編輯分析結果。
+
+## 重製原始論文圖4
+
+原始資料格式是寬表單，轉換為長表單以利重製。首先計算個別參與者在不同變形程度的正確率(Acc)，再依作業情境(Condition: Face, Object)、參與者組別(Group: Autism, Normal)以及變形程度(參考前一節)總計各組正確次數總和(SUM), 平均正確率(Mean)、正確率估計標準誤。
+
+```{r summary}
+## summary data
+plot_data <- all_data %>% mutate(Acc = if_else(Condition == "Face",Response/8,Response/12)) %>%
+  group_by(Condition, Group, morph_level) %>%
+  summarise(SUM = sum(Response),round(mean_se(Acc),3)) %>%
+  rename(Mean = y) %>%
+  mutate(Condition=as.factor(Condition),
+         Group = as.factor(Group))
+```
+
+```{r Face_plot}
+## Draw line plot for face condition
+plot_data %>% filter(Condition == "Face") %>%
+  mutate(morph_level = as.factor(morph_level)) %>%
+  ggplot(aes(x=morph_level,y=Mean,group=Group,color=Group)) +
+    geom_point() +
+    geom_line()+
+    geom_errorbar(aes(ymax=ymax,ymin=ymin))+
+    coord_cartesian(ylim=c(0.5,1))+
+    labs(title="變形臉孔區辨作業")+
+    xlab("變形程度")+
+    ylab("正確率")+
+    theme_classic()
+```
+
+變形臉孔區辨作業正確率趨勢圖與論文圖4左一致，可見變形程度0.45有組間差異。
+
+```{r Obj_plot}
+## Draw line plot for face condition
+plot_data %>% filter(Condition == "Object")  %>%
+  mutate(morph_level = as.factor(morph_level)) %>%
+  ggplot(aes(x=morph_level,y=Mean,group=Group,color=Group)) +
+    geom_point() +
+    geom_line()+
+    geom_errorbar(aes(ymax=ymax,ymin=ymin))+
+    coord_cartesian(ylim=c(0.5,1))+
+    labs(title="變形物體區辨作業")+
+    xlab("變形程度")+
+    ylab("正確率")+
+    theme_classic()
+```
+
+變形物體區辨作業正確率趨勢圖與論文圖4右一致，兩組趨勢無明顯差異。
+
+## 重製原始論文圖5及報告
+
+@xiongenyunBiJiaoZiBiZhengChengRenYuYiBanChengRenDeLianKongHeWuTiQuBianNengLiYiBianXingDianFanTanTao2022 運用[Daniel Linares](https://www.dlinares.org/)開發的R套件[quickpsy](http://dlinares.org/quickpsy.html)，估計兩組參與者的區辨閾值及比較組間差異。概覽範例，主要用於估計及比較同一位參與者在兩種條件分別測得閾值。由於bootstraping為隨機亂數抽樣，但是**[quickpsy](http://dlinares.org/quickpsy.html)沒有設定隨機種子的機制，若不事先設定，每次重製的結果都有些微差異**。無法確定兩組閾值的差異有統計的顯著意義。
+
+此外 @xiongenyunBiJiaoZiBiZhengChengRenYuYiBanChengRenDeLianKongHeWuTiQuBianNengLiYiBianXingDianFanTanTao2022 的報告對於信賴區間的解釋並不正確，寫作亦不符合APA格式。
+
+以下節錄原文：
+
+> "一般成 人組區辨閾值約落在變形程度 25.87% 之處，ASD 組 的區辨閾值則落在 33.12% 的變形程度處... 估計標準誤並計算區辨 閾值的 95% 信賴區間（confidence interval, CI） ... ，ASD 組的閾值落在 一般成人組閾值的 95% CI 之外，故兩組差異達顯著。... 一般成人組區辨閾值落 在變形程度 23.12% 之處；ASD 組的區辨閾值落在變形 程度 21.67% 之處，仍在一般成人組閾值的 95% CI 內， 差異未達顯著。"
+
+
+**重製與更正**：
+
+- 比較ASD與一般成人的臉孔區辨閾值
+
+```{r Face_Fit}
+dt <- subset(plot_data, Condition == "Face" ) %>% bind_cols(N = 192) %>% mutate(Group=as.character(Group) )
+
+set.seed(529) ## test seed number
+fitFace <- quickpsy(dt, morph_level, SUM, N, prob=.75, grouping =.(Group), fun = weibull_fun) ## some outputs are embedded in text, see the source Rmd.
+
+cowplot::plot_grid(plot(fitFace), plotthresholds(fitFace), labels = c('Curve', 'Threshold'))
+```
+
+一般成人組區辨閾值為`r round(100*subset(fitFace$thresholds,Group=="Normal")$thre,2)`% 95% CI [`r round(100*subset(fitFace$thresholds,Group=="Normal")$threinf,2)`, `r round(100*subset(fitFace$thresholds,Group=="Normal")$thresup,2)`]；ASD組的區辨閾值為`r round(100*subset(fitFace$thresholds,Group=="Autisum")$thre,2)`% 95% CI[`r round(100*subset(fitFace$thresholds,Group=="Autisum")$threinf,2)`, `r round(100*subset(fitFace$thresholds,Group=="Autisum")$thresup,2)`]。兩組區辨閾值差異估計值為`r round(100*fitFace$thresholdcomparisons["dif"],2)`% 95% CI[`r round(100*fitFace$thresholdcomparisons["difinf"],2)`, `r round(100*fitFace$thresholdcomparisons["difsup"])`]。
+
+**註** 若無設定隨機種子，每次重製區辨閾值差異估計值會有變化，應在事前設定隨機種子。
+
+- 比較ASD與一般成人的物體區辨閾值
+
+
+```{r Obj_Fit}
+dt <- subset(plot_data, Condition == "Object" ) %>% bind_cols(N = 288) %>% mutate(Condition=as.character(Condition),Group=as.character(Group))
+
+set.seed(529)  ## test seed number
+fitObj <- quickpsy(dt, morph_level, SUM, N, prob=.75, grouping =.(Group), fun = weibull_fun) ## some outputs are embedded in text, see the source Rmd.
+
+
+cowplot::plot_grid(plot(fitObj), plotthresholds(fitObj), labels = c('Curve', 'Threshold'))
+
+```
+
+
+一般成人組區辨閾值為`r round(100*subset(fitFace$thresholds,Group=="Normal")$thre,2)`% 95% CI [`r round(100*subset(fitObj$thresholds,Group=="Normal")$threinf,2)`, `r round(100*subset(fitObj$thresholds,Group=="Normal")$thresup,2)`]；ASD組的區辨閾值為`r round(100*subset(fitObj$thresholds,Group=="Autisum")$thre,2)`% 95% CI[`r round(100*subset(fitFace$thresholds,Group=="Autisum")$threinf,2)`, `r round(100*subset(fitObj$thresholds,Group=="Autisum")$thresup,2)`]。兩組區辨閾值差異估計值為`r round(100*fitObj$thresholdcomparisons["dif"],2)`% 95% CI[`r round(100*fitObj$thresholdcomparisons["difinf"],2)`, `r round(100*fitObj$thresholdcomparisons["difsup"])`]。
+
+
+
+## 分組差異效果量及重製研究預估樣本
+
+### 以正確率差異進行考驗力分析
+
+```{r effectsize01}
+Face_045 <- all_data %>% filter(Condition=="Face", morph_level == 0.45) %>%
+  mutate(Group = as.factor(Group))
+
+results_d <- cohens_d(Response~Group,data=Face_045,alternative = "less") %>% unlist  ## -0.78 95%CI [-Inf, -0.28]
+```
+
+原始結果的事後考驗力
+
+```{r power01}
+pwr::pwr.t.test(n = 24,d = results_d[1],type = "two.sample",alternative = "less")
+```
+
+相同設計要達到90%考驗力，各組所需人數預估：
+
+```{r samplesize01}
+pwr::pwr.t.test(d = results_d[1],power = .9,type = "two.sample",alternative = "less")
+```
+
+### 以區辨閾值差異進行考驗力分析
+
+**註** 區辨閾值非原始測量變項，建議考慮作業項目數做為樣本單位，才能獲得符合設計的效果量估計值。
+
+### 參考文獻
