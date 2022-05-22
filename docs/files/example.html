@@ -302,7 +302,7 @@ readxl::read_xlsx(&quot;curve fitting data.xlsx&quot;,sheet = &quot;Normal_OBJ&q
 readxl::read_xlsx(&quot;curve fitting data.xlsx&quot;,sheet = &quot;Autism_OBJ&quot;) %&gt;%
   pivot_longer(AS001:AS024,names_to = &quot;ID&quot;,values_to = &quot;Response&quot;) %&gt;% bind_cols(Group = &quot;Autisum&quot;,Condition = &quot;Object&quot;))</code></pre>
 <p><span class="citation">熊恩筠 et al. (2022)</span> 比較24位自閉症成年人士及24位心智正常人士，進行變形臉孔區辨作業與變形物體區辨作業，比較自閉症族群與正常人士辨識臉孔與物體正確率達75%的最低變形程度閾值。變形臉孔區辨作業操作臉孔變形程度(15%,30%,45%,60%,75%)，變形物體區辨作業操作臉孔變形程度(12%,24%,36%,48%,60%)，研究者紀錄參與者能正確辨識目標臉孔的次數。研究結果顯示只有變形臉孔區辨作業的部分條件 出現組間差異，若要重製或延伸這項研究，我們能如何評估效果量及事後考驗力？</p>
-<p>感謝簡惠玲老師提供<a href="files/curve%20fitting%20data.xlsx">原始研究資料</a>。歡迎使用<a href="files/example.Rmd">本文源始Rmd</a>及<a href="files/examples.bib">參考文獻bib</a>重製及編輯分析結果。</p>
+<p>感謝簡惠玲老師提供<a href="curve%20fitting%20data.xlsx">原始研究資料</a>。歡迎使用<a href="example.Rmd">本文源始Rmd</a>及<a href="examples.bib">參考文獻bib</a>重製及編輯分析結果。</p>
 </div>
 <div id="重製原始論文圖4" class="section level2">
 <h2>重製原始論文圖4</h2>

@@ -46,7 +46,7 @@ readxl::read_xlsx("curve fitting data.xlsx",sheet = "Autism_OBJ") %>%
 
 @xiongenyunBiJiaoZiBiZhengChengRenYuYiBanChengRenDeLianKongHeWuTiQuBianNengLiYiBianXingDianFanTanTao2022 比較24位自閉症成年人士及24位心智正常人士，進行變形臉孔區辨作業與變形物體區辨作業，比較自閉症族群與正常人士辨識臉孔與物體正確率達75%的最低變形程度閾值。變形臉孔區辨作業操作臉孔變形程度(15%,30%,45%,60%,75%)，變形物體區辨作業操作臉孔變形程度(12%,24%,36%,48%,60%)，研究者紀錄參與者能正確辨識目標臉孔的次數。研究結果顯示只有變形臉孔區辨作業的部分條件 出現組間差異，若要重製或延伸這項研究，我們能如何評估效果量及事後考驗力？
 
-感謝簡惠玲老師提供[原始研究資料](files/curve fitting data.xlsx)。歡迎使用[本文源始Rmd](files/example.Rmd)及[參考文獻bib](files/examples.bib)重製及編輯分析結果。
+感謝簡惠玲老師提供[原始研究資料](curve fitting data.xlsx)。歡迎使用[本文源始Rmd](example.Rmd)及[參考文獻bib](examples.bib)重製及編輯分析結果。
 
 ## 重製原始論文圖4
 
