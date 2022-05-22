@@ -24,6 +24,7 @@ knitr::opts_chunk$set(
 
 > 講義的[源始Rmd](Lecture02.Rmd);所有課程學員請下載[作業Rmd](files/Lecture02HW.Rmd),種子教師工作坊請下載[增能指引](files/Lecture02after.md)。
 
+> 本講參考資源：Ellis(2010) Chapter 3; Psyteacher APES [章節1](https://psyteachr.github.io/analysis-v2/apes---alpha-power-effect-sizes-sample-size.html)與[章節2](https://psyteachr.github.io/quant-fun-v2/power-and-effect-sizes.html)
 
 <!---
  本講以Ellis(2010)第三章為主幹，補充更新的教程及建議。
