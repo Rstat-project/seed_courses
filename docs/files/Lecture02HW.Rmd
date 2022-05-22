@@ -115,7 +115,7 @@ $$d = \frac{2t}{sqrt(df)}$$
 
 ### Task 9: Power of Published Research
 
-@xiongenyunBiJiaoZiBiZhengChengRenYuYiBanChengRenDeLianKongHeWuTiQuBianNengLiYiBianXingDianFanTanTao2022 邀請24位自閉症成年人士及24位心智正常人士，進行變形臉孔區辨作業與變形物體區辨作業，比較自閉症族群與正常人士辨識臉孔與物體正確率達75%的最低變形程度閾值。變形臉孔區辨作業操作臉孔變形程度(15%,30%,45%,60%,75%)，變形物體區辨作業操作臉孔變形程度(12%,24%,36%,48%,60%)，研究者紀錄參與者能正確辨識目標臉孔的次數。研究結果顯示只有變形臉孔區辨作業的部分條件 出現組間差異，若要重製或延伸這項研究，我們能如何評估效果量及事後考驗力？
+@xiongenyunBiJiaoZiBiZhengChengRenYuYiBanChengRenDeLianKongHeWuTiQuBianNengLiYiBianXingDianFanTanTao2022 邀請24位ASD組群人士及24位一般成 人，進行變形臉孔區辨作業與變形物體區辨作業，比較兩組參與者辨識臉孔與物體正確率達75%的最低變形程度閾值。變形臉孔區辨作業操作臉孔變形程度(15%,30%,45%,60%,75%)，變形物體區辨作業操作臉孔變形程度(12%,24%,36%,48%,60%)，研究者紀錄參與者能正確辨識目標臉孔的次數。研究結果顯示只有變形臉孔區辨作業的部分條件 出現組間差異，若要重製或延伸這項研究，我們能如何評估效果量及事後考驗力？
 
 感謝簡惠玲老師提供[原始研究資料](files/curve fitting data.xlsx)。重製分析請見[示範說明](https://rstat-project.github.io/seed_courses/files/example.html)。
 
