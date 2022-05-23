@@ -31,26 +31,26 @@ library(quickpsy)
 ## import the raw data and convert into long table
 all_data <- bind_rows(
   readxl::read_xlsx("curve fitting data.xlsx",sheet = "Normal_FACE") %>%
-  pivot_longer(NT001:NT024,names_to = "ID",values_to = "Response") %>% bind_cols(Group = "Normal",Condition = "Face"),
+  pivot_longer(NT001:NT024,names_to = "ID",values_to = "Response") %>% bind_cols(Group = "NT",Condition = "Face"),
 
 readxl::read_xlsx("curve fitting data.xlsx",sheet = "Autism_FACE") %>%
-  pivot_longer(AS001:AS024,names_to = "ID",values_to = "Response") %>% bind_cols(Group = "Autisum",Condition = "Face"),
+  pivot_longer(AS001:AS024,names_to = "ID",values_to = "Response") %>% bind_cols(Group = "ASD",Condition = "Face"),
 
 readxl::read_xlsx("curve fitting data.xlsx",sheet = "Normal_OBJ") %>%
-  pivot_longer(NT001:NT024,names_to = "ID",values_to = "Response") %>% bind_cols(Group = "Normal",Condition = "Object"),
+  pivot_longer(NT001:NT024,names_to = "ID",values_to = "Response") %>% bind_cols(Group = "NT",Condition = "Object"),
 
 readxl::read_xlsx("curve fitting data.xlsx",sheet = "Autism_OBJ") %>%
-  pivot_longer(AS001:AS024,names_to = "ID",values_to = "Response") %>% bind_cols(Group = "Autisum",Condition = "Object"))
+  pivot_longer(AS001:AS024,names_to = "ID",values_to = "Response") %>% bind_cols(Group = "ASD",Condition = "Object"))
 
 ```
 
-@xiongenyunBiJiaoZiBiZhengChengRenYuYiBanChengRenDeLianKongHeWuTiQuBianNengLiYiBianXingDianFanTanTao2022 比較24位自閉症成年人士及24位心智正常人士，進行變形臉孔區辨作業與變形物體區辨作業，比較自閉症族群與正常人士辨識臉孔與物體正確率達75%的最低變形程度閾值。變形臉孔區辨作業操作臉孔變形程度(15%,30%,45%,60%,75%)，變形物體區辨作業操作臉孔變形程度(12%,24%,36%,48%,60%)，研究者紀錄參與者能正確辨識目標臉孔的次數。研究結果顯示只有變形臉孔區辨作業的部分條件 出現組間差異，若要重製或延伸這項研究，我們能如何評估效果量及事後考驗力？
+@xiongenyunBiJiaoZiBiZhengChengRenYuYiBanChengRenDeLianKongHeWuTiQuBianNengLiYiBianXingDianFanTanTao2022 邀請24位ASD組群人士及24位一般成 人，進行變形臉孔區辨作業與變形物體區辨作業，比較兩組參與者辨識臉孔與物體正確率達75%的最低變形程度閾值。變形臉孔區辨作業操作臉孔變形程度(15%,30%,45%,60%,75%)，變形物體區辨作業操作臉孔變形程度(12%,24%,36%,48%,60%)，研究者紀錄參與者能正確辨識目標臉孔的次數。研究結果顯示只有變形臉孔區辨作業的部分條件 出現組間差異，若要重製或延伸這項研究，我們能如何評估效果量及事後考驗力？
 
-感謝簡惠玲老師提供[原始研究資料](curve fitting data.xlsx)。歡迎使用[本文源始Rmd](example.Rmd)及[參考文獻bib](examples.bib)重製及編輯分析結果。
+感謝簡惠玲老師提供[去識別化的可處理研究資料](curve fitting data.xlsx)。歡迎使用[本文源始Rmd](example.Rmd)及[參考文獻bib](examples.bib)重製及編輯分析結果。
 
 ## 重製原始論文圖4
 
-原始資料格式是寬表單，轉換為長表單以利重製。首先計算個別參與者在不同變形程度的正確率(Acc)，再依作業情境(Condition: Face, Object)、參與者組別(Group: Autism, Normal)以及變形程度(參考前一節)總計各組正確次數總和(SUM), 平均正確率(Mean)、正確率估計標準誤。
+原始資料格式是寬表單，轉換為長表單以利重製。首先計算個別參與者在不同變形程度的正確率(Acc)，再依作業情境(Condition: Face, Object)、參與者組別(Group: ASD, NT)以及變形程度(參考前一節)總計各組正確次數總和(SUM), 平均正確率(Mean)、正確率估計標準誤。
 
 ```{r summary}
 ## summary data
@@ -100,7 +100,7 @@ plot_data %>% filter(Condition == "Object")  %>%
 
 @xiongenyunBiJiaoZiBiZhengChengRenYuYiBanChengRenDeLianKongHeWuTiQuBianNengLiYiBianXingDianFanTanTao2022 運用[Daniel Linares](https://www.dlinares.org/)開發的R套件[quickpsy](http://dlinares.org/quickpsy.html)，估計兩組參與者的區辨閾值及比較組間差異。概覽範例，主要用於估計及比較同一位參與者在兩種條件分別測得閾值。由於bootstraping為隨機亂數抽樣，但是**[quickpsy](http://dlinares.org/quickpsy.html)沒有設定隨機種子的機制，若不事先設定，每次重製的結果都有些微差異**。無法確定兩組閾值的差異有統計的顯著意義。
 
-此外 @xiongenyunBiJiaoZiBiZhengChengRenYuYiBanChengRenDeLianKongHeWuTiQuBianNengLiYiBianXingDianFanTanTao2022 的報告對於信賴區間的解釋並不正確，寫作亦不符合APA格式。
+此外 @xiongenyunBiJiaoZiBiZhengChengRenYuYiBanChengRenDeLianKongHeWuTiQuBianNengLiYiBianXingDianFanTanTao2022 的報告對於信賴區間的解釋並不完整，寫作建議符合APA格式如以下示範：
 
 以下節錄原文：
 
