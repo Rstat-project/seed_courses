@@ -25,6 +25,8 @@ if(!require(pwr)){install.packages("pwr")}
 如果要輸出完整報告，建議下載[參考文獻bib](files/examples.bib)。
 
 
+
+
 ## pwr實作演練
 
 - 題目改編自[PsyteachR: Analysis 8.3](https://psyteachr.github.io/analysis-v2/apes---alpha-power-effect-sizes-sample-size.html#practical-apes-calculations)

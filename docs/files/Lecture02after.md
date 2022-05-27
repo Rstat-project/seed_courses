@@ -1,11 +1,14 @@
-## HW1~考驗力課題討論資源
+請以以下專題資源，撰寫心得隨筆，投稿後將發佈於[協作群~種子計畫網誌](https://tcpsr.netlify.app/post/)。
+
+## 專題1~考驗力課題討論資源
 
 歡迎學員就以下資源，提供個人研讀及研究心得
 
 - [PsyteachR推薦理解考驗力書單](https://psyteachr.github.io/analysis-v2/apes---alpha-power-effect-sizes-sample-size.html#introduction-to-power)
+
 - FORRT[資源庫](https://forrt.org/resources/)搜尋"power analysis"
 
-## HW2~APES工具研究
+## 專題2~APES工具研究
 
 參考以下一項或複數文獻，提供你的研讀心得
 

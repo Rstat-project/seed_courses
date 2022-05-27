@@ -1,7 +1,9 @@
 ---
 title: "講義1課後作業：編輯`effectsize` 套件使用指南"
 author: "協同編輯"
-output: html_document
+output:
+  md_document:
+    variant: markdown_strict+backtick_code_blocks+autolink_bare_uris
 ---
 
 ```{r setup, include=FALSE}
@@ -10,14 +12,9 @@ knitr::opts_chunk$set(
 	message = TRUE,
 	warning = FALSE
 )
-
 if(!require(effectsize)){install.packages("effectisize");library(effectsize)}else{library(effectsize)}
 ```
 
-
-```{r}
-effectsize::t_to_d(1.61, 10)
-```
 
 
 
@@ -44,9 +41,11 @@ effectsize::t_to_d(1.61, 10)
 
 - Cohen’s d
 
-比較獨立樣本平均數的效果量Cohen's d計算公式
+比較獨立樣本平均數的效果量Cohen's d計算公式:
 
 $$Cohen's \space d = \frac{M_1 - M_2}{SD_{pooled}} $$
+
+R程式碼範例:<br/>
 
 ```{r echo=TRUE}
 ## 獨立樣本比較範例
@@ -75,6 +74,19 @@ cohens_d(mpg ~ am, data=mtcars)
 - The Pearson product moment correlation coefﬁcient ($r$) 
 
 **負責學員** [魏志名(嘉義大學)](https://github.com/Wei1108)
+
+皮爾森積差相關公式:<br/>
+
+$$Pearson's \space r = \frac {\sum_{i=1}^{n}(X_i-\overline{X})(Y_i-\overline{Y})}{{\sqrt{\sum_{i=1}^{n}(X_i-\overline{X})^2}}{\sqrt{\sum_{i=1}^{n}(Y_i-\overline{Y})^2}}}$$
+
+R程式碼範例:<br/>
+
+```{r echo=TRUE}
+cor_results <- cor.test(mtcars$mpg, mtcars$disp,conf.level = 0.95) 
+report::report_effectsize(cor_results)
+## 輸出效果量及95%信賴區間
+```
+
 
 (Two variables are ordinal)
 
