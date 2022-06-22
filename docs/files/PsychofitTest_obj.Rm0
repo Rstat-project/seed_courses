@@ -1,0 +1,107 @@
+---
+title: "PsychoWeibull"
+output: html_document
+---
+
+```{r setup, include=TRUE}
+library(quickpsy)
+library(ggplot2)
+```
+
+
+```{r datasetup, include=TRUE}
+morph_levels <- c(0.12, 0.24, 0.36, 0.48, 0.60) # morph
+#cprop <- c(0.5, 0.82, 0.8, 0.83, 0.9) # seq(0, 4, .01)
+nYes <- c(167, 237, 236, 247, 262)
+n <- c(288, 288, 288, 288, 288)
+
+
+# create a dataframe of our psychometric data
+myData <- data.frame(morph_levels, n, nYes)
+myData$cprop <- myData$nYes/myData$n
+```
+
+```{r plotdata}
+# plot our data
+pDataPlot <- ggplot(myData, aes(x = morph_levels, y = cprop)) +
+  geom_point()
+
+pDataPlot
+```
+
+
+```{r fitPsycho}
+# fit psychometric function using quickpsy
+# by default the shape of psychometric function is cumulative normal distribution 
+# quickpsy using maximum likehood estimation
+fit <- quickpsy(myData, morph_levels, nYes, n) 
+
+# check first 4 rows of the fit curve
+fit$curves %>% head(4)
+
+
+# plot psychometric function 
+pDataWithPsy <- pDataPlot +
+  geom_line(data= fit$curves, aes(x = x, y = y))
+
+pDataWithPsy
+
+# threshold plot 
+# p <- ggplot()+
+#   geom_point(data = fit$averages, aes(x = morph_levels, y = prob)) +
+#   geom_line(data = fit$curves, aes(x = x, y = y))
+# p
+# 
+# p <- p +
+#   geom_segment(data = fit$thresholds, aes(x = thre, y = 0.2, xend = thre, yend = prob))
+# p
+# 
+# plotthresholds(fit)
+# parameters plot
+# plotpar(fit)
+
+```
+
+
+Weibull function of the form (1 - exp (-(x/lamda)k)
+lamda and k are location and scale on log axis
+
+```{r weibullfit}
+# weibull fit 
+# we should import raw data
+myData2 <- read.csv('TestDat.csv', header = FALSE)
+
+#fit_wei <- quickpsy(myData2, V1, V2, fun = logistic_fun) 
+fit_wei <- quickpsy(myData, morph_levels, nYes, n, fun = weibull_fun)
+
+
+pDataWithWei <- pDataPlot +
+  geom_line(data= fit_wei$curves, aes(x = x, y = y))
+
+pDataWithWei
+```
+
+
+```{r addconds}
+myData <- myData %>% mutate(condition = 'NT')
+myData2 <- myData %>% mutate(nYes= c(194, 215, 231, 253, 258), condition = 'AS')
+myData2
+myDataAll <- rbind(myData, myData2)
+myDataAll$cprop = myDataAll$nYes/myDataAll$n
+myDataAll
+
+```
+
+
+
+```{r twoCondFit}
+fitAll <- quickpsy(myDataAll, morph_levels, nYes, n, prob=.75, grouping =.(condition), fun = weibull_fun)
+
+library(cowplot)
+
+plot_grid(plot(fitAll), plotthresholds(fitAll), labels = c('A', 'B'))
+fitAll$thresholdcomparisons
+
+```
+
+

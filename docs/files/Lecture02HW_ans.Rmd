@@ -81,8 +81,8 @@ $$d = \frac{2t}{sqrt(df)}$$
 - 根據Cohen(1988)的建議，這是一個___效果量。
 
 ```{r}
-round(unlist(effectsize::t_to_d(2.35, 23))["d"],2)
-effectsize::interpret_cohens_d(round(unlist(effectsize::t_to_d(2.35, 23))["d"],2))
+result1_d <- round(unlist(effectsize::t_to_d(2.35, 23,paired = TRUE))["d"],2)
+effectsize::interpret_cohens_d(result1_d)
 ```
 
 
@@ -93,12 +93,26 @@ effectsize::interpret_cohens_d(round(unlist(effectsize::t_to_d(2.35, 23))["d"],2
 - 計算效果量到小數點後二位：
 - 根據Cohen(1988)的建議，這是一個___效果量。
 
+
+```{r}
+result2_d <- round(unlist(effectsize::t_to_d(3.2, 34))["d"],2)
+effectsize::interpret_cohens_d(result2_d)
+```
+
+
 ### Task 3: Effect size from a within-subject t-test
 
 剛才完成一項相依樣本t檢定，報告結果 _t_(40) = 2.8, _p_ = .005。請寫出能回答以下問題的R code：
 
 - 計算效果量到小數點後二位：
 - 根據Cohen(1988)的建議，這是一個___效果量。
+
+
+```{r}
+result3_d <- round(unlist(effectsize::t_to_d(2.8, 40,paired = TRUE))["d"],2)
+effectsize::interpret_cohens_d(result2_d)
+```
+
 
 ### Task 4: t-value and effect size for a between-subjects experiment
 
@@ -108,11 +122,17 @@ effectsize::interpret_cohens_d(round(unlist(effectsize::t_to_d(2.35, 23))["d"],2
 - 計算Cohen's d到小數點後二位：
 - 根據Cohen(1988)的建議，這是一個___效果量。
 
+
+
 ### Task 5: Sample size for standard power one-sample t-test
 
 即將進行的單一樣本實驗預期可測得的Cohen's d = .27，設定考驗力.90，顯著水準.01等條件下，進行雙尾t檢定。請寫出能回答以下問題的R code：
 
 - 最少參與者人數是____人
+
+```{r}
+pwr.t.test(d=.27,power = .9, sig.level = .01,type = "one.sample",alternative = "two.sided")
+```
 
 
 ### Task 6: Effect size from a high power between-subjects t-test

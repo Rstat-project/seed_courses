@@ -522,14 +522,16 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <section id="認識效果量" class="title-slide slide level1">
 <h1>認識效果量</h1>
 <blockquote>
-<p>講義的<a href="Lecture01.Rmd">源始Rmd</a>;種子教師工作坊請下載<a href="files/Lecture01HW.Rmd">作業Rmd</a></p>
+<p>講義的<a href="Lecture01.Rmd">源始Rmd</a>;種子教師工作坊請下載<a
+href="files/Lecture01HW.Rmd">作業Rmd</a></p>
 </blockquote>
 <!--- 
 這份講義以Ellis (2010) Chapter 1,2為組織主幹，搭配相關資源隨教學歷史更新。講義內容將透過種子教師工作坊的指派作業持續更新完善。
 --->
 <ul>
 <li class="fragment">已被發明的效果量指標達到70多種(Kirk, 2003)</li>
-<li class="fragment"><strong>效果</strong>在學術情境與日常生活有用辭差異</li>
+<li
+class="fragment"><strong>效果</strong>在學術情境與日常生活有用辭差異</li>
 <li class="fragment">效果量指標的選擇取決於研究者的知識論</li>
 </ul>
 </section>
@@ -542,12 +544,15 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <section id="d-family-difference-between-groups" class="slide level2">
 <h2>d family ~ difference between groups</h2>
 <ul>
-<li class="fragment">透過至少一種間斷變項設定比較條件，測得的比較數值差異。</li>
-<li class="fragment">差異：各資料點與<strong>期望數值</strong>的距離</li>
+<li
+class="fragment">透過至少一種間斷變項設定比較條件，測得的比較數值差異。</li>
+<li
+class="fragment">差異：各資料點與<strong>期望數值</strong>的距離</li>
 </ul>
 <div class="fragment">
 <blockquote>
-<p>舉例~<br>蘇格拉底教授平均一堂課當掉80%的學生; 柏拉圖教授平均一堂課當掉50%的學生。不同立場的期望數值決定兩位教授的評價。</p>
+<p>舉例~<br>蘇格拉底教授平均一堂課當掉80%的學生;
+柏拉圖教授平均一堂課當掉50%的學生。不同立場的期望數值決定兩位教授的評價。</p>
 </blockquote>
 </div>
 <!---
@@ -578,7 +583,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <h2>r family ~ measures of association</h2>
 <ul>
 <li class="fragment">變項之間關聯性的測量</li>
-<li class="fragment">關聯性：各資料點距離各變項<strong>集中量數</strong>的差異乘積</li>
+<li
+class="fragment">關聯性：各資料點距離各變項<strong>集中量數</strong>的差異乘積</li>
 </ul>
 <div class="fragment">
 <blockquote>
@@ -649,18 +655,24 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <section id="什麼是有顯著效果的研究" class="title-slide slide level1">
 <h1>什麼是有顯著效果的研究</h1>
 <ul>
-<li class="fragment">實用顯著性(practical significance): 現實世界能讓人感到變化的事物作用</li>
-<li class="fragment">統計顯著性(statistical significance): 資料分析顯示極低機率不會發生的作用</li>
+<li class="fragment">實用顯著性(practical significance):
+現實世界能讓人感到變化的事物作用</li>
+<li class="fragment">統計顯著性(statistical significance):
+資料分析顯示極低機率不會發生的作用</li>
 </ul>
 <div class="fragment">
 <blockquote>
-<p>Kirk (1996): 某種延緩阿滋海默症患者智力退化的療程測試，找來6名患者接受測試，另外6名接受對照療程。經過一段時間，接受測試療程的患者智力測驗平均分數比對照療程高13分，統計檢定t = 1.61, p = .14。這種結果無統計顯著性，但是沒有實用顯著性嗎？</p>
+<p>Kirk (1996):
+某種延緩阿滋海默症患者智力退化的療程測試，找來6名患者接受測試，另外6名接受對照療程。經過一段時間，接受測試療程的患者智力測驗平均分數比對照療程高13分，統計檢定t
+= 1.61, p = .14。這種結果無統計顯著性，但是沒有實用顯著性嗎？</p>
 </blockquote>
 </div>
 </section>
 <section id="section" class="slide level2">
 <h2></h2>
-<p>示範<a href="https://easystats.github.io/effectsize/"><code>effectsize</code></a>套件，轉換t統計值為Cohen’s d</p>
+<p>示範<a
+href="https://easystats.github.io/effectsize/"><code>effectsize</code></a>套件，轉換t統計值為Cohen’s
+d</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Run the below code for requirement</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;effectsize&quot;)</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -682,16 +694,21 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <h1>效果量是什麼？</h1>
 <ul>
 <li class="fragment">現實世界的社會科學聽眾只會關心實用顯著性。</li>
-<li class="fragment">效果量(effect size)是專業研究結果與通俗說明的中介載體。</li>
-<li class="fragment">當代社會科學學術寫作指南均有建議如何報告效果量。</li>
+<li class="fragment">效果量(effect
+size)是專業研究結果與通俗說明的中介載體。</li>
+<li
+class="fragment">當代社會科學學術寫作指南均有建議如何報告效果量。</li>
 </ul>
 </section>
 <section id="section-1" class="slide level2">
 <h2></h2>
 <ul>
-<li class="fragment"><p>理想的效果量測量以發生作用的母群為對象，現實考量只能取得隨機樣本進行測量，形成測量誤差與精確性等研究方法課題。</p></li>
-<li class="fragment"><p>講究實用顯著性，效果量大小是重點；講究統計顯著性，效果量測量精確性是關鍵。</p></li>
-<li class="fragment"><p>日常生活的成年人士依賴效果量大小資訊做出各種判斷</p></li>
+<li
+class="fragment"><p>理想的效果量測量以發生作用的母群為對象，現實考量只能取得隨機樣本進行測量，形成測量誤差與精確性等研究方法課題。</p></li>
+<li
+class="fragment"><p>講究實用顯著性，效果量大小是重點；講究統計顯著性，效果量測量精確性是關鍵。</p></li>
+<li
+class="fragment"><p>日常生活的成年人士依賴效果量大小資訊做出各種判斷</p></li>
 </ul>
 <div class="fragment">
 <blockquote>
@@ -776,7 +793,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </tbody>
 </table>
 <ul>
-<li class="fragment">只呈現統計顯著性但不呈現效果量，會導致研究者誤解研究結果。</li>
+<li
+class="fragment">只呈現統計顯著性但不呈現效果量，會導致研究者誤解研究結果。</li>
 </ul>
 </section></section>
 <section id="報告效果量的三個建議" class="title-slide slide level1">
@@ -788,7 +806,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </div>
 <ol type="1">
 <li class="fragment"><p>明確說明使用的效果量指標</p></li>
-<li class="fragment"><p>以<strong>信賴區間</strong>表示效果量測量結果的精確性</p></li>
+<li
+class="fragment"><p>以<strong>信賴區間</strong>表示效果量測量結果的精確性</p></li>
 </ol>
 <div class="fragment">
 <blockquote>
@@ -807,14 +826,16 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <p><small>一種效果量的陳述，對<strong>不同族群</strong>有不同意義。</small></p>
 </div>
 <div class="fragment">
-<p><img data-src="images/People202112.jpg" alt="政大選研中心 2022上半年調查結果" /></p>
+<p><img data-src="images/People202112.jpg"
+alt="政大選研中心 2022上半年調查結果" /></p>
 </div>
 </section>
 <section id="section-2" class="slide level2">
 <h2></h2>
 <ul>
 <li class="fragment">效果量的解讀必定涉及價值判斷。</li>
-<li class="fragment">處理第一手資料的研究者有義務報導能充分解讀效果量的所有統計資訊。</li>
+<li
+class="fragment">處理第一手資料的研究者有義務報導能充分解讀效果量的所有統計資訊。</li>
 </ul>
 <!--- 
 臺灣民眾臺灣人/中國人認同趨勢分佈(1992年06月~2021年12月)
@@ -824,11 +845,14 @@ https://esc.nccu.edu.tw/PageDoc/Detail?fid=7804&id=6960
 <section id="section-3" class="slide level2">
 <h2></h2>
 <ul>
-<li class="fragment"><strong>心理學的效果量解讀需要更多功夫的主要原因</strong>，是因為大多研究結果是根據潛在變項編製的量表，綜合測得的分數推測可能不存在的假設性感知，與人類的感知世界無直接關聯性。</li>
+<li
+class="fragment"><strong>心理學的效果量解讀需要更多功夫的主要原因</strong>，是因為大多研究結果是根據潛在變項編製的量表，綜合測得的分數推測可能不存在的假設性感知，與人類的感知世界無直接關聯性。</li>
 </ul>
 <div class="fragment">
 <blockquote>
-<p>正向心理學的減憂鬱療程(Woodworth et al., 2018)：<strong>CESD憂鬱感量表</strong> <br> 共有20題，4選項單選題，其中4題是反向題</p>
+<p>正向心理學的減憂鬱療程(Woodworth et al.,
+2018)：<strong>CESD憂鬱感量表</strong> <br>
+共有20題，4選項單選題，其中4題是反向題</p>
 </blockquote>
 </div>
 </section></section>
@@ -844,18 +868,29 @@ https://esc.nccu.edu.tw/PageDoc/Detail?fid=7804&id=6960
 <section id="研究問題的脈絡" class="slide level2">
 <h2>研究問題的脈絡</h2>
 <ul>
-<li class="fragment"><p>微小效果量在合理的脈絡有巨大意義：疫情二級警戒期間，學校有兩位人員確診，要立即停課。</p></li>
-<li class="fragment"><p>少數事件造成的效果可能引發更影響更大的事件：數千公里外的海底火山爆發，幾小時後可能會發生海嘯。</p></li>
-<li class="fragment"><p>微小效果積少成多可能帶來巨大改變：棒球隊勝率與球員打擊率的正相關。</p></li>
-<li class="fragment"><p>微小效果的發現在關鍵時機帶來技術革新或觀念更新：<a href="https://w.wiki/4prL">1854 Broad Street cholera outbreak</a></p></li>
+<li
+class="fragment"><p>微小效果量在合理的脈絡有巨大意義：疫情二級警戒期間，學校有兩位人員確診，要立即停課。</p></li>
+<li
+class="fragment"><p>少數事件造成的效果可能引發更影響更大的事件：數千公里外的海底火山爆發，幾小時後可能會發生海嘯。</p></li>
+<li
+class="fragment"><p>微小效果積少成多可能帶來巨大改變：棒球隊勝率與球員打擊率的正相關。</p></li>
+<li
+class="fragment"><p>微小效果的發現在關鍵時機帶來技術革新或觀念更新：<a
+href="https://w.wiki/4prL">1854 Broad Street cholera
+outbreak</a></p></li>
 </ul>
 </section>
 <section id="更新知識的貢獻" class="slide level2">
 <h2>更新知識的貢獻</h2>
 <ul>
-<li class="fragment"><p>再現研究與過去研究估計的效果量不一致：研究操作的不同？測量對象的特質不同？新研究是新發現？</p></li>
-<li class="fragment"><p>不同時空測得的效果量貢獻獨特的意義：整合分析(meta analysis)總和不同研究的效果量估計。</p></li>
-<li class="fragment"><p>更嚴謹的最新研究所估計的效果量，能更新理論的逼真度(Verisimilitude, Scheel et al., 2021)</p></li>
+<li
+class="fragment"><p>再現研究與過去研究估計的效果量不一致：研究操作的不同？測量對象的特質不同？新研究是新發現？</p></li>
+<li
+class="fragment"><p>不同時空測得的效果量貢獻獨特的意義：整合分析(meta
+analysis)總和不同研究的效果量估計。</p></li>
+<li
+class="fragment"><p>更嚴謹的最新研究所估計的效果量，能更新理論的逼真度(Verisimilitude,
+Scheel et al., 2021)</p></li>
 </ul>
 </section>
 <section id="cohen指南" class="slide level2">
@@ -959,14 +994,39 @@ https://esc.nccu.edu.tw/PageDoc/Detail?fid=7804&id=6960
       // Full list of configuration options available at:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+        // Display a presentation progress bar
+        progress: true,
         // Push each slide change to the browser history
         history: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
         // Vertical centering of slides
         center: false,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // Turns fragments on and off globally
+        fragments: true,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
         // Transition style
         transition: 'default', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
         // Transition style for full page slide backgrounds
         backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
 
 
 
