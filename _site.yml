@@ -1,6 +1,6 @@
 name: "可重製研究操作教學套件"
 output_dir: "docs"
-include: ["Lecture01.Rmd","Lecture02.Rmd"]
+include: ["Lecture01.Rmd","Lecture02.Rmd","Lecture03.Rmd"]
 exclude: ["graduate-program","undergraduate-program","Lecture01HW.Rmd","Lecture02HW.Rmd","Lecture02ext.md"]
 navbar:
   right:
