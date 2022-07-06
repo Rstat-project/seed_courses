@@ -120,7 +120,7 @@ fitFace <- quickpsy(dt, morph_level, SUM, N, prob=.75, grouping =.(Group), fun =
 cowplot::plot_grid(plot(fitFace), plotthresholds(fitFace), labels = c('Curve', 'Threshold'))
 ```
 
-一般成人組區辨閾值為`r round(100*subset(fitFace$thresholds,Group=="Normal")$thre,2)`% 95% CI [`r round(100*subset(fitFace$thresholds,Group=="Normal")$threinf,2)`, `r round(100*subset(fitFace$thresholds,Group=="Normal")$thresup,2)`]；ASD組的區辨閾值為`r round(100*subset(fitFace$thresholds,Group=="Autisum")$thre,2)`% 95% CI[`r round(100*subset(fitFace$thresholds,Group=="Autisum")$threinf,2)`, `r round(100*subset(fitFace$thresholds,Group=="Autisum")$thresup,2)`]。兩組區辨閾值差異估計值為`r round(100*fitFace$thresholdcomparisons["dif"],2)`% 95% CI[`r round(100*fitFace$thresholdcomparisons["difinf"],2)`, `r round(100*fitFace$thresholdcomparisons["difsup"])`]。
+一般成人組區辨閾值為`r round(100*subset(fitFace$thresholds,Group=="NT")$thre,2)`% 95% CI [`r round(100*subset(fitFace$thresholds,Group=="NT")$threinf,2)`, `r round(100*subset(fitFace$thresholds,Group=="NT")$thresup,2)`]；ASD組的區辨閾值為`r round(100*subset(fitFace$thresholds,Group=="ASD")$thre,2)`% 95% CI[`r round(100*subset(fitFace$thresholds,Group=="ASD")$threinf,2)`, `r round(100*subset(fitFace$thresholds,Group=="ASD")$thresup,2)`]。兩組區辨閾值差異估計值為`r round(100*fitFace$thresholdcomparisons["dif"],2)`% 95% CI[`r round(100*fitFace$thresholdcomparisons["difinf"],2)`, `r round(100*fitFace$thresholdcomparisons["difsup"])`]。
 
 **註** 若無設定隨機種子，每次重製區辨閾值差異估計值會有變化，應在事前設定隨機種子。
 
@@ -139,7 +139,7 @@ cowplot::plot_grid(plot(fitObj), plotthresholds(fitObj), labels = c('Curve', 'Th
 ```
 
 
-一般成人組區辨閾值為`r round(100*subset(fitFace$thresholds,Group=="Normal")$thre,2)`% 95% CI [`r round(100*subset(fitObj$thresholds,Group=="Normal")$threinf,2)`, `r round(100*subset(fitObj$thresholds,Group=="Normal")$thresup,2)`]；ASD組的區辨閾值為`r round(100*subset(fitObj$thresholds,Group=="Autisum")$thre,2)`% 95% CI[`r round(100*subset(fitFace$thresholds,Group=="Autisum")$threinf,2)`, `r round(100*subset(fitObj$thresholds,Group=="Autisum")$thresup,2)`]。兩組區辨閾值差異估計值為`r round(100*fitObj$thresholdcomparisons["dif"],2)`% 95% CI[`r round(100*fitObj$thresholdcomparisons["difinf"],2)`, `r round(100*fitObj$thresholdcomparisons["difsup"])`]。
+一般成人組區辨閾值為`r round(100*subset(fitFace$thresholds,Group=="NT")$thre,2)`% 95% CI [`r round(100*subset(fitObj$thresholds,Group=="NT")$threinf,2)`, `r round(100*subset(fitObj$thresholds,Group=="NT")$thresup,2)`]；ASD組的區辨閾值為`r round(100*subset(fitObj$thresholds,Group=="ASD")$thre,2)`% 95% CI[`r round(100*subset(fitFace$thresholds,Group=="ASD")$threinf,2)`, `r round(100*subset(fitObj$thresholds,Group=="ASD")$thresup,2)`]。兩組區辨閾值差異估計值為`r round(100*fitObj$thresholdcomparisons["dif"],2)`% 95% CI[`r round(100*fitObj$thresholdcomparisons["difinf"],2)`, `r round(100*fitObj$thresholdcomparisons["difsup"])`]。
 
 
 
