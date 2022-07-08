@@ -139,7 +139,7 @@ round(unlist(effectsize::cohens_d(RT ~ Picture, data = subset(orig_results_wide,
 round(unlist(effectsize::cohens_d(RT ~ Picture, data = subset(orig_results_wide, Experiment == "3" & Sentence == "Color"), paired = TRUE))[c(1)],2),
 round(unlist(effectsize::cohens_d(RT ~ Picture, data = subset(orig_results_wide, Experiment == "3" & Sentence == "Blank"), paired = TRUE))[c(1)],2))
 
-orig_sum = cbind(orig_sum, Cohen_d)
+orig_sum = data.frame(orig_sum, Cohen_d)
 ```
 
 `r knitr::kable(orig_sum)`
@@ -148,7 +148,7 @@ orig_sum = cbind(orig_sum, Cohen_d)
 ## 案例一重製成本評估
 
 
-```{r effect_size, echo=FALSE}
+```{r effect_size, echo=FALSE, fig.height=6}
 
 ## effect size from study 1 to 3 of Hoeben Mannaert et al. (2021)
 d_t <- c(.12,.35,.46)
@@ -181,7 +181,7 @@ ggplot(data=tb,aes(x=N,y=Power,color=ES))+
 
 ## 案例一原始研究公開資料
 
-- 預先註冊計畫與實驗材料：[Exp 1 & 2](https://osf.io/f3tu2/), [Exp 3](https://osf.io/bfm6p)
+- 預先註冊計畫與實驗材料：[Exp 1 & 2](https://osf.io/2nup7), [Exp 3](https://osf.io/bfm6p)
 
 - [全部實驗平均反應值資料](https://osf.io/emgya)
 
@@ -190,6 +190,9 @@ ggplot(data=tb,aes(x=N,y=Power,color=ES))+
 - 有各實驗預先註冊計畫
 - 有實驗刺激句、圖像檔案列表
 - 公開資料有參與者各條件平均反應時間及正確率
+
+>
+
 - 公開資料無參與者各試驗反應資料
 - 公開資料無資料編碼薄
 
@@ -198,6 +201,11 @@ ggplot(data=tb,aes(x=N,y=Power,color=ES))+
 - 公開資料是寬表單格式(wide table)，無法直接驗證研究品質。
 
 ## 案例二：[(Kerwer et al., 2021)](https://doi.org/10.1525/collabra.18898) 簡易效應(Easiness effect)
+
+![](images/case2_example.png)
+
+
+##
 
 > "一般讀者閱讀淺顯易懂的(學術論文)白話摘要之後，傾向高估文本資訊的可信度（Credibility），膨脹判讀資訊真實性的信心（Confidence to evaluate），以及高估個人專業判斷能力（Ability to make decision）等三種感受。"[(張祥偉等, 投稿中)](https://psyarxiv.com/uge6k/)
 
@@ -220,10 +228,14 @@ ggplot(data=tb,aes(x=N,y=Power,color=ES))+
 
 ##
 
+>- <p style="font-size:50%;">相對於學術摘要的考驗力曲線</p>
+
 |真實感|![](images/H4_power.png)|
 |:---:|:---:|
 
 ## 
+
+>- <p style="font-size:50%;">相對於學術摘要的考驗力曲線</p>
 
 |專業感|![](images/H5_power.png)|
 |:---:|:---:|
@@ -237,6 +249,7 @@ ggplot(data=tb,aes(x=N,y=Power,color=ES))+
 
 - [原始反應資料](https://osf.io/b34fj)
 - [原始反應資料編碼薄](https://osf.io/q4chk)
+- [分析R程式碼](https://osf.io/qf6cr)
 
 ## 評論案例二資料公開程度
 
@@ -244,7 +257,7 @@ ggplot(data=tb,aes(x=N,y=Power,color=ES))+
 - 實驗刺激來自公開資訊(原始論文)
 - 公開資料有參與者各試驗反應資料
 - 公開資料有資料編碼薄
-
+- 公開資料分析程式碼
 
 ## 預估重製研究效果量的合適模式Part 3
 
@@ -256,7 +269,7 @@ ggplot(data=tb,aes(x=N,y=Power,color=ES))+
 
 # 透明化操作示範
 
-[Datawiz](https://datawiz2.dev.zpid.de/)是由The Leibniz Institute for Psychology (ZPID)開發的一項專案，協助心理科學研究者整理研究資料能符合[FAIR科學資料管理原則](https://www.go-fair.org/fair-principles/)。
+[Datawiz](https://datawiz2.dev.zpid.de/)是由The Leibniz Institute for Psychology (ZPID)開發的一項專案，協助心理科學研究者整理研究資料能符合[FAIR科學研究資料公正使用原則](https://www.go-fair.org/fair-principles/)。
 
 - 專案人員的[工作坊講義](https://psycharchives.org/en/item/066dfbfd-4a49-4069-a257-7eeb919c9f4e)。
 
@@ -273,7 +286,7 @@ ggplot(data=tb,aes(x=N,y=Power,color=ES))+
 ## 示範步驟
 
 >- 請參考示範直播。
->- Resource description: [貢獻者角色分類譜](https://credit.niso.org/), [科學研究資料公正使用原則 FAIR](https://www.go-fair.org/fair-principles/)。
+>- Resource description: [CREDIT貢獻者角色分類譜](https://credit.niso.org/), [FAIR科學研究資料公正使用原則 ](https://www.go-fair.org/fair-principles/)。
 
 
 # 回家作業
